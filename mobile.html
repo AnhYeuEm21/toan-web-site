@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Cẩm Nang Lấy Gốc Toán 11 (KNTT) - Từ Mất Gốc Đến Điểm 9+</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --primary-light: #eff6ff;
+      --secondary: #0d9488;
+      --secondary-light: #f0fdfa;
+      --accent: #f59e0b;
+      --accent-light: #fffbeb;
+      --danger: #ef4444;
+      --danger-light: #fef2f2;
+      --success: #10b981;
+      --purple: #8b5cf6;
+      --dark: #0f172a;
+      --gray-800: #1e293b;
+      --gray-700: #334155;
+      --gray-600: #475569;
+      --gray-200: #e2e8f0;
+      --gray-100: #f1f5f9;
+      --white: #ffffff;
+      --radius: 12px;
+      --radius-lg: 18px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      line-height: 1.85;
+      font-size: 16px;
+    }
+
+    /* Container */
+    .app-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* Sidebar (Desktop) */
+    .sidebar {
+      width: 330px;
+      background: var(--white);
+      border-right: 1px solid var(--gray-200);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      z-index: 50;
+    }
+
+    .sidebar-header {
+      padding: 26px 20px 20px;
+      border-bottom: 2px solid #2563eb;
+      background: linear-gradient(135deg, #0b1329 0%, #1e3a8a 100%);
+    }
+
+    .sidebar-header h2 {
+      font-size: 19px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      color: #ffffff !important;
+      letter-spacing: -0.01em;
+    }
+
+    .sidebar-header p {
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      color: #93c5fd !important;
+      margin: 0 !important;
+    }
+
+    .nav-list {
+      list-style: none;
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .nav-item-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: #64748b;
+      padding: 14px 12px 6px;
+      letter-spacing: 0.06em;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      color: #1e293b;
+      text-decoration: none;
+      border-radius: 9px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .nav-link:hover {
+      background-color: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .nav-link.active {
+      background-color: #2563eb;
+      color: #ffffff !important;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+    }
+
+    /* Main Content */
+    .main-content {
+      flex: 1;
+      padding: 36px 44px 100px;
+      max-width: 1120px;
+      overflow-x: hidden;
+    }
+
+    /* Hero Banner */
+    .hero-banner {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 55%, #0284c7 100%);
+      padding: 38px 34px;
+      border-radius: var(--radius-lg);
+      margin-bottom: 32px;
+      box-shadow: 0 14px 28px -4px rgba(37, 99, 235, 0.35);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.22) !important;
+      backdrop-filter: blur(8px);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      color: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+
+    .hero-title {
+      font-size: 30px !important;
+      font-weight: 800 !important;
+      line-height: 1.35;
+      margin-bottom: 14px;
+      color: #ffffff !important;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.25);
+    }
+
+    .hero-subtitle,
+    .hero-banner p {
+      font-size: 16px !important;
+      color: #f8fafc !important;
+      line-height: 1.8;
+      margin-bottom: 0;
+    }
+
+    .hero-banner strong {
+      color: #fef08a !important;
+      font-weight: 700;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .stat-pill {
+      background: rgba(255, 255, 255, 0.2) !important;
+      backdrop-filter: blur(8px);
+      padding: 8px 16px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff !important;
+      border: 1px solid rgba(255, 255, 255, 0.35);
+    }
+
+    /* Section Cards */
+    .section-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 34px;
+      margin-bottom: 32px;
+      border: 1px solid var(--gray-200);
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 22px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid var(--gray-100);
+    }
+
+    .section-number {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      font-weight: 800;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.2);
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .section-meta {
+      font-size: 14px;
+      color: #475569;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    h3.sub-title {
+      font-size: 18px;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 28px 0 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    p {
+      margin-bottom: 14px;
+      color: #1e293b;
+      font-size: 16px;
+    }
+
+    /* Callout Boxes */
+    .box-intuitive {
+      background: #f0fdf4;
+      border-left: 4px solid #059669;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 18px 20px;
+      margin: 20px 0;
+      color: #0f172a;
+    }
+
+    .box-intuitive-title {
+      font-weight: 800;
+      color: #047857;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .box-formula {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      margin: 20px 0;
+      color: #0f172a;
+    }
+
+    .box-formula-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: #1d4ed8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .box-trap {
+      background: #fef2f2;
+      border-left: 4px solid #dc2626;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 18px 20px;
+      margin: 22px 0;
+      color: #450a0a;
+    }
+
+    .box-trap-title {
+      font-weight: 800;
+      color: #b91c1c;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .box-exam-focus {
+      background: #fffbeb;
+      border: 2px solid #f59e0b;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin: 24px 0;
+      color: #78350f;
+    }
+
+    .box-exam-focus-title {
+      font-weight: 800;
+      color: #b45309;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .box-casio {
+      background: #faf5ff;
+      border-left: 4px solid #9333ea;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 18px 20px;
+      margin: 20px 0;
+      color: #3b0764;
+    }
+
+    .box-casio-title {
+      font-weight: 800;
+      color: #7e22ce;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .mnemonic-box {
+      background: #eff6ff;
+      border: 1px dashed #3b82f6;
+      border-radius: var(--radius);
+      padding: 16px 20px;
+      margin: 18px 0;
+      color: #1e3a8a;
+    }
+
+    .mnemonic-title {
+      font-weight: 800;
+      color: #1d4ed8;
+      font-size: 13px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    /* Worked Example */
+    .example-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius);
+      margin: 22px 0;
+      overflow: hidden;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.03);
+    }
+
+    .example-header {
+      background: #f1f5f9;
+      padding: 12px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid #cbd5e1;
+    }
+
+    .example-tag {
+      font-weight: 800;
+      font-size: 14px;
+      color: #1d4ed8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .example-badge {
+      font-size: 11px;
+      background: white;
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+    }
+
+    .example-body {
+      padding: 20px;
+    }
+
+    .example-problem {
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #cbd5e1;
+    }
+
+    .example-solution {
+      color: #1e293b;
+      font-size: 15px;
+    }
+
+    .solution-step {
+      margin-bottom: 12px;
+      padding-left: 14px;
+      border-left: 3px solid #3b82f6;
+    }
+
+    .step-label {
+      font-weight: 800;
+      color: #2563eb;
+      font-size: 13px;
+    }
+
+    /* Visual Illustrations */
+    .visual-wrapper {
+      background: #ffffff;
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin: 22px 0;
+      text-align: center;
+    }
+
+    .visual-caption {
+      margin-top: 10px;
+      font-size: 13px;
+      color: #475569;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    /* Tables */
+    .table-container {
+      overflow-x: auto;
+      margin: 20px 0;
+      border-radius: var(--radius);
+      border: 1px solid var(--gray-200);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table.data-table {
+      width: 100%;
+      min-width: 500px;
+      border-collapse: collapse;
+      font-size: 14px;
+      text-align: center;
+      background: white;
+    }
+
+    table.data-table th, table.data-table td {
+      padding: 12px 14px;
+      border: 1px solid #cbd5e1;
+    }
+
+    table.data-table th {
+      background: #f8fafc;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    table.data-table tr:hover {
+      background: #f1f5f9;
+    }
+
+    /* Accordion */
+    details.accordion-item {
+      background: white;
+      border: 1px solid #cbd5e1;
+      border-radius: var(--radius);
+      margin: 12px 0;
+      overflow: hidden;
+    }
+
+    details.accordion-item summary {
+      padding: 14px 18px;
+      font-weight: 700;
+      color: #1e293b;
+      cursor: pointer;
+      background: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    details.accordion-item summary:hover {
+      background: #f1f5f9;
+      color: #2563eb;
+    }
+
+    details.accordion-item[open] summary {
+      border-bottom: 1px solid #cbd5e1;
+      background: #eff6ff;
+      color: #1d4ed8;
+    }
+
+    .accordion-content {
+      padding: 18px 20px;
+      color: #1e293b;
+    }
+
+    /* Gallery Grid for SGK Pages */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 16px;
+      margin: 22px 0;
+    }
+
+    .gallery-card {
+      border: 1px solid #cbd5e1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: white;
+      text-align: center;
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .gallery-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+      border-color: #2563eb;
+    }
+
+    .gallery-thumb {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      object-position: top;
+      border-bottom: 1px solid #e2e8f0;
+      background: #f8fafc;
+    }
+
+    .gallery-title {
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 700;
+      color: #1e293b;
+      background: #ffffff;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Lightbox Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.92);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+    }
+
+    .modal.show {
+      display: flex;
+    }
+
+    .modal-content {
+      max-width: 95vw;
+      max-height: 90vh;
+      border-radius: 8px;
+      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);
+      object-fit: contain;
+      background: white;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 16px;
+      right: 22px;
+      color: white;
+      font-size: 38px;
+      font-weight: 300;
+      cursor: pointer;
+      user-select: none;
+      line-height: 1;
+    }
+
+    .calc-key {
+      display: inline-block;
+      padding: 2px 7px;
+      border: 1px solid #94a3b8;
+      border-radius: 5px;
+      background: #ffffff;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      box-shadow: 0 2px 0 #64748b;
+      color: #0f172a;
+      margin: 0 2px;
+    }
+
+    .tag-concept {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      background: #eff6ff;
+      color: #1d4ed8;
+      margin-bottom: 6px;
+    }
+
+    /* BOTTOM NAVIGATION BAR FOR MOBILE (DÀNH RIÊNG CHO ĐIỆN THOẠI) */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid #cbd5e1;
+      z-index: 100;
+      box-shadow: 0 -4px 12px rgba(0,0,0,0.06);
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 4px;
+    }
+
+    .mobile-nav-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #475569;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 700;
+      gap: 3px;
+      flex: 1;
+      height: 100%;
+      transition: color 0.2s;
+    }
+
+    .mobile-nav-btn span.icon {
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .mobile-nav-btn.active, .mobile-nav-btn:active {
+      color: #2563eb;
+    }
+
+    /* Floating Quick Scroll to Top */
+    .floating-top-btn {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: #1e293b;
+      color: white;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      cursor: pointer;
+      z-index: 90;
+      opacity: 0.85;
+    }
+
+    /* RESPONSIVE CHO ĐIỆN THOẠI (SMARTPHONE VIEW) */
+    @media (max-width: 860px) {
+      .sidebar {
+        display: none; /* Ẩn sidebar desktop trên điện thoại */
+      }
+
+      .mobile-bottom-nav {
+        display: flex; /* Hiện thanh điều hướng dưới đáy màn hình */
+      }
+
+      .main-content {
+        padding: 16px 14px 100px; /* Thêm padding dưới để không bị che bởi bottom nav */
+        max-width: 100%;
+      }
+
+      .hero-banner {
+        padding: 24px 20px;
+        border-radius: 14px;
+        margin-bottom: 20px;
+      }
+
+      .hero-title {
+        font-size: 22px !important;
+      }
+
+      .hero-subtitle, .hero-banner p {
+        font-size: 14px !important;
+      }
+
+      .hero-stats {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .stat-pill {
+        font-size: 12px;
+        padding: 8px 12px;
+      }
+
+      .section-card {
+        padding: 20px 16px;
+        border-radius: 14px;
+        margin-bottom: 20px;
+      }
+
+      .section-header {
+        gap: 12px;
+        margin-bottom: 16px;
+      }
+
+      .section-number {
+        width: 38px;
+        height: 38px;
+        font-size: 18px;
+      }
+
+      .section-title {
+        font-size: 19px;
+      }
+
+      h3.sub-title {
+        font-size: 17px;
+        margin: 22px 0 10px;
+      }
+
+      p {
+        font-size: 15px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .gallery-thumb {
+        height: 150px;
+      }
+
+      .gallery-title {
+        font-size: 11px;
+        padding: 6px 8px;
+      }
+
+      .box-formula, .box-intuitive, .box-trap, .box-casio, .box-exam-focus {
+        padding: 14px 16px;
+      }
+
+      .example-card {
+        margin: 16px 0;
+      }
+
+      .example-body {
+        padding: 16px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- SIDEBAR NAVIGATION (Dành cho máy tính Desktop / Laptop) -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Sổ Tay Lấy Gốc Toán 11</h2>
+      <p>Cứu tinh mất gốc - Tự tin điểm 9+</p>
+    </div>
+    <ul class="nav-list">
+      <li class="nav-item-title">Khởi Động</li>
+      <li><a href="#loi-chuc" class="nav-link active"><span>🌱</span> Lời nhắn & Bí kíp</a></li>
+      <li><a href="#mat-goc-nhap-mon" class="nav-link"><span>🔥</span> 3 Khái niệm mất gốc</a></li>
+      <li><a href="#tong-hop-sgk" class="nav-link"><span>📚</span> 21 Trang SGK Gốc</a></li>
+
+      <li class="nav-item-title">Chương 1: Lượng Giác</li>
+      <li><a href="#bai-1" class="nav-link"><span>1️⃣</span> Bài 1: Giá trị lượng giác</a></li>
+      <li><a href="#bai-2" class="nav-link"><span>2️⃣</span> Bài 2: Công thức lượng giác</a></li>
+      <li><a href="#bai-3" class="nav-link"><span>3️⃣</span> Bài 3: Hàm số lượng giác</a></li>
+      <li><a href="#bai-4" class="nav-link"><span>4️⃣</span> Bài 4: Phương trình lượng giác</a></li>
+
+      <li class="nav-item-title">Chương 2: Dãy Số</li>
+      <li><a href="#bai-5" class="nav-link"><span>5️⃣</span> Bài 5: Dãy số cốt lõi</a></li>
+
+      <li class="nav-item-title">Ôn Thi Giữa Kì 1</li>
+      <li><a href="#ma-tran-thi-giua-ki" class="nav-link"><span>🎯</span> 8 Dạng Bài Chắc Chắn Ra</a></li>
+      <li><a href="#meo-casio" class="nav-link"><span>⚡</span> Bấm Casio 580 / 880</a></li>
+    </ul>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main-content">
+    
+    <!-- HERO BANNER -->
+    <section class="hero-banner" id="loi-chuc">
+      <div class="hero-badge">Dành Riêng Cho Người Mất Gốc Cần Bắt Kịp Lớp</div>
+      <h1 class="hero-title">Đừng sợ! Mất gốc Toán 11 lấy lại dễ hơn bạn nghĩ rất nhiều!</h1>
+      <p class="hero-subtitle">
+        Bị ốm nghỉ học không có nghĩa là tụt lại phía sau. Toán lượng giác lớp 11 nhìn bề ngoài có vẻ rắc rối với hàng chục ký hiệu ngoằn ngoèo, nhưng <strong>bản chất của nó chỉ xoay quanh 3 quy tắc cực kỳ đơn giản</strong>. 
+        Tài liệu này được viết theo cách <strong>cầm tay chỉ việc từ số 0</strong>: giải thích từng ký hiệu nhỏ nhất, chỉ rõ tại sao lại có công thức đó, phân tích từng bẫy thi giữa kì để tuần sau đi học bạn tự tin làm bài trước cả lớp!
+      </p>
+      <div class="hero-stats">
+        <div class="stat-pill">📱 Đã tối ưu 100% giao diện mượt mà trên điện thoại</div>
+        <div class="stat-pill">💡 Giải thích từ bản chất góc, không bắt học vẹt</div>
+        <div class="stat-pill">🎯 8 dạng bài tủ chiếm 80% điểm thi giữa kì 1</div>
+        <div class="stat-pill">⚡ Kỹ thuật Casio cứu nguy khi làm trắc nghiệm</div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- PHẦN 0: GIẢI CỨU MẤT GỐC - 3 ĐIỀU PHẢI THÔNG SUỐT ĐẦU TIÊN -->
+    <!-- ======================================================= -->
+    <section class="section-card" id="mat-goc-nhap-mon" style="border: 2px solid #3b82f6;">
+      <div class="section-header">
+        <div class="section-number" style="background: #2563eb;">🔥</div>
+        <div>
+          <span class="tag-concept">KHỞI ĐỘNG CHO NGƯỜI MẤT GỐC</span>
+          <h2 class="section-title">3 Khái Niệm Phải Thông Suốt (Để Không Bao Giờ Thấy Lú)</h2>
+          <p class="section-meta">Đọc kỹ phần này trước khi vào bài 1, bạn sẽ hiểu ngay vì sao thầy cô viết trên bảng!</p>
+        </div>
+      </div>
+
+      <!-- Khái niệm 1: Radian là gì? -->
+      <h3 class="sub-title">1. Radian ($\pi$) Là Cái Quái Gì? Tại Sao Không Dùng Độ ($^\circ$)?</h3>
+      <div class="box-intuitive">
+        <div class="box-intuitive-title">💡 Mẹo "Tờ tiền 180k" cứu nguy mất gốc:</div>
+        Cứ nhìn thấy chữ $\pi$ trong môn Toán, trong đầu bạn hãy dịch ngay sang: <strong>$\pi = 180^\circ$ (như tờ tiền 180 nghìn)</strong>!<br>
+        Vậy thì:
+        <ul style="margin: 8px 0 0 20px; line-height: 1.9;">
+          <li>$\frac{\pi}{2} = \frac{180^\circ}{2} = \mathbf{90^\circ}$ (Góc vuông quen thuộc).</li>
+          <li>$\frac{\pi}{3} = \frac{180^\circ}{3} = \mathbf{60^\circ}$.</li>
+          <li>$\frac{\pi}{4} = \frac{180^\circ}{4} = \mathbf{45^\circ}$.</li>
+          <li>$\frac{\pi}{6} = \frac{180^\circ}{6} = \mathbf{30^\circ}$.</li>
+          <li>$2\pi = 2 \cdot 180^\circ = \mathbf{360^\circ}$ (Đúng 1 vòng tròn trọn vẹn).</li>
+        </ul>
+        <p style="margin-top: 10px; font-weight: 700; color: #047857;">
+          👉 Tại sao người ta lại chế ra Radian? Vì đo góc bằng "độ" ($360^\circ$) là do người xưa tự chia. Còn 1 Radian là lấy sợi dây dài đúng bằng bán kính $R$ quấn lên đường tròn! Nhờ có radian mà công thức tính độ dài cung tròn siêu ngắn gọn: <strong>$l = R \cdot \alpha$</strong> (chỉ cần lấy bán kính nhân số đo góc, không cần chia 180 chi cho mệt!).
+        </p>
+      </div>
+
+      <!-- Khái niệm 2: Vì sao có góc âm và góc > 360 độ? -->
+      <h3 class="sub-title">2. Vì Sao Lại Có Góc Âm $(-60^\circ)$ Và Góc Lớn Hơn $360^\circ$?</h3>
+      <div class="box-intuitive">
+        <div class="box-intuitive-title">💡 Ví dụ thực tế chiếc Bàn Đạp Xe Đạp:</div>
+        Lớp 9, góc chỉ là cái thước đo độ mở giữa 2 cái que ($0^\circ \to 180^\circ$). Nhưng lên lớp 11, góc là <strong>sự quay chuyển động</strong>:<br>
+        • Nếu bạn quay <strong>ngược chiều kim đồng hồ</strong>: Quy ước là <strong>chiều DƯƠNG (+)</strong>.<br>
+        • Nếu bạn quay <strong>cùng chiều kim đồng hồ</strong>: Quy ước là <strong>chiều ÂM (-)</strong>.<br>
+        • Bạn đạp xe 3 vòng tròn thì bàn đạp quét được $3 \cdot 360^\circ = 1080^\circ$! Do đó góc lượng giác có thể to bao nhiêu cũng được, và âm bao nhiêu cũng được!
+      </div>
+
+      <!-- Khái niệm 3: Vì sao Cos là trục hoành, Sin là trục tung? -->
+      <h3 class="sub-title">3. Trục Sin, Trục Cos Thực Ra Là Tam Giác Lớp 9 Nhét Vào Vòng Tròn!</h3>
+      <div class="box-intuitive">
+        <div class="box-intuitive-title">💡 Nối liền từ định lý lớp 9 sang lớp 11:</div>
+        Lớp 9 học: Trong tam giác vuông, $\sin = \frac{\text{đối}}{\text{huyền}}$, $\cos = \frac{\text{kề}}{\text{huyền}}$.<br>
+        Lên lớp 11, các nhà toán học vẽ đường tròn bán kính <strong>cạnh huyền $R = 1$</strong>:<br>
+        • Cạnh kề nằm bẹp trên trục ngang $Ox$ $\implies \cos = \frac{\text{kề}}{1} = \text{kề} \implies$ <strong>Trục hoành $Ox$ chính là TRỤC COS!</strong><br>
+        • Cạnh đối dựng đứng song song trục dọc $Oy$ $\implies \sin = \frac{\text{đối}}{1} = \text{đối} \implies$ <strong>Trục tung $Oy$ chính là TRỤC SIN!</strong><br>
+        • Thần chú nhớ trục trong 1 giây: <strong>"COS NẰM - SIN ĐỨNG"</strong>!
+      </div>
+    </section>
+
+    <!-- SECTION: 21 TRANG SGK GỐC -->
+    <section class="section-card" id="tong-hop-sgk">
+      <div class="section-header">
+        <div class="section-number">📚</div>
+        <div>
+          <h2 class="section-title">21 Trang Sách Giáo Khoa Gốc (Ảnh Chụp Chi Tiết)</h2>
+          <p class="section-meta">Toán 11 KNTT từ trang 5 đến trang 47 - Click để phóng to toàn màn hình</p>
+        </div>
+      </div>
+      <p>
+        Toàn bộ 21 trang bạn đã chụp đã được tích hợp bộ nạp ảnh thông minh, tự động tương thích 100% trên cả điện thoại và máy tính:
+      </p>
+      
+      <div class="gallery-grid" id="sgkGallery">
+        <!-- Script render dynamic multi-stage fallback -->
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- BÀI 1: GIÁ TRỊ LƯỢNG GIÁC CỦA GÓC LƯỢNG GIÁC -->
+    <!-- ========================================== -->
+    <section class="section-card" id="bai-1">
+      <div class="section-header">
+        <div class="section-number">1</div>
+        <div>
+          <span class="tag-concept">BÀI 1 (SGK TRANG 5 - 16)</span>
+          <h2 class="section-title">Bài 1: Giá Trị Lượng Giác Của Góc Lượng Giác</h2>
+          <p class="section-meta">Nền móng quan trọng nhất - Hiểu cặn kẽ dấu và các góc đặc biệt</p>
+        </div>
+      </div>
+
+      <h3 class="sub-title">1. Công Thức Số Đo Góc Lượng Giác & Cái Đuôi $+ k2\pi$</h3>
+      <p>
+        Khi một tia quay từ tia đầu $Ou$ đến tia cuối $Ov$, nó có thể quay thêm 1 vòng, 2 vòng, hay 100 vòng rồi dừng lại ở vị trí $Ov$.
+      </p>
+      <div class="box-formula">
+        $$sđ(Ou, Ov) = \alpha + k \cdot 360^\circ \quad \text{hoặc} \quad sđ(Ou, Ov) = \alpha + k \cdot 2\pi \quad (k \in \mathbb{Z})$$
+        <p style="margin-top: 6px; font-size: 14px; color: #475569;">
+          <em>• $k$ là số nguyên: nếu $k=1$ tức là quay thêm 1 vòng dương ($+360^\circ$); nếu $k=-2$ tức là quay thêm 2 vòng âm ($-720^\circ$).</em>
+        </p>
+      </div>
+
+      <h3 class="sub-title">2. Hệ Thức Chasles (Sa-lơ): Quy Tắc "Bắc Cầu"</h3>
+      <p>Nó y hệt như cộng vectơ lớp 10: $\vec{AB} + \vec{BC} = \vec{AC}$. Đi từ tia $Ou \to Ov \to Ow$:</p>
+      <div class="box-formula">
+        $$sđ(Ou, Ov) + sđ(Ov, Ow) = sđ(Ou, Ow) + k360^\circ$$
+        Rút ra công thức trừ qua tia gốc $Ox$:
+        $$sđ(Ou, Ov) = sđ(Ox, Ov) - sđ(Ox, Ou) + k360^\circ$$
+      </div>
+
+      <h3 class="sub-title">3. Công Thức Tính Độ Dài Cung Tròn $l = R\alpha$ (Câu Hay Ra Trong Đề Thi)</h3>
+      <div class="box-formula">
+        $$\mathbf{l = R \cdot \alpha} \quad \text{với } \alpha \text{ tính bằng Radian!}$$
+        Nếu đề cho góc bằng độ $a^\circ$, bạn phải đổi sang radian trước: $\alpha = a \cdot \frac{\pi}{180}$. Khi đó: $l = \frac{\pi R a}{180}$.
+      </div>
+
+      <!-- Minh họa SVG Đường tròn lượng giác -->
+      <div class="visual-wrapper">
+        <svg viewBox="0 0 460 380" width="100%" max-width="460" height="320" style="background:#ffffff; border-radius:12px;">
+          <!-- Trục tọa độ -->
+          <line x1="30" y1="190" x2="430" y2="190" stroke="#94a3b8" stroke-width="2"/>
+          <polygon points="430,190 420,185 420,195" fill="#94a3b8"/>
+          <text x="435" y="195" font-size="14" font-weight="700" fill="#1e293b">x (Cos)</text>
+          
+          <line x1="220" y1="360" x2="220" y2="25" stroke="#94a3b8" stroke-width="2"/>
+          <polygon points="220,25 215,35 225,35" fill="#94a3b8"/>
+          <text x="230" y="30" font-size="14" font-weight="700" fill="#1e293b">y (Sin)</text>
+
+          <circle cx="220" cy="190" r="3" fill="#1e293b"/>
+          <text x="205" y="205" font-size="13" font-weight="600" fill="#475569">O</text>
+          
+          <!-- Đường tròn R=1 -->
+          <circle cx="220" cy="190" r="130" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+          <text x="355" y="208" font-size="13" font-weight="700" fill="#2563eb">A(1;0)</text>
+
+          <!-- 4 Góc phần tư -->
+          <text x="300" y="105" font-size="15" font-weight="800" fill="#cbd5e1">Góc I (+, +)</text>
+          <text x="95" y="105" font-size="15" font-weight="800" fill="#cbd5e1">Góc II (-, +)</text>
+          <text x="95" y="295" font-size="15" font-weight="800" fill="#cbd5e1">Góc III (-, -)</text>
+          <text x="300" y="295" font-size="15" font-weight="800" fill="#cbd5e1">Góc IV (+, -)</text>
+
+          <!-- Điểm M -->
+          <line x1="220" y1="190" x2="285" y2="77" stroke="#ef4444" stroke-width="2.5"/>
+          <circle cx="285" cy="77" r="5" fill="#ef4444"/>
+          <text x="292" y="72" font-size="13" font-weight="700" fill="#ef4444">M(cos α; sin α)</text>
+
+          <line x1="285" y1="77" x2="285" y2="190" stroke="#ef4444" stroke-dasharray="4" stroke-width="1.5"/>
+          <line x1="285" y1="77" x2="220" y2="77" stroke="#ef4444" stroke-dasharray="4" stroke-width="1.5"/>
+          <circle cx="285" cy="190" r="3" fill="#2563eb"/>
+          <text x="277" y="210" font-size="12" font-weight="700" fill="#2563eb">cos α</text>
+          
+          <circle cx="220" cy="77" r="3" fill="#10b981"/>
+          <text x="175" y="82" font-size="12" font-weight="700" fill="#10b981">sin α</text>
+        </svg>
+        <div class="visual-caption">Hình: Điểm M trên đường tròn đơn vị. Chiếu ngang xuống trục x là cos α, chiếu đứng sang trục y là sin α.</div>
+      </div>
+
+      <h3 class="sub-title">4. Thần Chú Xét Dấu 4 Góc Phần Tư (Bắt Buộc Phải Thuộc)</h3>
+      <div class="mnemonic-box">
+        <div class="mnemonic-title">💡 Câu thần chú quốc dân:</div>
+        <strong>"NHẤT CẢ - NHÌ SIN - TAM TAN - TỨ COS"</strong><br>
+        • <strong>Góc phần tư I ($0 \to 90^\circ$):</strong> <strong>TẤT CẢ</strong> đều mang dấu DƯƠNG (+).<br>
+        • <strong>Góc phần tư II ($90^\circ \to 180^\circ$):</strong> Chỉ có <strong>SIN</strong> là DƯƠNG (+), còn cos, tan, cot đều ÂM (-).<br>
+        • <strong>Góc phần tư III ($180^\circ \to 270^\circ$):</strong> Chỉ có <strong>TAN & COT</strong> là DƯƠNG (+), còn sin và cos đều ÂM (-).<br>
+        • <strong>Góc phần tư IV ($270^\circ \to 360^\circ$):</strong> Chỉ có <strong>COS</strong> là DƯƠNG (+), còn sin, tan, cot đều ÂM (-).
+      </div>
+
+      <h3 class="sub-title">5. Bộ 4 Công Thức Cơ Bản (Bản Chất Định Lý Pythagoras)</h3>
+      <div class="box-formula">
+        $$\begin{aligned}
+          1) &\quad \sin^2 \alpha + \cos^2 \alpha = 1 \quad \text{(Chính là } x^2 + y^2 = 1^2\text{ trong tam giác vuông!)} \\
+          2) &\quad 1 + \tan^2 \alpha = \frac{1}{\cos^2 \alpha} \quad (\text{ĐK: } \cos\alpha \ne 0 \iff \alpha \ne \frac{\pi}{2} + k\pi) \\
+          3) &\quad 1 + \cot^2 \alpha = \frac{1}{\sin^2 \alpha} \quad (\text{ĐK: } \sin\alpha \ne 0 \iff \alpha \ne k\pi) \\
+          4) &\quad \tan \alpha \cdot \cot \alpha = 1 \quad (\text{Vì } \tan = \frac{\sin}{\cos}, \cot = \frac{\cos}{\sin}\text{ nhân nhau triệt tiêu!})
+        \end{aligned}$$
+      </div>
+
+      <h3 class="sub-title">6. Góc Có Liên Quan Đặc Biệt: "Cos Đối - Sin Bù - Phụ Chéo - Hơn Kém Pi Tan"</h3>
+      <div class="mnemonic-box">
+        <div class="mnemonic-title">💡 Giải thích ý nghĩa từng câu:</div>
+        • <strong>Cos đối:</strong> Hai góc đối nhau ($\alpha$ và $-\alpha$) thì <strong>cos bằng nhau</strong>: $\cos(-\alpha) = \cos\alpha$. Còn sin, tan, cot bị đẩy dấu trừ ra ngoài: $\sin(-\alpha) = -\sin\alpha$.<br>
+        • <strong>Sin bù:</strong> Hai góc bù nhau ($\alpha$ và $\pi - \alpha$ tổng bằng $180^\circ$) thì <strong>sin bằng nhau</strong>: $\sin(\pi - \alpha) = \sin\alpha$. Còn cos, tan, cot mang dấu trừ: $\cos(\pi - \alpha) = -\cos\alpha$.<br>
+        • <strong>Phụ chéo:</strong> Hai góc phụ nhau ($\alpha$ và $\frac{\pi}{2} - \alpha$ tổng bằng $90^\circ$) thì <strong>chéo hàm cho nhau</strong>: $\sin(\frac{\pi}{2}-\alpha) = \cos\alpha$ và $\cos(\frac{\pi}{2}-\alpha) = \sin\alpha$; $\tan \leftrightarrow \cot$.<br>
+        • <strong>Hơn kém $\pi$:</strong> Hai góc hơn kém nhau $\pi$ ($\alpha$ và $\alpha + \pi$) thì <strong>tan và cot giữ nguyên</strong>: $\tan(\alpha+\pi) = \tan\alpha$. Còn sin và cos đổi dấu trừ.
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- BÀI 2: CÔNG THỨC LƯỢNG GIÁC TOÀN TẬP       -->
+    <!-- ========================================== -->
+    <section class="section-card" id="bai-2">
+      <div class="section-header">
+        <div class="section-number">2</div>
+        <div>
+          <span class="tag-concept">BÀI 2 (SGK TRANG 17 - 21)</span>
+          <h2 class="section-title">Bài 2: Công Thức Lượng Giác Toàn Tập</h2>
+          <p class="section-meta">Học theo quy luật và vần thơ - Thuộc ngay sau 3 phút</p>
+        </div>
+      </div>
+
+      <h3 class="sub-title">1. Công Thức Cộng (Cốt Lõi Đẻ Ra Mọi Công Thức Khác)</h3>
+      <div class="mnemonic-box">
+        <div class="mnemonic-title">💡 Thơ học công thức cộng:</div>
+        <em>"Cos thì cos cos sin sin, dấu trừ đổi dấu chớ quên người ơi"</em> (Trong cos: cộng thành trừ, trừ thành cộng)<br>
+        <em>"Sin thì sin cos cos sin, dấu cùng dấu đấy giữ nguyên vẹn tròn"</em> (Trong sin: cộng vẫn là cộng, trừ vẫn là trừ)<br>
+        <em>"Tan thì tan nọ tan kia, chia một trừ tích tan kia tan này"</em>
+      </div>
+
+      <div class="box-formula">
+        $$\begin{aligned}
+          \cos(a + b) &= \cos a \cos b - \sin a \sin b \qquad & \cos(a - b) &= \cos a \cos b + \sin a \sin b \\
+          \sin(a + b) &= \sin a \cos b + \cos a \sin b \qquad & \sin(a - b) &= \sin a \cos b - \cos a \sin b \\
+          \tan(a + b) &= \frac{\tan a + \tan b}{1 - \tan a \tan b} \qquad & \tan(a - b) &= \frac{\tan a - \tan b}{1 + \tan a \tan b}
+        \end{aligned}$$
+      </div>
+
+      <h3 class="sub-title">2. Công Thức Nhân Đôi & Công Thức Hạ Bậc</h3>
+      <p>Khi ta cho $b = a$ vào công thức cộng, ta được công thức nhân đôi góc ($2a$):</p>
+      <div class="box-formula">
+        $$\sin 2a = 2\sin a \cos a$$
+        $$\cos 2a = \cos^2 a - \sin^2 a = 2\cos^2 a - 1 = 1 - 2\sin^2 a$$
+        $$\tan 2a = \frac{2\tan a}{1 - \tan^2 a}$$
+      </div>
+
+      <div class="box-intuitive">
+        <div class="box-intuitive-title">💡 Bản chất của Hạ Bậc:</div>
+        Khi làm toán, gặp bậc 2 ($\cos^2 a$ hoặc $\sin^2 a$) rất khó tính. Ta <strong>hạ từ bậc 2 xuống bậc 1</strong> thì góc phải bị <strong>nhân đôi lên ($2a$)</strong>:
+        $$\cos^2 a = \frac{1 + \cos 2a}{2} \qquad \sin^2 a = \frac{1 - \cos 2a}{2}$$
+        <em>(Mẹo nhớ dấu: Cos bình mang dấu CỘNG, Sin bình mang dấu TRỪ!)</em>
+      </div>
+
+      <h3 class="sub-title">3. Công Thức Biến Đổi Tổng Thành Tích & Tích Thành Tổng</h3>
+      <div class="mnemonic-box">
+        <div class="mnemonic-title">💡 Thơ nhớ Tổng thành Tích:</div>
+        • <em>"Cos cộng cos bằng hai cos cos"</em> $\implies \cos u + \cos v = 2\cos\frac{u+v}{2}\cos\frac{u-v}{2}$<br>
+        • <em>"Cos trừ cos bằng trừ hai sin sin"</em> $\implies \cos u - \cos v = -2\sin\frac{u+v}{2}\sin\frac{u-v}{2}$<br>
+        • <em>"Sin cộng sin bằng hai sin cos"</em> $\implies \sin u + \sin v = 2\sin\frac{u+v}{2}\cos\frac{u-v}{2}$<br>
+        • <em>"Sin trừ sin bằng hai cos sin"</em> $\implies \sin u - \sin v = 2\cos\frac{u+v}{2}\sin\frac{u-v}{2}$
+      </div>
+
+      <div class="box-formula">
+        <div class="box-formula-title">📌 Đi ngược lại là Tích thành Tổng:</div>
+        $$\cos a \cos b = \frac{1}{2}[\cos(a - b) + \cos(a + b)]$$
+        $$\sin a \sin b = \frac{1}{2}[\cos(a - b) - \cos(a + b)]$$
+        $$\sin a \cos b = \frac{1}{2}[\sin(a + b) + \sin(a - b)]$$
+      </div>
+
+      <div class="box-exam-focus">
+        <div class="box-exam-focus-title">⭐ CÔNG THỨC VÀNG THI GIỮA KÌ: $\sin x \pm \cos x$</div>
+        Đề thi rất hay ra biểu thức $\sin x + \cos x$. Hãy học thuộc dạng rút gọn này:
+        $$\sin x + \cos x = \sqrt{2}\sin\left(x + \frac{\pi}{4}\right) = \sqrt{2}\cos\left(x - \frac{\pi}{4}\right)$$
+        $$\sin x - \cos x = \sqrt{2}\sin\left(x - \frac{\pi}{4}\right)$$
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- BÀI 3: HÀM SỐ LƯỢNG GIÁC                   -->
+    <!-- ========================================== -->
+    <section class="section-card" id="bai-3">
+      <div class="section-header">
+        <div class="section-number">3</div>
+        <div>
+          <span class="tag-concept">BÀI 3 (SGK TRANG 22 - 30)</span>
+          <h2 class="section-title">Bài 3: Hàm Số Lượng Giác & Đồ Thị</h2>
+          <p class="section-meta">Hiểu sâu tính chẵn lẻ, chu kì và cách tìm Tập xác định</p>
+        </div>
+      </div>
+
+      <h3 class="sub-title">1. Hàm Chẵn, Hàm Lẻ Là Gì? (Hình Ảnh Trực Quan)</h3>
+      <div class="box-intuitive">
+        <div class="box-intuitive-title">💡 Giải thích dễ hiểu:</div>
+        • <strong>Hàm chẵn ($f(-x) = f(x)$):</strong> Đồ thị của nó đối xứng qua <strong>trục dọc $Oy$</strong> (giống như đặt chiếc gương dọc ở trục $Oy$, bên trái soi sang bên phải y chang). Trong 4 hàm cơ bản: <strong>DUY NHẤT $y = \cos x$ LÀ HÀM CHẴN</strong>!<br>
+        • <strong>Hàm lẻ ($f(-x) = -f(x)$):</strong> Đồ thị của nó đối xứng qua <strong>gốc tọa độ $O$</strong> (xoay nửa vòng tròn $180^\circ$ quanh tâm $O$ thì đồ thị trùng khít). Cả ba hàm còn lại: <strong>$\sin x, \tan x, \cot x$ ĐỀU LÀ HÀM LẺ</strong>!
+      </div>
+
+      <h3 class="sub-title">2. Chu Kì Tuần Hoàn Là Gì?</h3>
+      <div class="box-intuitive">
+        <div class="box-intuitive-title">💡 Hình dung sóng biển hoặc nhịp tim:</div>
+        Chu kì $T$ là khoảng thời gian (hoặc đoạn trên trục $x$) mà sau đó <strong>đồ thị lặp lại y chang như trước</strong>.<br>
+        • Hàm $\sin x$ và $\cos x$ đi hết 1 vòng tròn mới lặp lại $\implies$ <strong>Chu kì $T = 2\pi$</strong>.<br>
+        • Hàm $\tan x$ và $\cot x$ chỉ cần nửa vòng tròn là giá trị lặp lại $\implies$ <strong>Chu kì $T = \pi$</strong>.
+      </div>
+
+      <div class="box-formula">
+        <div class="box-formula-title">⚡ Công thức tính chu kì cho câu trắc nghiệm:</div>
+        Hàm số $y = \sin(\omega x + \varphi)$ hoặc $y = \cos(\omega x + \varphi) \implies \mathbf{T = \frac{2\pi}{|\omega|}}$<br>
+        Hàm số $y = \tan(\omega x + \varphi)$ hoặc $y = \cot(\omega x + \varphi) \implies \mathbf{T = \frac{\pi}{|\omega|}}$
+      </div>
+
+      <h3 class="sub-title">3. Bảng Khảo Sát Đầy Đủ 4 Hàm Số Lượng Giác</h3>
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Hàm số</th>
+              <th>Tập xác định ($D$)</th>
+              <th>Tập giá trị ($T$)</th>
+              <th>Chẵn/Lẻ</th>
+              <th>Chu kì</th>
+              <th>Tính đồng biến / nghịch biến</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>$y = \sin x$</strong></td>
+              <td>$\mathbb{R}$</td>
+              <td>$[-1; 1]$</td>
+              <td>Lẻ</td>
+              <td>$2\pi$</td>
+              <td>Đồng biến trên $(-\frac{\pi}{2}+k2\pi; \frac{\pi}{2}+k2\pi)$<br>Nghịch biến trên $(\frac{\pi}{2}+k2\pi; \frac{3\pi}{2}+k2\pi)$</td>
+            </tr>
+            <tr>
+              <td><strong>$y = \cos x$</strong></td>
+              <td>$\mathbb{R}$</td>
+              <td>$[-1; 1]$</td>
+              <td><strong>Chẵn</strong></td>
+              <td>$2\pi$</td>
+              <td>Đồng biến trên $(-\pi+k2\pi; k2\pi)$<br>Nghịch biến trên $(k2\pi; \pi+k2\pi)$</td>
+            </tr>
+            <tr>
+              <td><strong>$y = \tan x$</strong></td>
+              <td>$\mathbb{R} \setminus \{\frac{\pi}{2}+k\pi\}$</td>
+              <td>$\mathbb{R}$</td>
+              <td>Lẻ</td>
+              <td>$\pi$</td>
+              <td><strong>Luôn đồng biến</strong> trên từng khoảng xác định $(-\frac{\pi}{2}+k\pi; \frac{\pi}{2}+k\pi)$</td>
+            </tr>
+            <tr>
+              <td><strong>$y = \cot x$</strong></td>
+              <td>$\mathbb{R} \setminus \{k\pi\}$</td>
+              <td>$\mathbb{R}$</td>
+              <td>Lẻ</td>
+              <td>$\pi$</td>
+              <td><strong>Luôn nghịch biến</strong> trên từng khoảng xác định $(k\pi; \pi+k\pi)$</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- BÀI 4: PHƯƠNG TRÌNH LƯỢNG GIÁC CƠ BẢN      -->
+    <!-- ========================================== -->
+    <section class="section-card" id="bai-4">
+      <div class="section-header">
+        <div class="section-number">4</div>
+        <div>
+          <span class="tag-concept">BÀI 4 (SGK TRANG 31 - 39)</span>
+          <h2 class="section-title">Bài 4: Phương Trình Lượng Giác Cơ Bản</h2>
+          <p class="section-meta">Chiếm nhiều điểm nhất trong bài kiểm tra - Công thức giải chuẩn 100%</p>
+        </div>
+      </div>
+
+      <h3 class="sub-title">1. Quy Trình 3 Bước Giải Phương Trình $\sin x = m$</h3>
+      <div class="box-formula">
+        <div class="box-formula-title">📌 Công thức giải $\sin x = m$:</div>
+        • Nếu $|m| > 1$ (ví dụ $\sin x = 2$ hoặc $\sin x = -1.5$): <strong>Kết luận ngay Phương trình VÔ NGHIỆM</strong> (vì $\sin$ chỉ chạy từ $-1$ đến $1$).<br>
+        • Nếu $|m| \le 1$: Bấm máy tính <span class="calc-key">SHIFT</span> <span class="calc-key">sin</span> $(m)$ để tìm góc $\alpha$. Sau đó chép đúng 2 dòng:
+        $$\sin x = \sin\alpha \iff \left[\begin{array}{l}
+          x = \alpha + k2\pi \\
+          x = \pi - \alpha + k2\pi
+        \end{array}\right. \quad (k \in \mathbb{Z})$$
+        <em>(Tại sao lại có $\pi - \alpha$? Vì theo thần chú "Sin bù", góc bù $\pi - \alpha$ có sin bằng y hệt góc $\alpha$!)</em>
+      </div>
+
+      <h3 class="sub-title">2. Quy Trình 3 Bước Giải Phương Trình $\cos x = m$</h3>
+      <div class="box-formula">
+        <div class="box-formula-title">📌 Công thức giải $\cos x = m$:</div>
+        • Nếu $|m| > 1$: <strong>Phương trình VÔ NGHIỆM</strong>.<br>
+        • Nếu $|m| \le 1$: Bấm <span class="calc-key">SHIFT</span> <span class="calc-key">cos</span> $(m)$ ra góc $\alpha$:
+        $$\cos x = \cos\alpha \iff x = \pm\alpha + k2\pi \quad (k \in \mathbb{Z})$$
+        <em>(Tại sao lại có $\pm\alpha$? Vì "Cos đối", hai góc đối nhau có cos bằng nhau!)</em>
+      </div>
+
+      <h3 class="sub-title">3. Phương Trình $\tan x = m$ Và $\cot x = m$ (Siêu Dễ: Chỉ 1 Họ Nghiệm)</h3>
+      <div class="box-formula">
+        $$\tan x = \tan\alpha \iff x = \alpha + k\pi \quad (k \in \mathbb{Z})$$
+        $$\cot x = \cot\alpha \iff x = \alpha + k\pi \quad (k \in \mathbb{Z})$$
+        <em>(Nhớ kỹ: Tan và Cot đuôi chu kì chỉ là <strong>$+ k\pi$</strong>, không phải $+ k2\pi$!)</em>
+      </div>
+
+      <h3 class="sub-title">4. Các Trường Hợp Đặc Biệt Bắt Buộc Thuộc (Chỉ Có 1 Họ Nghiệm)</h3>
+      <div class="table-container">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Phương trình</th>
+              <th>= 0</th>
+              <th>= 1</th>
+              <th>= -1</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>$\sin x$</strong></td>
+              <td>$x = k\pi$</td>
+              <td>$x = \frac{\pi}{2} + k2\pi$</td>
+              <td>$x = -\frac{\pi}{2} + k2\pi$</td>
+            </tr>
+            <tr>
+              <td><strong>$\cos x$</strong></td>
+              <td>$x = \frac{\pi}{2} + k\pi$</td>
+              <td>$x = k2\pi$</td>
+              <td>$x = \pi + k2\pi$</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- BÀI 5: DÃY SỐ                              -->
+    <!-- ========================================== -->
+    <section class="section-card" id="bai-5">
+      <div class="section-header">
+        <div class="section-number">5</div>
+        <div>
+          <span class="tag-concept">CHƯƠNG II: BÀI 5 (SGK TRANG 42 - 47)</span>
+          <h2 class="section-title">Bài 5: Dãy Số & Các Tính Chất Cốt Lõi</h2>
+          <p class="section-meta">Hiểu bản chất dãy số là hàm số biến số nguyên dương</p>
+        </div>
+      </div>
+
+      <h3 class="sub-title">1. Dãy Số Là Gì?</h3>
+      <div class="box-intuitive">
+        <div class="box-intuitive-title">💡 Hiểu cực kỳ giản dị:</div>
+        Dãy số là một hàng số được đánh số thứ tự từ $n = 1, 2, 3...$:<br>
+        • $u_1$ là số đứng thứ nhất (thay $n = 1$).<br>
+        • $u_2$ là số đứng thứ hai (thay $n = 2$).<br>
+        • $u_n$ là công thức tổng quát để tìm số đứng thứ $n$.
+      </div>
+
+      <h3 class="sub-title">2. Dãy Tăng, Dãy Giảm (2 Cách Xét Nhanh Gọn)</h3>
+      <div class="box-formula">
+        • <strong>Dãy tăng:</strong> $u_{n+1} > u_n$ (Số sau lớn hơn số trước).<br>
+        • <strong>Dãy giảm:</strong> $u_{n+1} < u_n$ (Số sau nhỏ hơn số trước).<br>
+        <strong>Cách xét an toàn nhất cho mọi bài:</strong> Xét hiệu $u_{n+1} - u_n$.<br>
+        - Nếu $u_{n+1} - u_n > 0 \implies$ Dãy số TĂNG.<br>
+        - Nếu $u_{n+1} - u_n < 0 \implies$ Dãy số GIẢM.
+      </div>
+
+      <h3 class="sub-title">3. Dãy Số Bị Chặn</h3>
+      <div class="box-intuitive">
+        <div class="box-intuitive-title">💡 "Sàn nhà" và "Trần nhà":</div>
+        • <strong>Bị chặn trên:</strong> Toàn bộ dãy số không bao giờ vượt qua trần nhà $M$ ($u_n \le M$).<br>
+        • <strong>Bị chặn dưới:</strong> Toàn bộ dãy số không bao giờ rớt xuống dưới sàn nhà $m$ ($u_n \ge m$).<br>
+        • <strong>Bị chặn:</strong> Vừa có sàn vừa có trần ($m \le u_n \le M$).
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- PHẦN ĐẶC BIỆT: MA TRẬN 8 DẠNG BÀI CHẮC CHẮN RA THI GIỮA KÌ -->
+    <!-- ======================================================= -->
+    <section class="section-card" id="ma-tran-thi-giua-ki" style="border: 2px solid #f59e0b;">
+      <div class="section-header">
+        <div class="section-number" style="background: #d97706;">🎯</div>
+        <div>
+          <span class="tag-concept" style="background:#fef3c7; color:#b45309;">TRỌNG TÂM ÔN TẬP</span>
+          <h2 class="section-title">8 Dạng Bài Chắc Chắn Ra Trong Đề Thi Giữa Kì 1</h2>
+          <p class="section-meta">Chiếm trọn 80 - 90% số điểm bài thi. Đọc kỹ từng dạng và cách làm!</p>
+        </div>
+      </div>
+
+      <!-- Dạng 1 -->
+      <div class="example-card">
+        <div class="example-header">
+          <div class="example-tag">DẠNG 1: Đổi đơn vị góc & Tính độ dài cung tròn $l = R\alpha$</div>
+          <div class="example-badge">Mức độ 1: Nhận biết (0.5 điểm)</div>
+        </div>
+        <div class="example-body">
+          <div class="example-problem">
+            <strong>Đề bài mẫu:</strong> Một bánh xe đạp có bán kính $R = 30\text{ cm}$. Khi bánh xe quay được một góc $120^\circ$, quãng đường bánh xe lăn được là bao nhiêu cm?
+          </div>
+          <div class="example-solution">
+            <div class="solution-step">
+              <span class="step-label">Bước 1: Đổi góc sang Radian:</span> $\alpha = 120^\circ = 120 \cdot \frac{\pi}{180} = \frac{2\pi}{3}\text{ rad}$.
+            </div>
+            <div class="solution-step">
+              <span class="step-label">Bước 2: Áp dụng công thức $l = R\alpha$:</span>
+              $$l = 30 \cdot \frac{2\pi}{3} = 20\pi \approx 62.83\text{ cm}.$$
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dạng 2 -->
+      <div class="example-card">
+        <div class="example-header">
+          <div class="example-tag">DẠNG 2: Cho 1 giá trị lượng giác, tính các giá trị còn lại (BẪY DẤU)</div>
+          <div class="example-badge">Mức độ 2: Thông hiểu (1.0 điểm)</div>
+        </div>
+        <div class="example-body">
+          <div class="example-problem">
+            <strong>Đề bài mẫu:</strong> Cho $\cos\alpha = -\frac{4}{5}$ với $\pi < \alpha < \frac{3\pi}{2}$. Tính $\sin\alpha, \tan\alpha, \cot\alpha$.
+          </div>
+          <div class="example-solution">
+            <div class="solution-step">
+              <span class="step-label">Bước 1: Dùng công thức $\sin^2\alpha + \cos^2\alpha = 1$:</span>
+              $$\sin^2\alpha = 1 - \cos^2\alpha = 1 - \left(-\frac{4}{5}\right)^2 = 1 - \frac{16}{25} = \frac{9}{25}$$
+            </div>
+            <div class="solution-step">
+              <span class="step-label">Bước 2 (BẪY CỰC NGUY HIỂM): Xét dấu góc phần tư:</span><br>
+              Vì $\pi < \alpha < \frac{3\pi}{2}$ thuộc <strong>Góc phần tư thứ III</strong>. Theo thần chú "Tam tan", ở góc III thì $\sin$ phải <strong>ÂM</strong>!<br>
+              $$\implies \sin\alpha = -\sqrt{\frac{9}{25}} = -\frac{3}{5}$$
+            </div>
+            <div class="solution-step">
+              <span class="step-label">Bước 3: Tính tan và cot:</span>
+              $$\tan\alpha = \frac{\sin\alpha}{\cos\alpha} = \frac{-3/5}{-4/5} = \frac{3}{4} \qquad \cot\alpha = \frac{1}{\tan\alpha} = \frac{4}{3}.$$
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dạng 3 -->
+      <div class="example-card">
+        <div class="example-header">
+          <div class="example-tag">DẠNG 3: Tìm Tập Xác Định của hàm số lượng giác</div>
+          <div class="example-badge">Mức độ 2: Thông hiểu (1.0 điểm)</div>
+        </div>
+        <div class="example-body">
+          <div class="example-problem">
+            <strong>Đề bài mẫu:</strong> Tìm tập xác định $D$ của hàm số $y = \frac{1 - \cos x}{\sin x}$.
+          </div>
+          <div class="example-solution">
+            <div class="solution-step">
+              <span class="step-label">Phương pháp:</span> Phân thức xác định khi <strong>Mẫu số khác 0</strong>:
+              $$\sin x \ne 0 \iff x \ne k\pi \quad (k \in \mathbb{Z})$$
+            </div>
+            <div class="solution-step">
+              <span class="step-label">Kết luận:</span> Tập xác định là $D = \mathbb{R} \setminus \{k\pi, k \in \mathbb{Z}\}$.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dạng 4 -->
+      <div class="example-card">
+        <div class="example-header">
+          <div class="example-tag">DẠNG 4: Tìm Giá Trị Lớn Nhất & Nhỏ Nhất (Min - Max)</div>
+          <div class="example-badge">Mức độ 2: Thông hiểu (0.5 điểm)</div>
+        </div>
+        <div class="example-body">
+          <div class="example-problem">
+            <strong>Đề bài mẫu:</strong> Tìm giá trị lớn nhất ($M$) và nhỏ nhất ($m$) của hàm số $y = 3\cos(2x - \frac{\pi}{4}) - 1$.
+          </div>
+          <div class="example-solution">
+            <div class="solution-step">
+              <span class="step-label">Phương pháp chặn:</span> Với mọi góc, cos luôn bị kẹp giữa $-1$ và $1$:
+              $$-1 \le \cos\left(2x - \frac{\pi}{4}\right) \le 1$$
+            </div>
+            <div class="solution-step">
+              <span class="step-label">Nhân 3 cho cả ba vế:</span> $-3 \le 3\cos\left(2x - \frac{\pi}{4}\right) \le 3$.
+            </div>
+            <div class="solution-step">
+              <span class="step-label">Trừ 1 cho cả ba vế:</span>
+              $$-3 - 1 \le y \le 3 - 1 \iff -4 \le y \le 2.$$
+              Vậy $M = \mathbf{2}$ (Max) và $m = \mathbf{-4}$ (Min).
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dạng 5 -->
+      <div class="example-card">
+        <div class="example-header">
+          <div class="example-tag">DẠNG 5: Giải Phương Trình Đưa Về Cùng Hàm Lượng Giác</div>
+          <div class="example-badge">Mức độ 2-3: Vận dụng (1.0 điểm)</div>
+        </div>
+        <div class="example-body">
+          <div class="example-problem">
+            <strong>Đề bài mẫu:</strong> Giải phương trình $\sin 3x = \cos x$.
+          </div>
+          <div class="example-solution">
+            <div class="solution-step">
+              <span class="step-label">Bước 1: Đưa về cùng hàm Sin bằng "Phụ chéo":</span><br>
+              Vì $\cos x = \sin(\frac{\pi}{2} - x)$, phương trình trở thành:
+              $$\sin 3x = \sin\left(\frac{\pi}{2} - x\right)$$
+            </div>
+            <div class="solution-step">
+              <span class="step-label">Bước 2: Áp dụng công thức 2 dòng của Sin:</span>
+              $$\left[\begin{array}{l}
+                3x = \frac{\pi}{2} - x + k2\pi \iff 4x = \frac{\pi}{2} + k2\pi \iff x = \frac{\pi}{8} + k\frac{\pi}{2} \\
+                3x = \pi - \left(\frac{\pi}{2} - x\right) + k2\pi \iff 2x = \frac{\pi}{2} + k2\pi \iff x = \frac{\pi}{4} + k\pi
+              \end{array}\right. \quad (k \in \mathbb{Z})$$
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dạng 6 -->
+      <div class="example-card">
+        <div class="example-header">
+          <div class="example-tag">DẠNG 6: Đếm số nghiệm của phương trình trên đoạn $[a; b]$</div>
+          <div class="example-badge">Mức độ 3: Câu phân loại điểm 8-9 (1.0 điểm)</div>
+        </div>
+        <div class="example-body">
+          <div class="example-problem">
+            <strong>Đề bài mẫu:</strong> Tìm số nghiệm của phương trình $\cos 2x = 0$ trên khoảng $(0; 2\pi)$.
+          </div>
+          <div class="example-solution">
+            <div class="solution-step">
+              <span class="step-label">Bước 1: Giải phương trình đặc biệt:</span>
+              $$\cos 2x = 0 \iff 2x = \frac{\pi}{2} + k\pi \iff x = \frac{\pi}{4} + k\frac{\pi}{2} \quad (k \in \mathbb{Z})$$
+            </div>
+            <div class="solution-step">
+              <span class="step-label">Bước 2: Kẹp nghiệm vào khoảng $(0; 2\pi)$:</span>
+              $$0 < \frac{\pi}{4} + k\frac{\pi}{2} < 2\pi$$
+              Chia cả 3 vế cho $\pi$:
+              $$0 < \frac{1}{4} + \frac{k}{2} < 2 \iff -\frac{1}{4} < \frac{k}{2} < \frac{7}{4} \iff -0.5 < k < 3.5$$
+            </div>
+            <div class="solution-step">
+              <span class="step-label">Bước 3: Đếm số nguyên $k$:</span> Vì $k \in \mathbb{Z} \implies k \in \{0, 1, 2, 3\}$.<br>
+              Có đúng 4 giá trị $k$ thỏa mãn $\implies$ Phương trình có <strong>4 nghiệm</strong>!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dạng 7 -->
+      <div class="example-card">
+        <div class="example-header">
+          <div class="example-tag">DẠNG 7: Xét tính tăng, giảm của dãy số</div>
+          <div class="example-badge">Mức độ 2: Thông hiểu (0.5 điểm)</div>
+        </div>
+        <div class="example-body">
+          <div class="example-problem">
+            <strong>Đề bài mẫu:</strong> Xét tính tăng, giảm của dãy số $(u_n)$ biết $u_n = \frac{2n - 1}{n + 1}$.
+          </div>
+          <div class="example-solution">
+            <div class="solution-step">
+              <span class="step-label">Bước 1: Viết số hạng $u_{n+1}$ (thay $n$ bằng $n+1$):</span>
+              $$u_{n+1} = \frac{2(n+1) - 1}{(n+1) + 1} = \frac{2n + 1}{n + 2}$$
+            </div>
+            <div class="solution-step">
+              <span class="step-label">Bước 2: Xét hiệu $u_{n+1} - u_n$:</span>
+              $$u_{n+1} - u_n = \frac{2n + 1}{n + 2} - \frac{2n - 1}{n + 1} = \frac{(2n+1)(n+1) - (2n-1)(n+2)}{(n+2)(n+1)}$$
+              $$= \frac{(2n^2 + 3n + 1) - (2n^2 + 3n - 2)}{(n+2)(n+1)} = \frac{3}{(n+2)(n+1)}$$
+            </div>
+            <div class="solution-step">
+              <span class="step-label">Kết luận:</span> Vì $n \ge 1$ nên mẫu $(n+2)(n+1) > 0 \implies \frac{3}{(n+2)(n+1)} > 0, \forall n \in \mathbb{N}^*$.<br>
+              Vậy $u_{n+1} > u_n \implies (u_n)$ là <strong>DÃY SỐ TĂNG</strong>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dạng 8 -->
+      <div class="example-card">
+        <div class="example-header">
+          <div class="example-tag">DẠNG 8: Bài toán thực tế Lãi Kép / Tăng Trưởng Dân Số</div>
+          <div class="example-badge">Mức độ 2-3: Vận dụng thực tế (0.5 điểm)</div>
+        </div>
+        <div class="example-body">
+          <div class="example-problem">
+            <strong>Đề bài mẫu:</strong> Ông An gửi 100 triệu đồng vào ngân hàng với lãi suất $6\%$/năm theo hình thức lãi kép. Sau $n$ năm, số tiền cả gốc lẫn lãi là $A_n = 100 \cdot (1 + 0.06)^n$ (triệu đồng). Hỏi sau 3 năm, ông An nhận được bao nhiêu tiền?
+          </div>
+          <div class="example-solution">
+            <div class="solution-step">
+              <span class="step-label">Thay $n = 3$ vào công thức:</span>
+              $$A_3 = 100 \cdot (1 + 0.06)^3 = 100 \cdot (1.06)^3 = 100 \cdot 1.191016 = 119.1016 \text{ (triệu đồng)}.$$
+            </div>
+            <div class="solution-step">
+              <span class="step-label">Kết luận:</span> Sau 3 năm, ông An nhận được xấp xỉ <strong>119,102 triệu đồng</strong> (lãi hơn 19 triệu đồng).
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========================================== -->
+    <!-- THỦ THUẬT CASIO FX-580VNX / FX-880BTG      -->
+    <!-- ========================================== -->
+    <section class="section-card" id="meo-casio">
+      <div class="section-header">
+        <div class="section-number">⚡</div>
+        <div>
+          <span class="tag-concept">BÍ KÍP PHÒNG THI</span>
+          <h2 class="section-title">Tuyệt Kỹ Casio Thực Chiến (Dành Cho Người Mất Gốc)</h2>
+          <p class="section-meta">Không nhớ công thức vẫn khoanh trúng trắc nghiệm trong 20 giây!</p>
+        </div>
+      </div>
+
+      <div class="box-casio">
+        <div class="box-casio-title">1. Tuyệt Kỹ CALC: Kiểm Tra Mọi Đẳng Thức Lượng Giác Trong 5 Giây</div>
+        Khi gặp câu: <em>"Đẳng thức nào sau đây đúng?"</em> với 4 đáp án A, B, C, D.<br>
+        • <strong>Bước 1:</strong> Chuyển vế thành: $(\text{Vế Trái}) - (\text{Vế Phải})$.<br>
+        • <strong>Bước 2:</strong> Nhập vào máy tính biểu thức vừa chuyển.<br>
+        • <strong>Bước 3:</strong> Bấm phím <span class="calc-key">CALC</span>, máy hỏi $X?$, bấm số bất kỳ (ví dụ $X = 1.345$).<br>
+        • <strong>Bước 4:</strong> Bấm dấu <span class="calc-key">=</span>. Nếu màn hình ra <strong>bằng 0</strong> (hoặc số siêu nhỏ như $10^{-12}$) $\implies$ <strong>KHOANH NGAY ĐÁP ÁN ĐÓ!</strong>
+      </div>
+
+      <div class="box-casio">
+        <div class="box-casio-title">2. Tuyệt Kỹ TABLE (Menu 8): Tìm Min, Max & Quét Dãy Số Tăng Giảm</div>
+        • Bấm <span class="calc-key">MENU</span> <span class="calc-key">8</span>.<br>
+        • Nhập hàm số hoặc dãy số $f(x)$ vào máy.<br>
+        • Cài đặt: $Start = 1$, $End = 15$, $Step = 1$.<br>
+        • Nhìn cột kết quả $f(x)$:<br>
+        &nbsp;&nbsp;- Số to nhất trong cột chính là <strong>GTLN (Max)</strong>.<br>
+        &nbsp;&nbsp;- Số nhỏ nhất trong cột chính là <strong>GTNN (Min)</strong>.<br>
+        &nbsp;&nbsp;- Nếu các số cứ tăng dần từ trên xuống dưới $\implies$ Dãy số TĂNG!
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="margin-top: 40px; padding: 28px; background: white; border-radius: var(--radius); border: 1px solid var(--gray-200); text-align: center;">
+      <h3 style="font-size: 18px; color: var(--primary); margin-bottom: 8px; font-weight: 800;">🌟 Cố lên bạn nhé! Bạn hoàn toàn có thể làm chủ kiến thức này!</h3>
+      <p style="font-size: 14px; color: #475569; margin-bottom: 0;">
+        Hãy đọc kỹ từng phần từ Mục 0 đến Bài 5, ghi chép lại các công thức màu vàng. Tuần sau khi thầy cô gọi lên bảng, bạn sẽ khiến cả lớp bất ngờ!
+      </p>
+    </footer>
+
+  </main>
+</div>
+
+<!-- FLOATING SCROLL TOP BUTTON -->
+<button class="floating-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Về đầu trang">↑</button>
+
+<!-- BOTTOM NAVIGATION BAR (DÀNH RIÊNG CHO ĐIỆN THOẠI) -->
+<nav class="mobile-bottom-nav">
+  <a href="#mat-goc-nhap-mon" class="mobile-nav-btn">
+    <span class="icon">🔥</span>
+    <span>Lấy Gốc</span>
+  </a>
+  <a href="#bai-1" class="mobile-nav-btn">
+    <span class="icon">📐</span>
+    <span>Lượng Giác</span>
+  </a>
+  <a href="#bai-5" class="mobile-nav-btn">
+    <span class="icon">🔢</span>
+    <span>Dãy Số</span>
+  </a>
+  <a href="#ma-tran-thi-giua-ki" class="mobile-nav-btn">
+    <span class="icon">🎯</span>
+    <span>Thi Giữa Kì</span>
+  </a>
+  <a href="#tong-hop-sgk" class="mobile-nav-btn">
+    <span class="icon">📚</span>
+    <span>Xem SGK</span>
+  </a>
+</nav>
+
+<!-- LIGHTBOX MODAL FOR IMAGES -->
+<div class="modal" id="imageModal" onclick="closeModal()">
+  <span class="modal-close">&times;</span>
+  <img src="" class="modal-content" id="modalImg" alt="Xem phóng to trang sách" onclick="event.stopPropagation()">
+</div>
+
+<script>
+  // DANH SÁCH 21 TRANG SGK ĐÃ ĐƯỢC ĐỊNH DANH ĐẦY ĐỦ
+  const pageList = [
+    { num: 1, title: "Trang 01 (SGK tr.5): Mở đầu Bài 1", raw: "2026-10-11 21_10_29-Hành trang số.png", alt: "2026-10-11 21_10_29-Ha`nh trang số.png" },
+    { num: 2, title: "Trang 02 (SGK tr.6-7): Hệ thức Chasles", raw: "2026-10-11 21_11_23-Hành trang số.png", alt: "2026-10-11 21_11_23-Ha`nh trang số.png" },
+    { num: 3, title: "Trang 03 (SGK tr.8-9): Đơn vị Radian", raw: "2026-10-11 21_11_32-Hành trang số.png", alt: "2026-10-11 21_11_32-Ha`nh trang số.png" },
+    { num: 4, title: "Trang 04 (SGK tr.10-11): Vòng tròn LG", raw: "2026-10-11 21_11_42-Hành trang số.png", alt: "2026-10-11 21_11_42-Ha`nh trang số.png" },
+    { num: 5, title: "Trang 05 (SGK tr.12-13): Bảng dấu & góc", raw: "2026-10-11 21_11_52-Hành trang số.png", alt: "2026-10-11 21_11_52-Ha`nh trang số.png" },
+    { num: 6, title: "Trang 06 (SGK tr.14-15): Góc liên kết", raw: "2026-10-11 21_12_01-Hành trang số.png", alt: "2026 10 11 21_12_01 Hành trang số.png" },
+    { num: 7, title: "Trang 07 (SGK tr.16-17): Bài 2 - Công thức cộng", raw: "2026-10-11 21_12_09-Hành trang số.png", alt: "2026 10 11 21_12_09 Hành trang số.png" },
+    { num: 8, title: "Trang 08 (SGK tr.18-19): Công thức nhân đôi", raw: "2026-10-11 21_12_18-Hành trang số.png", alt: "2026 10 11 21_12_18-Hành trang số.png" },
+    { num: 9, title: "Trang 09 (SGK tr.20-21): Tổng thành tích", raw: "2026-10-11 21_12_29-Hành trang số.png", alt: "2026 10 11 21_12_29-Hành trang số.png" },
+    { num: 10, title: "Trang 10 (SGK tr.22-23): Định nghĩa hàm số", raw: "2026-10-11 21_12_45-Hành trang số.png", alt: "2026 10 11 21_12_45-Hành trang số.png" },
+    { num: 11, title: "Trang 11 (SGK tr.24-25): Tính tuần hoàn", raw: "2026-10-11 21_12_52-Hành trang số.png", alt: "2026 10 11 21_12_52-Hành trang số.png" },
+    { num: 12, title: "Trang 12 (SGK tr.26-27): Đồ thị sin, cos", raw: "2026-10-11 21_13_03-Hành trang số.png", alt: "2026 10 11 21_13_03-Hành trang số.png" },
+    { num: 13, title: "Trang 13 (SGK tr.28-29): Đồ thị tan, cot", raw: "2026-10-11 21_13_14-Hành trang số.png", alt: "2026 10 11 21_13_14-Hành trang số.png" },
+    { num: 14, title: "Trang 14 (SGK tr.30-31): Phương trình TĐ", raw: "2026-10-11 21_13_24-Hành trang số.png", alt: "2026 10 11 21_13_24 Hành trang số.png" },
+    { num: 15, title: "Trang 15 (SGK tr.32-33): Giải sin x = m", raw: "2026-10-11 21_13_42-Hành trang số.png", alt: "2026 10 11 21_13_42-Hành trang số.png" },
+    { num: 16, title: "Trang 16 (SGK tr.34-35): Giải cos x = m", raw: "2026-10-11 21_13_54-Hành trang số.png", alt: "2026 10 11 21_13_54-Hành trang số.png" },
+    { num: 17, title: "Trang 17 (SGK tr.36-37): Giải tan & cot", raw: "2026-10-11 21_14_03-Hành trang số.png", alt: "2026 10 11 21_14_03-Hành trang số.png" },
+    { num: 18, title: "Trang 18 (SGK tr.38-39): Bấm Shift Solve", raw: "2026-10-11 21_14_16-Hành trang số.png", alt: "2026 10 11 21_14_16-Hành trang số.png" },
+    { num: 19, title: "Trang 19 (SGK tr.42-43): Mở đầu Dãy số", raw: "2026-10-11 21_15_04-Hành trang số.png", alt: "2026 10 11 21_15_04-Hành trang số.png" },
+    { num: 20, title: "Trang 20 (SGK tr.44-45): Dãy tăng, giảm", raw: "2026-10-11 21_15_17-Hành trang số.png", alt: "2026 10 11 21_15_17-Hành trang số.png" },
+    { num: 21, title: "Trang 21 (SGK tr.46-47): Dãy bị chặn", raw: "2026-10-11 21_15_28-Hành trang số.png", alt: "2026 10 11 21_15_28 Hành trang số.png" }
+  ];
+
+  // RENDER GALLERY WITH MULTI-STAGE FALLBACK
+  const gallery = document.getElementById('sgkGallery');
+  pageList.forEach(item => {
+    const pad = String(item.num).padStart(2, '0');
+    const card = document.createElement('div');
+    card.className = 'gallery-card';
+
+    const img = document.createElement('img');
+    img.className = 'gallery-thumb';
+    img.alt = item.title;
+
+    const candidates = [
+      item.raw,
+      encodeURI(item.raw),
+      item.alt,
+      encodeURI(item.alt),
+      `page_${pad}.png`,
+      `./page_${pad}.png`,
+      item.raw.normalize('NFC'),
+      item.raw.normalize('NFD')
+    ];
+
+    let currentIdx = 0;
+    function loadNext() {
+      if (currentIdx < candidates.length) {
+        const nextUrl = candidates[currentIdx++];
+        img.onerror = loadNext;
+        img.src = nextUrl;
+      } else {
+        img.onerror = null;
+        img.src = `https://placehold.co/400x300/e2e8f0/1e293b?text=Trang+${item.num}`;
+      }
+    }
+    loadNext();
+
+    const title = document.createElement('div');
+    title.className = 'gallery-title';
+    title.textContent = item.title;
+
+    card.appendChild(img);
+    card.appendChild(title);
+
+    card.onclick = function() {
+      openModal(img.src);
+    };
+
+    gallery.appendChild(card);
+  });
+
+  // LIGHTBOX MODAL
+  function openModal(src) {
+    const modal = document.getElementById('imageModal');
+    const modalImg = document.getElementById('modalImg');
+    modalImg.src = src;
+    modal.classList.add('show');
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('imageModal');
+    modal.classList.remove('show');
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // ACTIVE LINK ON SCROLL
+  window.addEventListener('scroll', function() {
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    let current = '';
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      if (pageYOffset >= sectionTop - 140) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) {
+        link.classList.add('active');
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
