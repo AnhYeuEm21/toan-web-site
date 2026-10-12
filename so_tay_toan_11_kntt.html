@@ -26,31 +26,121 @@
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
   <style>
+    /* ========================================================= */
+    /* 1. COLOR DESIGN TOKENS & DUAL THEME (DARK / LIGHT)       */
+    /* ========================================================= */
     :root {
+      /* DARK / AMOLED THEME (MẶC ĐỊNH SANG TRỌNG, DỊU MẮT) */
       --bg-app: #080d1a;
+      --bg-surface: #0f172a;
       --bg-card: #10172a;
-      --bg-card-hover: #131d33;
+      --bg-card-hover: #141f38;
       --bg-inner: #141e34;
       --border-color: #1e293b;
       --border-subtle: #243552;
-      
-      --primary: #3b82f6;
-      --gold: #f59e0b;
-      --gold-light: #fbbf24;
-      --emerald: #10b981;
-      --red: #ef4444;
-      --purple: #a855f7;
-      --cyan: #06b6d4;
       
       --text-primary: #f8fafc;
       --text-secondary: #94a3b8;
       --text-body: #e2e8f0;
       --text-muted: #64748b;
       
+      --primary: #3b82f6;
+      --primary-light: #60a5fa;
+      --primary-bg: #0c1e3d;
+      --primary-border: #1d4ed8;
+      
+      --gold: #f59e0b;
+      --gold-light: #fbbf24;
+      --gold-bg: #231806;
+      --gold-border: #d97706;
+      
+      --red: #ef4444;
+      --red-light: #f87171;
+      --red-bg: #2a0e13;
+      --red-border: #dc2626;
+      
+      --emerald: #10b981;
+      --emerald-light: #34d399;
+      --emerald-bg: #08231a;
+      --emerald-border: #059669;
+      
+      --purple: #a855f7;
+      --purple-light: #c084fc;
+      --purple-bg: #200f38;
+      --purple-border: #7e22ce;
+
+      --indigo: #6366f1;
+      --indigo-light: #818cf8;
+      --indigo-bg: #10162e;
+      --indigo-border: #4f46e5;
+
+      --topbar-bg: rgba(9, 14, 29, 0.95);
+      --topbar-border: #1e293b;
+      --tab-bg: #131c31;
+      --tab-text: #94a3b8;
+      
+      --card-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+      --box-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+      
       --radius-sm: 8px;
       --radius-md: 12px;
-      --radius-lg: 18px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
       --font-scale: 1;
+    }
+
+    [data-theme="light"] {
+      /* LIGHT THEME (TRONG SÁNG, TINH TẾ, ĐỘ TƯƠNG PHẢN CAO) */
+      --bg-app: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --bg-inner: #f1f5f9;
+      --border-color: #e2e8f0;
+      --border-subtle: #cbd5e1;
+      
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-body: #1e293b;
+      --text-muted: #64748b;
+      
+      --primary: #2563eb;
+      --primary-light: #1d4ed8;
+      --primary-bg: #eff6ff;
+      --primary-border: #93c5fd;
+      
+      --gold: #d97706;
+      --gold-light: #b45309;
+      --gold-bg: #fefce8;
+      --gold-border: #fde047;
+      
+      --red: #dc2626;
+      --red-light: #b91c1c;
+      --red-bg: #fef2f2;
+      --red-border: #fca5a5;
+      
+      --emerald: #059669;
+      --emerald-light: #047857;
+      --emerald-bg: #f0fdf4;
+      --emerald-border: #a7f3d0;
+      
+      --purple: #7e22ce;
+      --purple-light: #6b21a8;
+      --purple-bg: #faf5ff;
+      --purple-border: #d8b4fe;
+
+      --indigo: #4f46e5;
+      --indigo-light: #3730a3;
+      --indigo-bg: #eef2ff;
+      --indigo-border: #c7d2fe;
+
+      --topbar-bg: rgba(255, 255, 255, 0.95);
+      --topbar-border: #e2e8f0;
+      --tab-bg: #f1f5f9;
+      --tab-text: #475569;
+      
+      --card-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+      --box-shadow-sm: 0 1px 4px rgba(15, 23, 42, 0.05);
     }
 
     * {
@@ -75,53 +165,68 @@
       -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
       touch-action: pan-y;
+      transition: background-color 0.2s ease, color 0.2s ease;
     }
 
-    /* APP TOPBAR (STICKY HEADER - TỐI ƯU 120 FPS) */
+    /* MathJax Colors in Light Mode */
+    [data-theme="light"] mjx-container {
+      color: var(--text-primary) !important;
+    }
+    [data-theme="light"] .block-formula mjx-container,
+    [data-theme="light"] .combo-formula-strip mjx-container {
+      color: #78350f !important;
+    }
+
+    /* ========================================================= */
+    /* 2. TOPBAR HEADER (STICKY NAVIGATION & ACTION TOOLBAR)     */
+    /* ========================================================= */
     .app-topbar {
       position: sticky;
       top: 0;
       z-index: 1000;
-      background: #090e1d;
-      border-bottom: 1px solid var(--border-color);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+      background: var(--topbar-bg);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--topbar-border);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      transition: background-color 0.2s, border-color 0.2s;
     }
 
     .topbar-container {
-      max-width: 1000px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 10px 16px;
+      padding: 10px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 12px;
     }
 
     .topbar-left {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
     }
 
     .hamburger-btn {
-      background: #141f36;
+      background: var(--bg-inner);
       border: 1px solid var(--border-subtle);
-      color: var(--gold-light);
-      font-size: 20px;
+      color: var(--gold);
+      font-size: 19px;
       width: 38px;
       height: 38px;
-      border-radius: 10px;
+      border-radius: var(--radius-sm);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.15s;
+      transition: all 0.15s ease;
       flex-shrink: 0;
     }
 
     .hamburger-btn:hover,
     .hamburger-btn:active {
-      background: #1e2d4d;
+      background: var(--bg-card-hover);
       border-color: var(--gold);
     }
 
@@ -151,7 +256,7 @@
     }
 
     .brand-title {
-      font-size: 14.5px;
+      font-size: 15px;
       font-weight: 800;
       color: var(--text-primary);
       letter-spacing: 0.02em;
@@ -159,7 +264,7 @@
     }
 
     .brand-subtitle {
-      font-size: 9.5px;
+      font-size: 10px;
       font-weight: 700;
       color: var(--gold);
       letter-spacing: 0.04em;
@@ -168,75 +273,83 @@
       margin-top: 1px;
     }
 
+    /* TOPBAR ACTIONS GROUP */
     .topbar-actions {
       display: flex;
       align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .topbar-action-btn {
+      height: 34px;
+      padding: 0 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-inner);
+      color: var(--text-body);
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
       gap: 5px;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .topbar-action-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--gold);
+      color: var(--text-primary);
+    }
+
+    .topbar-action-btn:active {
+      transform: scale(0.97);
+    }
+
+    .font-scale-group {
+      display: flex;
+      gap: 2px;
+    }
+
+    .font-btn {
+      padding: 0 8px;
+      font-weight: 800;
+      font-size: 11px;
     }
 
     .btn-quick-cheat {
-      background: linear-gradient(135deg, #f59e0b 0%, #b45309 100%);
+      height: 34px;
+      padding: 0 12px;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
       color: #080d1a !important;
       font-weight: 800;
-      font-size: 11.5px;
-      padding: 6px 10px;
-      border-radius: 20px;
+      font-size: 12px;
       border: none;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 4px;
+      gap: 5px;
+      text-decoration: none;
       box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);
       white-space: nowrap;
-      text-decoration: none;
+      transition: all 0.15s ease;
     }
 
-    .action-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: #141f36;
-      border: 1px solid var(--border-subtle);
-      color: var(--gold-light);
-      font-size: 11px;
-      font-weight: 800;
-      padding: 5px 8px;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .action-pill.active {
-      background: rgba(245, 158, 11, 0.18);
-      border-color: var(--gold);
-    }
-
-    .pill-dot {
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background: #22c55e;
-      display: inline-block;
-      box-shadow: 0 0 6px #22c55e;
-    }
-
-    .action-icon-pill {
-      background: #141f36;
-      border: 1px solid var(--border-subtle);
-      color: var(--text-body);
-      font-size: 11.5px;
-      font-weight: 800;
-      padding: 5px 8px;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: all 0.15s;
+    .btn-quick-cheat:hover {
+      filter: brightness(1.1);
+      transform: translateY(-1px);
     }
 
     /* SEARCH BAR */
     .search-container {
-      max-width: 1000px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 0 16px 8px;
+      padding: 0 18px 8px;
     }
 
     .search-box {
@@ -255,8 +368,8 @@
 
     .search-box input {
       width: 100%;
-      height: 38px;
-      background: #10182b;
+      height: 36px;
+      background: var(--bg-inner);
       border: 1px solid var(--border-subtle);
       border-radius: 20px;
       padding: 0 34px 0 36px;
@@ -264,13 +377,13 @@
       font-size: 13.5px;
       font-family: inherit;
       outline: none;
-      transition: border-color 0.15s, box-shadow 0.15s;
+      transition: border-color 0.15s, box-shadow 0.15s, background-color 0.15s;
     }
 
     .search-box input:focus {
       border-color: var(--gold);
-      background: #141e34;
-      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+      background: var(--bg-surface);
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.18);
     }
 
     .search-clear {
@@ -286,9 +399,9 @@
 
     /* HORIZONTAL SCROLLABLE TABS */
     .horizontal-tabs-container {
-      max-width: 1000px;
+      max-width: 1400px;
       margin: 0 auto;
-      padding: 0 16px 10px;
+      padding: 0 18px 10px;
     }
 
     .horizontal-tabs {
@@ -305,11 +418,11 @@
     }
 
     .tab-pill {
-      padding: 7px 13px;
+      padding: 6px 13px;
       border-radius: 20px;
-      background: #131c31;
+      background: var(--tab-bg);
       border: 1px solid var(--border-subtle);
-      color: var(--text-secondary);
+      color: var(--tab-text);
       font-size: 12px;
       font-weight: 700;
       white-space: nowrap;
@@ -317,13 +430,13 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.15s;
+      transition: all 0.15s ease;
       flex-shrink: 0;
     }
 
     .tab-pill:hover,
     .tab-pill:active {
-      background: #18243e;
+      background: var(--bg-card-hover);
       color: var(--text-primary);
       border-color: var(--primary);
     }
@@ -333,17 +446,26 @@
       color: #080d1a !important;
       border-color: var(--gold) !important;
       font-weight: 800;
-      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+      box-shadow: 0 3px 10px rgba(245, 158, 11, 0.35);
     }
 
-    /* SLIDE-OUT SIDEBAR DRAWER (MỤC LỤC CHI TIẾT CẦM TAY CHỈ VIỆC) */
+    /* ========================================================= */
+    /* 3. DUAL-COLUMN RESPONSIVE LAYOUT & SIDEBAR                */
+    /* ========================================================= */
+    .layout-wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 18px 80px;
+    }
+
+    /* SIDEBAR DRAWER STYLING */
     .sidebar-overlay {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.7);
+      background: rgba(0, 0, 0, 0.65);
       z-index: 2500;
       opacity: 0;
       visibility: hidden;
@@ -356,35 +478,23 @@
     }
 
     .sidebar-drawer {
-      position: fixed;
-      top: 0;
-      left: -320px;
-      width: 300px;
-      height: 100%;
-      background: #0d1527;
-      border-right: 1px solid var(--border-color);
-      z-index: 2600;
-      transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
       display: flex;
       flex-direction: column;
-      box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
-    }
-
-    .sidebar-drawer.open {
-      left: 0;
     }
 
     .sidebar-header {
-      padding: 16px;
+      padding: 14px 16px;
       border-bottom: 1px solid var(--border-color);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background: #090e1d;
+      background: var(--bg-inner);
     }
 
     .sidebar-title {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
       color: var(--gold);
       display: flex;
@@ -398,13 +508,13 @@
       color: var(--text-secondary);
       font-size: 22px;
       cursor: pointer;
-      padding: 4px 8px;
+      padding: 2px 6px;
     }
 
     .sidebar-body {
       flex: 1;
       overflow-y: auto;
-      padding: 14px 10px;
+      padding: 12px 10px;
     }
 
     .sidebar-group-title {
@@ -413,50 +523,194 @@
       color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.05em;
-      padding: 8px 10px 4px;
+      padding: 10px 10px 4px;
     }
 
     .sidebar-nav-item {
       display: flex;
       align-items: center;
       gap: 10px;
-      padding: 9px 12px;
+      padding: 8px 12px;
       border-radius: var(--radius-sm);
       color: var(--text-body);
       text-decoration: none;
-      font-size: 13.5px;
+      font-size: 13px;
       font-weight: 600;
       margin-bottom: 3px;
-      transition: all 0.15s;
+      transition: all 0.15s ease;
     }
 
     .sidebar-nav-item:hover,
     .sidebar-nav-item.active {
-      background: #18243c;
-      color: var(--gold-light);
+      background: var(--bg-inner);
+      color: var(--gold);
+      font-weight: 700;
     }
 
     .sidebar-nav-item .icon {
-      font-size: 16px;
-      width: 22px;
+      font-size: 15px;
+      width: 20px;
       text-align: center;
     }
 
-    /* MAIN WRAPPER */
-    .app-main {
-      max-width: 1000px;
-      margin: 0 auto;
-      padding: 14px 16px calc(85px + env(safe-area-inset-bottom, 12px));
+    /* DESKTOP WIDESCREEN STYLING (>= 1024px) */
+    @media (min-width: 1024px) {
+      body:not(.view-mobile) .layout-wrapper {
+        display: flex;
+        gap: 28px;
+        align-items: flex-start;
+        padding: 24px 20px 60px;
+      }
+
+      body:not(.view-mobile) .sidebar-drawer {
+        position: sticky;
+        top: 135px;
+        left: 0;
+        width: 290px;
+        height: calc(100vh - 155px);
+        border-radius: var(--radius-md);
+        box-shadow: var(--box-shadow-sm);
+        flex-shrink: 0;
+        z-index: 100;
+      }
+
+      body:not(.view-mobile) .sidebar-overlay {
+        display: none !important;
+      }
+
+      body:not(.view-mobile) .sidebar-close {
+        display: none !important;
+      }
+
+      body:not(.view-mobile) .hamburger-btn {
+        display: none !important;
+      }
+
+      body:not(.view-mobile) .app-main {
+        flex: 1;
+        min-width: 0;
+        max-width: 1050px;
+        margin: 0;
+        padding: 0;
+      }
+
+      body:not(.view-mobile) .mobile-bottom-nav {
+        display: none !important;
+      }
+
+      body:not(.view-mobile) .floating-top-btn {
+        bottom: 24px;
+        right: 28px;
+      }
     }
 
+    /* MOBILE / TABLET SCREENS (< 1024px) */
+    @media (max-width: 1023px) {
+      .layout-wrapper {
+        display: block;
+        max-width: 760px;
+        margin: 0 auto;
+        padding: 14px 14px calc(80px + env(safe-area-inset-bottom, 12px));
+      }
+
+      .sidebar-drawer {
+        position: fixed;
+        top: 0;
+        left: -320px;
+        width: 300px;
+        height: 100%;
+        z-index: 2600;
+        transition: left 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .sidebar-drawer.open {
+        left: 0;
+      }
+
+      .app-main {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      .mobile-bottom-nav {
+        display: flex;
+      }
+    }
+
+    /* SIMULATED PHONE VIEWPORT MODE (CHẾ ĐỘ MÔ PHỎNG ĐIỆN THOẠI TRÊN MÁY TÍNH) */
+    body.view-mobile {
+      background: #020617 !important;
+      padding: 16px 0;
+    }
+
+    body.view-mobile .topbar-container,
+    body.view-mobile .search-container,
+    body.view-mobile .horizontal-tabs-container {
+      max-width: 480px;
+    }
+
+    body.view-mobile .layout-wrapper {
+      display: block;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 14px 14px 90px;
+      background: var(--bg-app);
+      border: 2px solid var(--border-subtle);
+      border-radius: 28px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7);
+      min-height: 800px;
+    }
+
+    body.view-mobile .sidebar-drawer {
+      position: fixed;
+      top: 0;
+      left: -320px;
+      width: 290px;
+      height: 100%;
+      z-index: 2600;
+    }
+
+    body.view-mobile .sidebar-drawer.open {
+      left: 0;
+    }
+
+    body.view-mobile .sidebar-overlay.open {
+      display: block;
+      opacity: 1;
+      visibility: visible;
+    }
+
+    body.view-mobile .hamburger-btn {
+      display: flex !important;
+    }
+
+    body.view-mobile .mobile-bottom-nav {
+      display: flex !important;
+      max-width: 480px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 16px 16px 0 0;
+    }
+
+    body.view-mobile .floating-top-btn {
+      right: calc(50% - 220px);
+      bottom: 80px;
+    }
+
+    /* ========================================================= */
+    /* 4. CONTENT CARDS, CALLOUTS & TYPOGRAPHY SYSTEM            */
+    /* ========================================================= */
+    
     /* HERO BANNER CARD */
     .hero-banner {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 22px 18px;
-      margin-bottom: 22px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+      padding: 24px 20px;
+      margin-bottom: 24px;
+      box-shadow: var(--card-shadow);
     }
 
     .hero-badge {
@@ -476,7 +730,7 @@
     }
 
     .hero-title {
-      font-size: 21px;
+      font-size: 22px;
       font-weight: 800;
       line-height: 1.35;
       color: var(--text-primary);
@@ -508,11 +762,17 @@
       }
     }
 
+    @media (min-width: 1024px) {
+      .metrics-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+
     .metric-card {
       background: var(--bg-inner);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 14px 10px;
+      border-radius: var(--radius-sm);
+      padding: 12px 10px;
       text-align: center;
     }
 
@@ -522,24 +782,24 @@
       color: var(--gold);
       font-family: 'JetBrains Mono', monospace;
       line-height: 1.2;
-      margin-bottom: 4px;
+      margin-bottom: 3px;
     }
 
     .metric-label {
-      font-size: 11.5px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--text-secondary);
-      line-height: 1.4;
+      line-height: 1.35;
     }
 
-    /* SECTION CARDS (TỐI ƯU CONTENT-VISIBILITY CHO TỐC ĐỘ 120 FPS) */
+    /* SECTION CARDS */
     .section-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 22px 18px;
+      padding: 26px 22px;
       margin-bottom: 24px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      box-shadow: var(--card-shadow);
       content-visibility: auto;
       contain-intrinsic-size: 1px 500px;
     }
@@ -547,92 +807,69 @@
     .section-header {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 18px;
-      padding-bottom: 14px;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
       border-bottom: 1px solid var(--border-color);
     }
 
     .section-number {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 12px;
-      background: var(--primary);
+      background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
       color: white;
+      font-size: 20px;
+      font-weight: 900;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 18px;
-      font-weight: 800;
       flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+    }
+
+    .tag-concept {
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--primary);
+      display: inline-block;
+      margin-bottom: 3px;
     }
 
     .section-title {
-      font-size: 18px;
+      font-size: 20px;
       font-weight: 800;
       color: var(--text-primary);
       line-height: 1.35;
     }
 
     .section-meta {
-      font-size: 12.5px;
+      font-size: 13px;
       color: var(--text-secondary);
-      font-weight: 500;
       margin-top: 3px;
-      line-height: 1.5;
     }
 
-    .tag-concept {
-      display: inline-block;
-      font-size: 10.5px;
+    .sub-title {
+      font-size: 16.5px;
       font-weight: 800;
-      text-transform: uppercase;
-      padding: 2px 8px;
-      border-radius: 6px;
-      background: #1e293b;
-      color: #93c5fd;
-      margin-bottom: 4px;
-      letter-spacing: 0.04em;
-    }
-
-    h3.sub-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--gold);
-      margin: 24px 0 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-left: 4px solid var(--gold);
-      padding-left: 10px;
+      color: var(--text-primary);
+      margin: 26px 0 14px;
+      padding-left: 12px;
+      border-left: 4px solid var(--primary);
       line-height: 1.4;
     }
 
-    h4.sub-sub-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin: 18px 0 8px;
-    }
-
-    p {
-      margin-bottom: 12px;
-      color: var(--text-body);
-      font-size: 15px;
-      line-height: 1.85;
-      overflow-wrap: break-word;
-    }
-
-    /* ========================================================= */
-    /* HỆ THỐNG PHÂN CẤP KHỐI MÀU (CHUẨN THEO BRIEF 10 ĐIỀU)     */
-    /* ========================================================= */
-
-    /* 1. KHỐI XANH LỤC/DƯƠNG: DỊCH SANG TIẾNG NGƯỜI & BẢN CHẤT */
-    .block-theory, .box-intuitive {
-      background: #092318;
-      border-left: 4px solid var(--emerald);
+    /* 1. KHỐI XANH DƯƠNG: LÝ THUYẾT DỊCH TIẾNG NGƯỜI */
+    .block-theory, .box-theory {
+      background: var(--primary-bg);
+      border-left: 4px solid var(--primary);
+      border-top: 1px solid var(--primary-border);
+      border-right: 1px solid var(--primary-border);
+      border-bottom: 1px solid var(--primary-border);
       border-radius: 0 var(--radius-md) var(--radius-md) 0;
-      padding: 16px;
+      padding: 16px 18px;
       margin: 18px 0;
       color: var(--text-body);
       font-size: 14.5px;
@@ -640,10 +877,10 @@
       overflow-wrap: break-word;
     }
 
-    .block-theory-title, .box-intuitive-title {
+    .block-theory-title, .box-theory-title {
       font-weight: 800;
-      color: #34d399;
-      font-size: 14.5px;
+      color: var(--primary);
+      font-size: 14px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -654,12 +891,12 @@
 
     /* 2. KHỐI VÀNG KIM: MỔ XẺ CÔNG THỨC ĐẾN TẬN GỐC RỄ */
     .block-formula, .box-formula {
-      background: #231806;
-      border: 2px solid var(--gold);
+      background: var(--gold-bg);
+      border: 1.5px solid var(--gold-border);
       border-radius: var(--radius-md);
-      padding: 16px;
+      padding: 16px 18px;
       margin: 18px 0;
-      color: #fef3c7;
+      color: var(--text-body);
       font-size: 14.5px;
       line-height: 1.85;
       overflow-x: auto;
@@ -669,7 +906,7 @@
     .block-formula-title, .box-formula-title {
       font-size: 14px;
       font-weight: 800;
-      color: var(--gold-light);
+      color: var(--gold);
       text-transform: uppercase;
       letter-spacing: 0.04em;
       margin-bottom: 10px;
@@ -679,21 +916,24 @@
     }
 
     .formula-breakdown {
-      margin-top: 10px;
+      margin-top: 12px;
       padding-top: 10px;
       border-top: 1px dashed rgba(245, 158, 11, 0.4);
       font-size: 13.5px;
-      color: #fed7aa;
+      color: var(--text-secondary);
     }
 
     /* 3. KHỐI ĐỎ: BẪY THƯỜNG GẶP, SAI NGU & NGOẠI LỆ TỬ THẦN */
     .block-trap, .box-trap {
-      background: #2a0e13;
+      background: var(--red-bg);
       border-left: 4px solid var(--red);
+      border-top: 1px solid var(--red-border);
+      border-right: 1px solid var(--red-border);
+      border-bottom: 1px solid var(--red-border);
       border-radius: 0 var(--radius-md) var(--radius-md) 0;
-      padding: 16px;
+      padding: 16px 18px;
       margin: 18px 0;
-      color: #fecaca;
+      color: var(--text-body);
       font-size: 14.5px;
       line-height: 1.85;
       overflow-wrap: break-word;
@@ -701,8 +941,8 @@
 
     .block-trap-title, .box-trap-title {
       font-weight: 800;
-      color: #f87171;
-      font-size: 14.5px;
+      color: var(--red);
+      font-size: 14px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -711,14 +951,17 @@
       letter-spacing: 0.03em;
     }
 
-    /* 4. KHỐI XANH DƯƠNG: VÍ DỤ THỰC TẾ & BỊA CÂU CHUYỆN BỰA */
+    /* 4. KHỐI EMERALD: VÍ DỤ THỰC TẾ & BỊA CÂU CHUYỆN BỰA */
     .block-story {
-      background: #0d1e3d;
-      border-left: 4px solid var(--primary);
+      background: var(--emerald-bg);
+      border-left: 4px solid var(--emerald);
+      border-top: 1px solid var(--emerald-border);
+      border-right: 1px solid var(--emerald-border);
+      border-bottom: 1px solid var(--emerald-border);
       border-radius: 0 var(--radius-md) var(--radius-md) 0;
-      padding: 16px;
+      padding: 16px 18px;
       margin: 18px 0;
-      color: #dbeafe;
+      color: var(--text-body);
       font-size: 14.5px;
       line-height: 1.85;
       overflow-wrap: break-word;
@@ -726,8 +969,8 @@
 
     .block-story-title {
       font-weight: 800;
-      color: #60a5fa;
-      font-size: 14.5px;
+      color: var(--emerald);
+      font-size: 14px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -738,12 +981,15 @@
 
     /* 5. KHỐI TÍM: TUYỆT KỸ BẤM MÁY CASIO */
     .block-casio, .box-casio {
-      background: #200f38;
+      background: var(--purple-bg);
       border-left: 4px solid var(--purple);
+      border-top: 1px solid var(--purple-border);
+      border-right: 1px solid var(--purple-border);
+      border-bottom: 1px solid var(--purple-border);
       border-radius: 0 var(--radius-md) var(--radius-md) 0;
-      padding: 16px;
+      padding: 16px 18px;
       margin: 18px 0;
-      color: #f3e8ff;
+      color: var(--text-body);
       font-size: 14.5px;
       line-height: 1.85;
       overflow-wrap: break-word;
@@ -751,8 +997,8 @@
 
     .block-casio-title, .box-casio-title {
       font-weight: 800;
-      color: #c084fc;
-      font-size: 14.5px;
+      color: var(--purple-light);
+      font-size: 14px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -761,43 +1007,33 @@
       letter-spacing: 0.03em;
     }
 
-    .casio-grid-2col {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 12px;
-      margin-top: 10px;
-    }
-
-    /* ========================================================= */
-    /* TOOLTIP GIẢI NGHĨA TỨC THÌ (CHỐNG LÚ TỪ VỰNG TIẾNG NGƯỜI) */
-    /* ========================================================= */
+    /* TOOLTIP GIẢI NGHĨA TỨC THÌ */
     .tip-term {
-      position: relative;
-      display: inline-block;
-      color: #38bdf8;
-      font-weight: 700;
+      color: var(--gold);
+      border-bottom: 1.5px dashed var(--gold);
       cursor: help;
-      border-bottom: 1.5px dotted #38bdf8;
-      padding: 0 2px;
+      position: relative;
+      font-weight: 700;
+      display: inline-block;
+      user-select: none;
     }
 
     .tip-term::after {
-      content: attr(data-tip);
+      content: attr(data-tooltip);
       position: absolute;
-      bottom: 130%;
+      bottom: calc(100% + 8px);
       left: 50%;
       transform: translateX(-50%);
-      background: #0a1122;
-      color: #f8fafc;
-      border: 1.5px solid var(--gold);
-      border-radius: 8px;
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
       padding: 8px 12px;
+      border-radius: var(--radius-sm);
       font-size: 12.5px;
       line-height: 1.5;
-      white-space: normal;
       width: max-content;
-      max-width: 260px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+      max-width: 280px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.2s, visibility 0.2s;
@@ -815,15 +1051,15 @@
     }
 
     /* ========================================================= */
-    /* TÍNH NĂNG TƯƠNG TÁC (INTERACTIVE FLASHCARDS & REVEAL)     */
+    /* 5. TÍNH NĂNG TƯƠNG TÁC (INTERACTIVE FLASHCARDS & REVEAL)  */
     /* ========================================================= */
     .interactive-card {
-      background: #111a2e;
+      background: var(--bg-inner);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       margin: 18px 0;
-      padding: 16px;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+      padding: 16px 18px;
+      box-shadow: var(--box-shadow-sm);
     }
 
     .interactive-header {
@@ -831,8 +1067,8 @@
       align-items: center;
       gap: 8px;
       font-weight: 800;
-      font-size: 14.5px;
-      color: var(--gold-light);
+      font-size: 14px;
+      color: var(--gold);
       margin-bottom: 10px;
     }
 
@@ -848,16 +1084,16 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: #1a2744;
+      background: var(--primary-bg);
       border: 1px solid var(--primary);
-      color: #93c5fd;
+      color: var(--primary);
       font-family: inherit;
       font-size: 13px;
       font-weight: 700;
       padding: 8px 16px;
       border-radius: 20px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
     }
 
     .btn-reveal:hover,
@@ -871,7 +1107,7 @@
       display: none;
       margin-top: 14px;
       padding: 14px;
-      background: #0a1120;
+      background: var(--bg-surface);
       border-radius: var(--radius-sm);
       border-left: 3px solid var(--gold);
       animation: fadeIn 0.25s ease;
@@ -882,65 +1118,65 @@
     }
 
     /* ========================================================= */
-    /* PHẦN THỰC CHIẾN 3 BƯỚC: STEP-BY-STEP                     */
+    /* 6. PHẦN THỰC CHIẾN 3 BƯỚC: STEP-BY-STEP                   */
     /* ========================================================= */
     .example-card {
       background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
       margin: 20px 0;
       overflow: hidden;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+      box-shadow: var(--box-shadow-sm);
     }
 
     .example-header {
-      background: #152037;
+      background: var(--bg-inner);
       padding: 12px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-color);
       gap: 8px;
     }
 
     .example-tag {
       font-weight: 800;
       font-size: 13.5px;
-      color: #60a5fa;
+      color: var(--primary);
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
     .example-badge {
-      font-size: 10.5px;
-      background: #080d1a;
+      font-size: 11px;
+      background: var(--bg-card);
       padding: 3px 10px;
       border-radius: 12px;
       font-weight: 700;
-      color: var(--gold-light);
-      border: 1px solid rgba(245, 158, 11, 0.3);
+      color: var(--gold);
+      border: 1px solid var(--border-subtle);
       flex-shrink: 0;
     }
 
     .example-body {
-      padding: 16px 14px;
+      padding: 18px 16px;
     }
 
     .example-problem {
       font-weight: 700;
       color: var(--text-primary);
       margin-bottom: 14px;
-      line-height: 1.65;
+      line-height: 1.7;
       font-size: 14.5px;
     }
 
     .step-box {
       margin-bottom: 12px;
       padding: 12px 14px;
-      background: #0b1222;
+      background: var(--bg-inner);
       border-radius: var(--radius-sm);
-      border: 1px solid #1a2744;
+      border: 1px solid var(--border-subtle);
     }
 
     .step-title {
@@ -961,8 +1197,8 @@
 
     /* MINDMAP & DIAGRAM CONTAINER */
     .mindmap-card {
-      background: #0a1122;
-      border: 1px solid #243552;
+      background: var(--bg-inner);
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       padding: 16px;
       margin: 18px 0;
@@ -997,7 +1233,7 @@
     }
 
     .data-table th {
-      background: #18243c;
+      background: var(--bg-inner);
       color: var(--text-primary);
       font-weight: 800;
       padding: 11px 12px;
@@ -1007,12 +1243,12 @@
 
     .data-table td {
       padding: 10px 12px;
-      border-bottom: 1px solid #1a253a;
+      border-bottom: 1px solid var(--border-color);
       line-height: 1.6;
     }
 
-    .data-table tr:nth-child(even) { background: #0d1527; }
-    .data-table tr:nth-child(odd) { background: #10172a; }
+    .data-table tr:nth-child(even) { background: var(--bg-inner); }
+    .data-table tr:nth-child(odd) { background: var(--bg-card); }
 
     /* GALLERY COLLAPSIBLE TOGGLE & GRID */
     .sgk-toggle-bar {
@@ -1024,13 +1260,13 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: #141f36;
-      border: 1px solid var(--gold);
-      color: var(--gold-light);
+      background: var(--bg-inner);
+      border: 1.5px solid var(--gold);
+      color: var(--gold);
       font-family: inherit;
       font-size: 13.5px;
       font-weight: 800;
-      padding: 10px 18px;
+      padding: 10px 20px;
       border-radius: 24px;
       cursor: pointer;
       box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
@@ -1038,7 +1274,7 @@
     }
 
     .btn-toggle-gallery:active { transform: scale(0.97); }
-    .btn-toggle-gallery.active { background: rgba(245, 158, 11, 0.2); }
+    .btn-toggle-gallery.active { background: rgba(245, 158, 11, 0.15); }
 
     .gallery-badge-count {
       background: var(--gold);
@@ -1084,7 +1320,7 @@
       height: 180px;
       object-fit: cover;
       display: block;
-      background: #080d1a;
+      background: var(--bg-surface);
     }
 
     .gallery-title {
@@ -1094,7 +1330,7 @@
       color: var(--text-body);
       text-align: center;
       line-height: 1.35;
-      background: #111a2e;
+      background: var(--bg-inner);
     }
 
     /* MODAL LIGHTBOX */
@@ -1163,13 +1399,13 @@
       right: 0;
       z-index: 1000;
       min-height: 64px;
-      background: #090e1d;
+      background: var(--topbar-bg);
       border-top: 1px solid var(--border-color);
       display: flex;
       justify-content: space-around;
       align-items: center;
       padding: 6px 4px max(10px, env(safe-area-inset-bottom, 10px));
-      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.3);
     }
 
     .mobile-nav-btn {
@@ -1199,30 +1435,32 @@
     }
 
     kbd {
-      background: #1e293b;
-      color: #f1f5f9;
-      border: 1px solid #334155;
+      background: var(--bg-inner);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
       border-radius: 4px;
       padding: 2px 6px;
       font-size: 12px;
       font-family: 'JetBrains Mono', monospace;
-      box-shadow: 0 2px 0 #0f172a;
+      box-shadow: 0 2px 0 var(--border-color);
+    }
+
     /* ========================================================= */
     /* 11. GÓC HỒI TƯỞNG - TRIỆU HỒI KIẾN THỨC LỚP 10 (ACCORDION)*/
     /* ========================================================= */
     .recall-box {
-      background: #0f1629;
-      border: 1.5px dashed #818cf8;
+      background: var(--indigo-bg);
+      border: 1.5px dashed var(--indigo-border);
       border-radius: var(--radius-md);
       margin: 18px 0;
       overflow: hidden;
-      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.15);
+      box-shadow: var(--box-shadow-sm);
       transition: border-color 0.2s;
     }
 
     .recall-toggle {
       width: 100%;
-      background: #141c38;
+      background: var(--indigo-bg);
       border: none;
       padding: 12px 16px;
       display: flex;
@@ -1231,7 +1469,7 @@
       gap: 10px;
       cursor: pointer;
       font-family: inherit;
-      color: #c7d2fe;
+      color: var(--indigo-light);
       font-size: 13.5px;
       font-weight: 800;
       text-align: left;
@@ -1240,8 +1478,8 @@
 
     .recall-toggle:hover,
     .recall-toggle:active {
-      background: #1c274e;
-      color: #e0e7ff;
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--indigo);
     }
 
     .recall-header-left {
@@ -1252,7 +1490,7 @@
     }
 
     .recall-badge {
-      background: #4f46e5;
+      background: var(--indigo);
       color: white;
       font-size: 10px;
       font-weight: 800;
@@ -1265,7 +1503,7 @@
 
     .recall-arrow {
       font-size: 12px;
-      color: #818cf8;
+      color: var(--indigo);
       transition: transform 0.2s ease;
       flex-shrink: 0;
     }
@@ -1277,12 +1515,12 @@
     .recall-content {
       display: none;
       padding: 16px;
-      background: #0c1222;
-      border-top: 1px dashed rgba(129, 140, 248, 0.3);
+      background: var(--bg-surface);
+      border-top: 1px dashed var(--indigo-border);
       animation: fadeIn 0.25s ease;
       font-size: 14px;
       line-height: 1.85;
-      color: #e2e8f0;
+      color: var(--text-body);
     }
 
     .recall-box.open .recall-content {
@@ -1293,11 +1531,11 @@
       display: inline-block;
       margin-top: 10px;
       padding: 6px 12px;
-      background: rgba(99, 102, 241, 0.15);
-      border-left: 3px solid #6366f1;
+      background: rgba(99, 102, 241, 0.12);
+      border-left: 3px solid var(--indigo);
       border-radius: 0 6px 6px 0;
       font-size: 12.5px;
-      color: #a5b4fc;
+      color: var(--indigo-light);
       font-style: italic;
     }
 
@@ -1312,15 +1550,15 @@
     }
 
     .combo-card {
-      background: #0d1527;
-      border: 1.5px solid #f59e0b;
+      background: var(--bg-card);
+      border: 1.5px solid var(--gold);
       border-radius: var(--radius-md);
       overflow: hidden;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+      box-shadow: var(--card-shadow);
     }
 
     .combo-header {
-      background: linear-gradient(135deg, #1f1a09 0%, #291e05 100%);
+      background: var(--gold-bg);
       padding: 12px 16px;
       display: flex;
       align-items: center;
@@ -1333,14 +1571,14 @@
     .combo-title {
       font-size: 15px;
       font-weight: 800;
-      color: var(--gold-light);
+      color: var(--gold);
       display: flex;
       align-items: center;
       gap: 8px;
     }
 
     .combo-badge-tag {
-      background: #f59e0b;
+      background: var(--gold);
       color: #080d1a;
       font-size: 10.5px;
       font-weight: 900;
@@ -1355,18 +1593,18 @@
     }
 
     .combo-signal {
-      background: #172138;
-      border-left: 3px solid #38bdf8;
+      background: var(--primary-bg);
+      border-left: 3px solid var(--primary);
       border-radius: 0 8px 8px 0;
       padding: 10px 14px;
       margin-bottom: 12px;
       font-size: 13.5px;
-      color: #e0f2fe;
+      color: var(--text-body);
     }
 
     .combo-signal-label {
       font-weight: 800;
-      color: #38bdf8;
+      color: var(--primary);
       font-size: 12.5px;
       text-transform: uppercase;
       display: flex;
@@ -1376,12 +1614,12 @@
     }
 
     .combo-formula-strip {
-      background: #080e1c;
+      background: var(--gold-bg);
       border: 1px solid rgba(245, 158, 11, 0.5);
       border-radius: 8px;
       padding: 14px;
       margin-bottom: 12px;
-      color: #fef08a;
+      color: var(--gold-light);
       font-size: 14.5px;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
@@ -1389,18 +1627,18 @@
 
     .combo-logic {
       font-size: 13.5px;
-      color: #94a3b8;
+      color: var(--text-secondary);
       line-height: 1.7;
       margin-bottom: 10px;
     }
 
     .combo-example-box {
-      background: #091322;
-      border: 1px solid #1a2744;
+      background: var(--bg-inner);
+      border: 1px solid var(--border-subtle);
       border-radius: 8px;
       padding: 12px 14px;
       font-size: 13.5px;
-      color: #cbd5e1;
+      color: var(--text-body);
     }
 
     @keyframes fadeIn {
@@ -1430,39 +1668,6 @@
 </head>
 <body>
 
-  <!-- SIDEBAR OVERLAY & DRAWER (MỤC LỤC CHỐNG NGỢP TRÊN DI ĐỘNG & MÁY TÍNH) -->
-  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
-  <aside class="sidebar-drawer" id="sidebarDrawer">
-    <div class="sidebar-header">
-      <div class="sidebar-title">
-        <span>📚</span> MỤC LỤC TOÀN TẬP
-      </div>
-      <button class="sidebar-close" onclick="toggleSidebar()" aria-label="Đóng">&times;</button>
-    </div>
-    <div class="sidebar-body">
-      <div class="sidebar-group-title">Khởi Động & Bản Chất</div>
-      <a href="#loi-chuc" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">⭐</span> Tổng Quan Đại Thư Viện</a>
-      <a href="#tu-dien-mat-goc" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">📖</span> Từ Điển Giải Mã Ký Hiệu</a>
-      <a href="#tong-hop-sgk" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">📚</span> 21 Trang SGK Gốc (Zoom HD)</a>
-
-      <div class="sidebar-group-title">Chương I: Lượng Giác A-Z</div>
-      <a href="#bai-1" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">📐</span> Bài 1: Giá Trị Lượng Giác</a>
-      <a href="#bai-2" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">➕</span> Bài 2: Công Thức Lượng Giác</a>
-      <a href="#bai-3" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">📈</span> Bài 3: Hàm Số Lượng Giác</a>
-      <a href="#bai-4" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">🎯</span> Bài 4: Phương Trình Lượng Giác</a>
-
-      <div class="sidebar-group-title">Chương II: Dãy Số A-Z</div>
-      <a href="#bai-5" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">🔢</span> Bài 5: Dãy Số (Tăng, Giảm, Bị Chặn)</a>
-
-      <div class="sidebar-group-title">Thực Chiến & Phòng Thi</div>
-      <a href="#cong-thuc-combo" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">🧩</span> Công Thức Combo (Lắp Ráp)</a>
-      <a href="#ma-tran-thi-giua-ki" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">🏆</span> 10 Dạng Toán Trọng Tâm Thi GK</a>
-      <a href="#giai-sgk-trong-tam" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">✍️</span> 32 Bài Tập SGK Step-by-Step</a>
-      <a href="#meo-casio" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">⚡</span> Casio 580 & 880 (10 Giây)</a>
-      <a href="#phao-cuu-sinh" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">🔥</span> Trùm Cuối: Bí Kíp 5 Phút Trước Giờ G</a>
-    </div>
-  </aside>
-
   <!-- APP TOPBAR (STICKY HEADER) -->
   <header class="app-topbar">
     <div class="topbar-container">
@@ -1477,9 +1682,26 @@
         </a>
       </div>
       <div class="topbar-actions">
+        <!-- Nút Đổi Chế Độ Sáng / Tối -->
+        <button class="topbar-action-btn" id="themeToggleBtn" onclick="toggleTheme()" title="Chuyển chế độ Sáng / Tối">
+          <span id="themeIcon">☀️</span>
+          <span class="btn-text" id="themeLabel">Sáng</span>
+        </button>
+
+        <!-- Nút Chuyển Đổi Giao Diện Máy Tính / Điện Thoại -->
+        <button class="topbar-action-btn" id="viewModeBtn" onclick="toggleViewMode()" title="Chuyển chế độ xem Máy tính / Điện thoại">
+          <span id="viewModeIcon">📱</span>
+          <span class="btn-text" id="viewModeLabel">Bản ĐT</span>
+        </button>
+
+        <!-- Tăng / Giảm Cỡ Chữ -->
+        <div class="font-scale-group">
+          <button class="topbar-action-btn font-btn" onclick="changeFontSize(-0.1)" title="Giảm cỡ chữ">A-</button>
+          <button class="topbar-action-btn font-btn" onclick="changeFontSize(0.1)" title="Tăng cỡ chữ">A+</button>
+        </div>
+
+        <!-- Phao Giờ G 5 Phút -->
         <a href="#phao-cuu-sinh" class="btn-quick-cheat" title="Bí kíp 1 trang tụng trước giờ G">🔥 Phao 5p</a>
-        <button class="action-icon-pill" onclick="changeFontSize(-0.1)" title="Giảm cỡ chữ">A-</button>
-        <button class="action-icon-pill" onclick="changeFontSize(0.1)" title="Tăng cỡ chữ">A+</button>
       </div>
     </div>
 
@@ -1512,50 +1734,86 @@
     </nav>
   </header>
 
-  <!-- MAIN WRAPPER -->
-  <main class="app-main">
-    
-    <!-- HERO BANNER CARD -->
-    <section class="hero-banner" id="loi-chuc">
-      <div class="hero-badge">🔥 TÀI LIỆU CHUYÊN BIỆT • DỊCH TOÀN BỘ SGK SANG TIẾNG NGƯỜI</div>
-      <h1 class="hero-title">
-        ĐẠI THƯ VIỆN TOÀN TẬP TOÁN 11<br>
-        <span class="gold-text">& CẨM NANG MẤT GỐC CHUẨN KNTT</span>
-      </h1>
-      <p class="hero-desc">
-        Không bỏ sót bất kỳ ngóc ngách nào của 5 bài học bị lỡ (Bài 1, 2, 3, 4, 5). 
-        Toàn bộ định nghĩa hàn lâm được băm nát thành ngôn ngữ đời thường, kèm ví dụ thực tế vui bựa, 
-        mổ xẻ công thức đến tận gốc rễ, điểm mặt từng bẫy sai ngu và hướng dẫn giải bài tập 3 bước step-by-step!
-      </p>
+  <!-- LAYOUT WRAPPER (CHỨA CẢ SIDEBAR VÀ PHẦN NỘI DUNG CHÍNH) -->
+  <div class="layout-wrapper" id="layoutWrapper">
 
-      <!-- METRIC STAT CARDS GRID -->
-      <div class="metrics-grid">
-        <div class="metric-card">
-          <div class="metric-val">5</div>
-          <div class="metric-label">Bài Học Bị Lỡ (A - Z)</div>
+    <!-- SIDEBAR OVERLAY & DRAWER (MỤC LỤC BÊN TRÁI TRÊN PC, DRAWER TRÊN ĐT) -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+    <aside class="sidebar-drawer" id="sidebarDrawer">
+      <div class="sidebar-header">
+        <div class="sidebar-title">
+          <span>📚</span> MỤC LỤC TOÀN TẬP
         </div>
-        <div class="metric-card">
-          <div class="metric-val">10</div>
-          <div class="metric-label">Dạng Toán Giữa Kì</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">32</div>
-          <div class="metric-label">Bài Tập SGK 3 Bước</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">21</div>
-          <div class="metric-label">Trang Sách Kèm Zoom</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">100%</div>
-          <div class="metric-label">Tiếng Người Dễ Hiểu</div>
-        </div>
-        <div class="metric-card">
-          <div class="metric-val">5 Phút</div>
-          <div class="metric-label">Phao Cứu Sinh Giờ G</div>
-        </div>
+        <button class="sidebar-close" onclick="toggleSidebar()" aria-label="Đóng">&times;</button>
       </div>
-    </section>
+      <div class="sidebar-body">
+        <div class="sidebar-group-title">Khởi Động & Bản Chất</div>
+        <a href="#loi-chuc" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">⭐</span> Tổng Quan Đại Thư Viện</a>
+        <a href="#tu-dien-mat-goc" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">📖</span> Từ Điển Giải Mã Ký Hiệu</a>
+        <a href="#tong-hop-sgk" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">📚</span> 21 Trang SGK Gốc (Zoom HD)</a>
+
+        <div class="sidebar-group-title">Chương I: Lượng Giác A-Z</div>
+        <a href="#bai-1" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">📐</span> Bài 1: Giá Trị Lượng Giác</a>
+        <a href="#bai-2" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">➕</span> Bài 2: Công Thức Lượng Giác</a>
+        <a href="#bai-3" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">📈</span> Bài 3: Hàm Số Lượng Giác</a>
+        <a href="#bai-4" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">🎯</span> Bài 4: Phương Trình Lượng Giác</a>
+
+        <div class="sidebar-group-title">Chương II: Dãy Số A-Z</div>
+        <a href="#bai-5" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">🔢</span> Bài 5: Dãy Số (Tăng, Giảm, Bị Chặn)</a>
+
+        <div class="sidebar-group-title">Thực Chiến & Phòng Thi</div>
+        <a href="#cong-thuc-combo" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">🧩</span> Công Thức Combo (Lắp Ráp)</a>
+        <a href="#ma-tran-thi-giua-ki" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">🏆</span> 10 Dạng Toán Trọng Tâm Thi GK</a>
+        <a href="#giai-sgk-trong-tam" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">✍️</span> 32 Bài Tập SGK Step-by-Step</a>
+        <a href="#meo-casio" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">⚡</span> Casio 580 & 880 (10 Giây)</a>
+        <a href="#phao-cuu-sinh" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">🔥</span> Trùm Cuối: Bí Kíp 5 Phút Trước Giờ G</a>
+      </div>
+    </aside>
+
+    <!-- MAIN WRAPPER (NỘI DUNG CHÍNH) -->
+    <main class="app-main" id="mainContent">
+      
+      <!-- HERO BANNER CARD -->
+      <section class="hero-banner" id="loi-chuc">
+        <div class="hero-badge">🔥 TÀI LIỆU CHUYÊN BIỆT • DỊCH TOÀN BỘ SGK SANG TIẾNG NGƯỜI</div>
+        <h1 class="hero-title">
+          ĐẠI THƯ VIỆN TOÀN TẬP TOÁN 11<br>
+          <span class="gold-text">& CẨM NANG MẤT GỐC CHUẨN KNTT</span>
+        </h1>
+        <p class="hero-desc">
+          Không bỏ sót bất kỳ ngóc ngách nào của 5 bài học bị lỡ (Bài 1, 2, 3, 4, 5). 
+          Toàn bộ định nghĩa hàn lâm được băm nát thành ngôn ngữ đời thường, kèm ví dụ thực tế vui bựa, 
+          mổ xẻ công thức đến tận gốc rễ, điểm mặt từng bẫy sai ngu và hướng dẫn giải bài tập 3 bước step-by-step!
+        </p>
+
+        <!-- METRIC STAT CARDS GRID -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-val">5</div>
+            <div class="metric-label">Bài Học Bị Lỡ (A - Z)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">10</div>
+            <div class="metric-label">Dạng Toán Giữa Kì</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">32</div>
+            <div class="metric-label">Bài Tập SGK 3 Bước</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">21</div>
+            <div class="metric-label">Trang Sách Kèm Zoom</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">100%</div>
+            <div class="metric-label">Tiếng Người Dễ Hiểu</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-val">5 Phút</div>
+            <div class="metric-label">Phao Cứu Sinh Giờ G</div>
+          </div>
+        </div>
+      </section>
 
     <!-- =================================================================== -->
     <!-- BƯỚC 0: TỪ ĐIỂN MẤT GỐC & CHỐNG LÚ TỪ VỰNG TIẾNG NGƯỜI                -->
@@ -4166,15 +4424,15 @@
           ⚠️ <strong>Lưu ý sống còn:</strong> 80% học sinh mất điểm vô lý là do máy tính đang ở chữ <strong>D (Degree - Độ)</strong> mà lại đi tính $\sin\frac{\pi}{3}$! Đề bài có chữ $\pi$ thì máy tính <strong>BẮT BUỘC PHẢI HIỆN CHỮ R (Radian)</strong>!
         </p>
         <div class="casio-grid-2col">
-          <div style="background: #141e34; padding: 14px; border-radius: 8px; border: 1px solid #2d3e63;">
-            <strong style="color: #c084fc;">Trên Casio FX-580VNX:</strong><br>
+          <div style="background: var(--bg-inner); padding: 14px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+            <strong style="color: var(--purple-light);">Trên Casio FX-580VNX:</strong><br>
             • Bấm <kbd>SHIFT</kbd> $\to$ <kbd>MENU</kbd> (Setup).<br>
             • Bấm phím số <kbd>2</kbd> (Đơn vị góc / Angle Unit).<br>
             • Chọn <kbd>1</kbd> để về Độ (chữ <strong>D</strong>).<br>
             • Chọn <kbd>2</kbd> để về Radian (chữ <strong>R</strong>).
           </div>
-          <div style="background: #141e34; padding: 14px; border-radius: 8px; border: 1px solid #2d3e63;">
-            <strong style="color: #c084fc;">Trên Casio FX-880BTG:</strong><br>
+          <div style="background: var(--bg-inner); padding: 14px; border-radius: 8px; border: 1px solid var(--border-subtle);">
+            <strong style="color: var(--purple-light);">Trên Casio FX-880BTG:</strong><br>
             • Bấm phím <kbd>SETTINGS</kbd>.<br>
             • Chọn dòng <kbd>Cài đặt phép tính</kbd> (Calc Settings) $\to$ <kbd>OK</kbd>.<br>
             • Chọn dòng <kbd>Đơn vị góc</kbd> (Angle Unit) $\to$ <kbd>OK</kbd>.<br>
@@ -4201,7 +4459,7 @@
         <p>
           Phương pháp "quét sạch" toàn bộ giá trị hàm số trên 1 chu kì để tìm giá trị cao nhất và thấp nhất:
         </p>
-        <div style="background: #141e34; padding: 14px; border-radius: 8px; border: 1px solid #2d3e63; margin-top: 10px;">
+        <div style="background: var(--bg-inner); padding: 14px; border-radius: 8px; border: 1px solid var(--border-subtle); margin-top: 10px;">
           • <strong>Bước 1:</strong> Chuyển máy về chế độ Radian (chữ <strong>R</strong>).<br>
           • <strong>Bước 2:</strong> Vào chức năng Table:<br>
           - Trên 580VNX: Bấm <kbd>MENU</kbd> $\to$ phím <kbd>8</kbd> (Bảng giá trị).<br>
@@ -4305,7 +4563,7 @@
     </section>
 
     <!-- FOOTER -->
-    <footer style="margin-top: 36px; padding: 28px 20px; background: #10172a; border-radius: var(--radius-lg); border: 1px solid var(--border-color); text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
+    <footer style="margin-top: 36px; padding: 28px 20px; background: var(--bg-card); border-radius: var(--radius-lg); border: 1px solid var(--border-color); text-align: center; box-shadow: var(--card-shadow);">
       <div style="display: inline-block; background: rgba(245, 158, 11, 0.15); color: var(--gold); font-weight: 800; font-size: 12px; padding: 4px 14px; border-radius: 20px; margin-bottom: 12px; border: 1px solid rgba(245, 158, 11, 0.3);">
         🎓 ĐẠI THƯ VIỆN TOÀN DIỆN 100% TOÁN 11 - KẾT NỐI TRI THỨC
       </div>
@@ -4321,6 +4579,7 @@
     </footer>
 
   </main>
+</div> <!-- /#layoutWrapper -->
 
   <!-- FLOATING SCROLL TOP BUTTON -->
   <button class="floating-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Về đầu trang">↑</button>
@@ -4378,17 +4637,71 @@
       } catch(e) {}
     }
 
-    // THEME TOGGLE (Auto / Dark)
-    function toggleTheme() {
-      const btn = document.getElementById('btnThemeToggle');
-      if (document.documentElement.getAttribute('data-theme') === 'amoled') {
-        document.documentElement.removeAttribute('data-theme');
-        btn.innerHTML = '<span class="pill-dot"></span> Auto';
+    // 1. THEME TOGGLE (CHẾ ĐỘ SÁNG / CHẾ ĐỘ TỐI)
+    function applyTheme(theme) {
+      const icon = document.getElementById('themeIcon');
+      const label = document.getElementById('themeLabel');
+      if (theme === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        if (icon) icon.textContent = '🌙';
+        if (label) label.textContent = 'Tối';
       } else {
-        document.documentElement.setAttribute('data-theme', 'amoled');
-        btn.innerHTML = '<span class="pill-dot" style="background:#f59e0b; box-shadow:0 0 6px #f59e0b;"></span> AMOLED';
+        document.documentElement.removeAttribute('data-theme');
+        if (icon) icon.textContent = '☀️';
+        if (label) label.textContent = 'Sáng';
       }
+      try { localStorage.setItem('toan11_theme', theme); } catch(e) {}
     }
+
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      applyTheme(current);
+    }
+
+    // Khởi tạo Theme từ localStorage
+    try {
+      const savedTheme = localStorage.getItem('toan11_theme');
+      if (savedTheme === 'light') {
+        applyTheme('light');
+      } else {
+        applyTheme('dark');
+      }
+    } catch(e) {}
+
+    // 2. VIEW MODE TOGGLE (BẢN MÁY TÍNH / BẢN ĐIỆN THOẠI)
+    function applyViewMode(mode) {
+      const btn = document.getElementById('viewModeBtn');
+      const icon = document.getElementById('viewModeIcon');
+      const label = document.getElementById('viewModeLabel');
+      
+      if (mode === 'mobile') {
+        document.body.classList.add('view-mobile');
+        if (icon) icon.textContent = '🖥️';
+        if (label) label.textContent = 'Bản PC';
+        if (btn) btn.title = 'Chuyển về giao diện Máy tính đầy đủ';
+      } else {
+        document.body.classList.remove('view-mobile');
+        if (icon) icon.textContent = '📱';
+        if (label) label.textContent = 'Bản ĐT';
+        if (btn) btn.title = 'Mô phỏng giao diện Điện thoại trên máy tính';
+      }
+      try { localStorage.setItem('toan11_view_mode', mode); } catch(e) {}
+    }
+
+    function toggleViewMode() {
+      const isMobile = document.body.classList.contains('view-mobile');
+      applyViewMode(isMobile ? 'desktop' : 'mobile');
+    }
+
+    // Khởi tạo View Mode từ localStorage
+    try {
+      const savedView = localStorage.getItem('toan11_view_mode');
+      if (savedView === 'mobile') {
+        applyViewMode('mobile');
+      } else {
+        applyViewMode('desktop');
+      }
+    } catch(e) {}
 
     // TOGGLE SIDEBAR MENU
     function toggleSidebar() {
@@ -4397,6 +4710,12 @@
       if (drawer && overlay) {
         drawer.classList.toggle('open');
         overlay.classList.toggle('open');
+      }
+    }
+
+    function onSidebarItemClick() {
+      if (window.innerWidth < 1024 || document.body.classList.contains('view-mobile')) {
+        toggleSidebar();
       }
     }
 
