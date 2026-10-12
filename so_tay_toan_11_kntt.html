@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>Cẩm Nang Toàn Diện Toán 11 (KNTT) - Bản Chi Tiết 100% Từ A-Z Không Lược Bỏ</title>
+  <title>Sổ Tay Toán 11 (KNTT) - Đại Thư Viện Toàn Tập Từ A-Z (Bản Di Động Siêu Nét)</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600;1,700&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
   
   <!-- MathJax Configuration -->
   <script>
@@ -27,26 +27,29 @@
 
   <style>
     :root {
-      --primary: #2563eb;
-      --primary-dark: #1d4ed8;
-      --primary-light: #eff6ff;
-      --secondary: #0d9488;
-      --secondary-light: #f0fdfa;
-      --accent: #f59e0b;
-      --accent-light: #fffbeb;
-      --danger: #ef4444;
-      --danger-light: #fef2f2;
-      --purple: #8b5cf6;
-      --dark: #0f172a;
-      --gray-900: #0f172a;
-      --gray-800: #1e293b;
-      --gray-700: #334155;
-      --gray-600: #475569;
-      --gray-200: #e2e8f0;
-      --gray-100: #f1f5f9;
-      --white: #ffffff;
-      --radius: 12px;
-      --radius-lg: 16px;
+      --bg-app: #080d1a;
+      --bg-card: #10172a;
+      --bg-card-hover: #131d33;
+      --bg-inner: #141e34;
+      --border-color: #1e293b;
+      --border-subtle: #243552;
+      
+      --primary: #3b82f6;
+      --gold: #f59e0b;
+      --gold-light: #fbbf24;
+      --emerald: #10b981;
+      --red: #ef4444;
+      --purple: #a855f7;
+      
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-body: #e2e8f0;
+      --text-muted: #64748b;
+      
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 18px;
+      --font-scale: 1;
     }
 
     * {
@@ -58,531 +61,733 @@
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 140px;
+      background-color: var(--bg-app);
     }
 
     body {
       font-family: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
-      background-color: #f8fafc;
-      color: #0f172a;
+      background-color: var(--bg-app);
+      color: var(--text-body);
       line-height: 1.85;
-      font-size: 16px;
-    }
-
-    .app-container {
-      display: flex;
-      min-height: 100vh;
-    }
-
-    /* Sidebar Desktop */
-    .sidebar {
-      width: 320px;
-      background: var(--white);
-      border-right: 1px solid var(--gray-200);
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      overflow-y: auto;
-      flex-shrink: 0;
-      display: flex;
-      flex-direction: column;
-      z-index: 50;
-    }
-
-    .sidebar-header {
-      padding: 24px 20px 18px;
-      border-bottom: 2px solid #2563eb;
-      background: linear-gradient(135deg, #0b1329 0%, #1e3a8a 100%);
-    }
-
-    .sidebar-header h2 {
-      font-size: 18px;
-      font-weight: 800;
-      margin-bottom: 4px;
-      color: #ffffff !important;
-    }
-
-    .sidebar-header p {
-      font-size: 13px !important;
-      font-weight: 600 !important;
-      color: #93c5fd !important;
-      margin: 0 !important;
-    }
-
-    .nav-list {
-      list-style: none;
-      padding: 14px 10px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
-    .nav-item-title {
-      font-size: 11px;
-      text-transform: uppercase;
-      font-weight: 800;
-      color: #64748b;
-      padding: 12px 10px 4px;
-      letter-spacing: 0.05em;
-    }
-
-    .nav-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      color: #1e293b;
-      text-decoration: none;
-      border-radius: 8px;
-      font-size: 13.5px;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    .nav-link:hover {
-      background-color: #eff6ff;
-      color: #1d4ed8;
-    }
-
-    .nav-link.active {
-      background-color: #2563eb;
-      color: #ffffff !important;
-      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
-    }
-
-    /* Main Content */
-    .main-content {
-      flex: 1;
-      padding: 36px 44px 100px;
-      max-width: 1140px;
+      font-size: calc(15.5px * var(--font-scale, 1));
+      -webkit-font-smoothing: antialiased;
       overflow-x: hidden;
     }
 
-    /* Hero Banner */
+    /* APP TOPBAR (STICKY HEADER) */
+    .app-topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(8, 13, 26, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .topbar-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .topbar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .brand-badge {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--text-primary);
+      letter-spacing: 0.02em;
+      line-height: 1.2;
+    }
+
+    .brand-subtitle {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--gold);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      line-height: 1.3;
+      margin-top: 1px;
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .action-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #141f36;
+      border: 1px solid var(--border-subtle);
+      color: var(--gold-light);
+      font-size: 11.5px;
+      font-weight: 800;
+      padding: 5px 10px;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-pill.active {
+      background: rgba(245, 158, 11, 0.18);
+      border-color: var(--gold);
+    }
+
+    .pill-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #22c55e;
+      display: inline-block;
+      box-shadow: 0 0 6px #22c55e;
+    }
+
+    .action-icon-pill {
+      background: #141f36;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-body);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 5px 9px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-icon-pill:hover {
+      background: #1e2d4d;
+      color: var(--text-primary);
+      border-color: var(--primary);
+    }
+
+    /* SEARCH BAR */
+    .search-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 16px 8px;
+    }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      font-size: 14px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    .search-box input {
+      width: 100%;
+      height: 38px;
+      background: #10182b;
+      border: 1px solid var(--border-subtle);
+      border-radius: 20px;
+      padding: 0 34px 0 36px;
+      color: var(--text-primary);
+      font-size: 13.5px;
+      font-family: inherit;
+      outline: none;
+      transition: all 0.2s;
+    }
+
+    .search-box input:focus {
+      border-color: var(--gold);
+      background: #141e34;
+      box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    }
+
+    .search-clear {
+      position: absolute;
+      right: 12px;
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 13px;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    /* HORIZONTAL SCROLLABLE TABS */
+    .horizontal-tabs-container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 16px 10px;
+    }
+
+    .horizontal-tabs {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+
+    .horizontal-tabs::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-pill {
+      padding: 7px 14px;
+      border-radius: 20px;
+      background: #131c31;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 12.5px;
+      font-weight: 700;
+      white-space: nowrap;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .tab-pill:hover {
+      background: #18243e;
+      color: var(--text-primary);
+      border-color: var(--primary);
+    }
+
+    .tab-pill.active {
+      background: var(--gold) !important;
+      color: #080d1a !important;
+      border-color: var(--gold) !important;
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.35);
+    }
+
+    /* MAIN WRAPPER */
+    .app-main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 14px 16px 90px;
+    }
+
+    /* HERO BANNER CARD (EXACT MATCH TO USER SCREENSHOT) */
     .hero-banner {
-      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 55%, #0284c7 100%);
-      padding: 36px 32px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      margin-bottom: 32px;
-      box-shadow: 0 14px 28px -4px rgba(37, 99, 235, 0.35);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 22px 18px;
+      margin-bottom: 22px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
     }
 
     .hero-badge {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.22) !important;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(245, 158, 11, 0.12);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      color: var(--gold-light);
+      font-size: 11px;
       font-weight: 800;
-      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
       margin-bottom: 12px;
-      color: #ffffff !important;
-      border: 1px solid rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .hero-title {
-      font-size: 28px !important;
-      font-weight: 800 !important;
+      font-size: 20px;
+      font-weight: 800;
       line-height: 1.35;
-      margin-bottom: 14px;
-      color: #ffffff !important;
+      color: var(--text-primary);
+      margin-bottom: 12px;
     }
 
-    .hero-subtitle, .hero-banner p {
-      font-size: 15.5px !important;
-      color: #f8fafc !important;
-      line-height: 1.8;
-      margin-bottom: 0;
+    .gold-text {
+      color: var(--gold);
     }
 
-    .hero-banner strong {
-      color: #fef08a !important;
-      font-weight: 700;
-      background: rgba(0, 0, 0, 0.2);
-      padding: 2px 6px;
-      border-radius: 4px;
+    .hero-desc {
+      font-size: 14px;
+      line-height: 1.75;
+      color: var(--text-secondary);
+      margin-bottom: 18px;
     }
 
-    .hero-stats {
-      display: flex;
-      flex-wrap: wrap;
+    /* METRIC STAT CARDS GRID (2 COLUMNS ON MOBILE - Y HỆT ẢNH CHỤP) */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
-      margin-top: 20px;
+      margin-top: 14px;
     }
 
-    .stat-pill {
-      background: rgba(255, 255, 255, 0.2) !important;
-      padding: 8px 14px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 700;
-      color: #ffffff !important;
-      border: 1px solid rgba(255, 255, 255, 0.35);
+    @media (min-width: 640px) {
+      .metrics-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
     }
 
-    /* Section Cards */
+    .metric-card {
+      background: var(--bg-inner);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 14px 10px;
+      text-align: center;
+    }
+
+    .metric-val {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--gold);
+      font-family: 'JetBrains Mono', monospace;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    .metric-label {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* SECTION CARDS (DARK THEME) */
     .section-card {
-      background: var(--white);
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
-      padding: 34px;
-      margin-bottom: 32px;
-      border: 1px solid var(--gray-200);
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.04);
+      padding: 20px 16px;
+      margin-bottom: 22px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
 
     .section-header {
       display: flex;
       align-items: center;
-      gap: 16px;
-      margin-bottom: 22px;
-      padding-bottom: 16px;
-      border-bottom: 2px solid var(--gray-100);
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .section-star {
+      font-size: 20px;
+      filter: drop-shadow(0 2px 6px rgba(245, 158, 11, 0.4));
+      flex-shrink: 0;
     }
 
     .section-number {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
       background: var(--primary);
       color: white;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 20px;
+      font-size: 17px;
       font-weight: 800;
       flex-shrink: 0;
     }
 
     .section-title {
-      font-size: 22px;
+      font-size: 17.5px;
       font-weight: 800;
-      color: #0f172a;
+      color: var(--text-primary);
+      line-height: 1.35;
     }
 
     .section-meta {
-      font-size: 13.5px;
-      color: #475569;
+      font-size: 12.5px;
+      color: var(--text-secondary);
       font-weight: 500;
-      margin-top: 2px;
+      margin-top: 3px;
+      line-height: 1.5;
+    }
+
+    .tag-concept {
+      display: inline-block;
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 6px;
+      background: #1e293b;
+      color: #93c5fd;
+      margin-bottom: 4px;
+      letter-spacing: 0.04em;
     }
 
     h3.sub-title {
-      font-size: 18px;
+      font-size: 15.5px;
       font-weight: 800;
-      color: #0f172a;
-      margin: 28px 0 12px;
+      color: var(--gold);
+      margin: 22px 0 10px;
       display: flex;
       align-items: center;
       gap: 8px;
+      border-left: 3px solid var(--gold);
+      padding-left: 10px;
+      line-height: 1.4;
     }
 
     h4.sub-sub-title {
-      font-size: 16px;
+      font-size: 14.5px;
       font-weight: 700;
-      color: #1e293b;
-      margin: 18px 0 8px;
+      color: var(--text-primary);
+      margin: 16px 0 8px;
     }
 
     p {
-      margin-bottom: 14px;
-      color: #1e293b;
-      font-size: 16px;
+      margin-bottom: 12px;
+      color: var(--text-body);
+      font-size: 15px;
+      line-height: 1.8;
     }
 
-    /* Callout Boxes */
+    /* CALLOUT BOXES IN DARK THEME */
     .box-intuitive {
-      background: #f0fdf4;
-      border-left: 4px solid #059669;
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 18px 20px;
-      margin: 20px 0;
-      color: #0f172a;
+      background: #092318;
+      border-left: 4px solid var(--emerald);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 16px;
+      margin: 18px 0;
+      color: var(--text-body);
+      font-size: 14.5px;
+      line-height: 1.8;
     }
 
     .box-intuitive-title {
       font-weight: 800;
-      color: #047857;
-      font-size: 15px;
+      color: #34d399;
+      font-size: 14.5px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
+      gap: 6px;
+      margin-bottom: 6px;
     }
 
     .box-formula {
-      background: #f8fafc;
-      border: 1px solid #cbd5e1;
-      border-radius: var(--radius);
-      padding: 20px 22px;
-      margin: 20px 0;
-      color: #0f172a;
+      background: #0d1933;
+      border: 1px solid var(--primary);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin: 18px 0;
+      color: var(--text-primary);
+      font-size: 14.5px;
+      line-height: 1.8;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
 
     .box-formula-title {
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 800;
-      color: #1d4ed8;
+      color: #60a5fa;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 10px;
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
     }
 
     .box-trap {
-      background: #fef2f2;
-      border-left: 4px solid #dc2626;
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 18px 20px;
-      margin: 22px 0;
-      color: #450a0a;
+      background: #281014;
+      border-left: 4px solid var(--red);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 16px;
+      margin: 18px 0;
+      color: #fecaca;
+      font-size: 14.5px;
+      line-height: 1.8;
     }
 
     .box-trap-title {
       font-weight: 800;
-      color: #b91c1c;
-      font-size: 15px;
+      color: #f87171;
+      font-size: 14.5px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
+      gap: 6px;
+      margin-bottom: 6px;
     }
 
     .box-exam-focus {
-      background: #fffbeb;
-      border: 2px solid #f59e0b;
-      border-radius: var(--radius);
-      padding: 20px;
-      margin: 24px 0;
-      color: #78350f;
+      background: #281b07;
+      border: 2px solid var(--gold);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      margin: 18px 0;
+      color: #fef3c7;
+      font-size: 14.5px;
+      line-height: 1.8;
     }
 
     .box-exam-focus-title {
       font-weight: 800;
-      color: #b45309;
-      font-size: 16px;
+      color: var(--gold-light);
+      font-size: 14.5px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 10px;
+      gap: 6px;
+      margin-bottom: 8px;
     }
 
     .box-casio {
-      background: #faf5ff;
-      border-left: 4px solid #9333ea;
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 18px 20px;
-      margin: 20px 0;
-      color: #3b0764;
+      background: #200f38;
+      border-left: 4px solid var(--purple);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      padding: 16px;
+      margin: 18px 0;
+      color: #f3e8ff;
+      font-size: 14.5px;
+      line-height: 1.8;
     }
 
     .box-casio-title {
       font-weight: 800;
-      color: #7e22ce;
-      font-size: 15px;
+      color: #c084fc;
+      font-size: 14.5px;
       display: flex;
       align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
+      gap: 6px;
+      margin-bottom: 6px;
     }
 
     .mnemonic-box {
-      background: #eff6ff;
-      border: 1px dashed #3b82f6;
-      border-radius: var(--radius);
-      padding: 16px 20px;
-      margin: 18px 0;
-      color: #1e3a8a;
+      background: #0b203d;
+      border: 1px dashed #38bdf8;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      margin: 16px 0;
+      color: #e0f2fe;
+      font-size: 14px;
+      line-height: 1.8;
     }
 
     .mnemonic-title {
       font-weight: 800;
-      color: #1d4ed8;
-      font-size: 13px;
+      color: #38bdf8;
+      font-size: 12.5px;
       text-transform: uppercase;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
-    /* Worked Example */
+    /* WORKED EXAMPLES IN DARK THEME */
     .example-card {
-      background: #ffffff;
-      border: 1px solid #cbd5e1;
-      border-radius: var(--radius);
-      margin: 22px 0;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin: 18px 0;
       overflow: hidden;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.03);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
 
     .example-header {
-      background: #f1f5f9;
-      padding: 12px 18px;
+      background: #152037;
+      padding: 10px 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      border-bottom: 1px solid #cbd5e1;
+      border-bottom: 1px solid var(--border-subtle);
+      gap: 8px;
     }
 
     .example-tag {
       font-weight: 800;
-      font-size: 14px;
-      color: #1d4ed8;
+      font-size: 13px;
+      color: #60a5fa;
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
     .example-badge {
-      font-size: 11px;
-      background: white;
-      padding: 3px 10px;
-      border-radius: 12px;
+      font-size: 10.5px;
+      background: #080d1a;
+      padding: 2px 8px;
+      border-radius: 10px;
       font-weight: 700;
-      color: #475569;
-      border: 1px solid #cbd5e1;
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+      flex-shrink: 0;
     }
 
     .example-body {
-      padding: 20px;
+      padding: 16px 14px;
     }
 
     .example-problem {
       font-weight: 700;
-      color: #0f172a;
-      margin-bottom: 14px;
-      padding-bottom: 10px;
-      border-bottom: 1px dashed #cbd5e1;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.6;
+      font-size: 14.5px;
     }
 
     .example-solution {
-      color: #1e293b;
-      font-size: 15px;
+      background: #0b1222;
+      border-radius: var(--radius-sm);
+      padding: 14px;
+      border: 1px solid #1a2744;
     }
 
     .solution-step {
       margin-bottom: 12px;
-      padding-left: 14px;
-      border-left: 3px solid #3b82f6;
+      line-height: 1.8;
+      font-size: 14px;
+      color: var(--text-body);
+    }
+
+    .solution-step:last-child {
+      margin-bottom: 0;
     }
 
     .step-label {
-      font-weight: 800;
-      color: #2563eb;
-      font-size: 13px;
+      font-weight: 700;
+      color: var(--gold);
     }
 
-    /* Visual Illustrations */
-    .visual-wrapper {
-      background: #ffffff;
-      border: 1px solid var(--gray-200);
-      border-radius: var(--radius);
-      padding: 20px;
-      margin: 22px 0;
-      text-align: center;
-    }
-
-    .visual-caption {
-      margin-top: 10px;
-      font-size: 13px;
-      color: #475569;
-      font-style: italic;
-      font-weight: 500;
-    }
-
-    /* Tables */
+    /* DATA TABLES IN DARK THEME */
     .table-container {
       overflow-x: auto;
-      margin: 20px 0;
-      border-radius: var(--radius);
-      border: 1px solid var(--gray-200);
       -webkit-overflow-scrolling: touch;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      margin: 16px 0;
     }
 
-    table.data-table {
+    .data-table {
       width: 100%;
-      min-width: 500px;
       border-collapse: collapse;
-      font-size: 14px;
-      text-align: center;
-      background: white;
+      font-size: 13.5px;
+      color: var(--text-body);
+      min-width: 500px;
     }
 
-    table.data-table th, table.data-table td {
-      padding: 12px 14px;
-      border: 1px solid #cbd5e1;
-    }
-
-    table.data-table th {
-      background: #f8fafc;
+    .data-table th {
+      background: #18243c;
+      color: var(--text-primary);
       font-weight: 800;
-      color: #0f172a;
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
     }
 
-    table.data-table tr:hover {
-      background: #f1f5f9;
+    .data-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #1a253a;
+      line-height: 1.6;
     }
 
-    /* Gallery Grid for SGK Pages */
+    .data-table tr:nth-child(even) {
+      background: #0d1527;
+    }
+
+    .data-table tr:nth-child(odd) {
+      background: #10172a;
+    }
+
+    /* GALLERY GRID */
     .gallery-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-      gap: 16px;
-      margin: 22px 0;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    @media (min-width: 768px) {
+      .gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
     }
 
     .gallery-card {
-      border: 1px solid #cbd5e1;
-      border-radius: 12px;
+      background: var(--bg-inner);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
       overflow: hidden;
-      background: white;
-      text-align: center;
-      transition: transform 0.2s, box-shadow 0.2s;
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
     }
 
     .gallery-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
-      border-color: #2563eb;
+      transform: translateY(-2px);
+      border-color: var(--gold);
     }
 
     .gallery-thumb {
       width: 100%;
-      height: 200px;
+      height: 180px;
       object-fit: cover;
-      object-position: top;
-      border-bottom: 1px solid #e2e8f0;
-      background: #f8fafc;
+      display: block;
+      background: #080d1a;
     }
 
     .gallery-title {
-      padding: 10px 12px;
-      font-size: 13px;
+      padding: 8px;
+      font-size: 11.5px;
       font-weight: 700;
-      color: #1e293b;
-      background: #ffffff;
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      color: var(--text-body);
+      text-align: center;
+      line-height: 1.35;
+      background: #111a2e;
     }
 
-    /* Lightbox Modal */
+    /* MODAL LIGHTBOX */
     .modal {
       display: none;
       position: fixed;
-      top: 0;
+      z-index: 2000;
       left: 0;
+      top: 0;
       width: 100%;
       height: 100%;
-      background: rgba(15, 23, 42, 0.92);
-      backdrop-filter: blur(6px);
-      z-index: 1000;
-      justify-content: center;
+      background: rgba(0, 0, 0, 0.92);
+      backdrop-filter: blur(8px);
       align-items: center;
-      padding: 16px;
+      justify-content: center;
     }
 
     .modal.show {
@@ -590,64 +795,59 @@
     }
 
     .modal-content {
-      max-width: 95vw;
+      max-width: 95%;
       max-height: 90vh;
-      border-radius: 8px;
-      box-shadow: 0 20px 25px -5px rgba(0,0,0,0.5);
+      border-radius: var(--radius-md);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
       object-fit: contain;
-      background: white;
     }
 
     .modal-close {
       position: absolute;
       top: 16px;
-      right: 22px;
+      right: 20px;
       color: white;
-      font-size: 38px;
-      font-weight: 300;
+      font-size: 36px;
+      font-weight: bold;
       cursor: pointer;
       user-select: none;
-      line-height: 1;
     }
 
-    .calc-key {
-      display: inline-block;
-      padding: 2px 7px;
-      border: 1px solid #94a3b8;
-      border-radius: 5px;
-      background: #ffffff;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 12px;
-      font-weight: 700;
-      box-shadow: 0 2px 0 #64748b;
-      color: #0f172a;
-      margin: 0 2px;
+    /* FLOATING TOP BUTTON */
+    .floating-top-btn {
+      position: fixed;
+      bottom: 74px;
+      right: 16px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--gold);
+      color: #080d1a;
+      border: none;
+      box-shadow: 0 6px 16px rgba(245, 158, 11, 0.4);
+      font-size: 20px;
+      font-weight: 900;
+      cursor: pointer;
+      z-index: 900;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
     }
 
-    .tag-concept {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 6px;
-      font-size: 12px;
-      font-weight: 700;
-      background: #eff6ff;
-      color: #1d4ed8;
-      margin-bottom: 6px;
-    }
-
-    /* Bottom Navigation Bar Mobile */
+    /* MOBILE BOTTOM NAVIGATION BAR */
     .mobile-bottom-nav {
-      display: none;
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      height: 64px;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(12px);
-      border-top: 1px solid #cbd5e1;
-      z-index: 100;
-      box-shadow: 0 -4px 12px rgba(0,0,0,0.06);
+      z-index: 1000;
+      height: 60px;
+      background: rgba(8, 13, 26, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-top: 1px solid var(--border-color);
+      display: flex;
       justify-content: space-around;
       align-items: center;
       padding: 0 4px;
@@ -658,185 +858,133 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: #475569;
       text-decoration: none;
-      font-size: 11px;
+      color: var(--text-secondary);
+      font-size: 10.5px;
       font-weight: 700;
       gap: 3px;
       flex: 1;
       height: 100%;
+      transition: color 0.2s;
     }
 
-    .mobile-nav-btn span.icon {
-      font-size: 20px;
+    .mobile-nav-btn .icon {
+      font-size: 18px;
       line-height: 1;
     }
 
-    .mobile-nav-btn.active, .mobile-nav-btn:active {
-      color: #2563eb;
+    .mobile-nav-btn:hover,
+    .mobile-nav-btn.active {
+      color: var(--gold) !important;
     }
 
-    .floating-top-btn {
-      position: fixed;
-      bottom: 80px;
-      right: 20px;
+    /* KEYBOARD STYLING */
+    kbd {
       background: #1e293b;
-      color: white;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
-      cursor: pointer;
-      z-index: 90;
-      opacity: 0.85;
-    }
-
-    /* Mobile Responsive */
-    @media (max-width: 860px) {
-      .sidebar {
-        display: none;
-      }
-
-      .mobile-bottom-nav {
-        display: flex;
-      }
-
-      .main-content {
-        padding: 16px 14px 100px;
-        max-width: 100%;
-      }
-
-      .hero-banner {
-        padding: 24px 20px;
-        border-radius: 14px;
-        margin-bottom: 20px;
-      }
-
-      .hero-title {
-        font-size: 22px !important;
-      }
-
-      .hero-subtitle, .hero-banner p {
-        font-size: 14px !important;
-      }
-
-      .section-card {
-        padding: 20px 16px;
-        border-radius: 14px;
-        margin-bottom: 20px;
-      }
-
-      .section-header {
-        gap: 12px;
-        margin-bottom: 16px;
-      }
-
-      .section-number {
-        width: 38px;
-        height: 38px;
-        font-size: 18px;
-      }
-
-      .section-title {
-        font-size: 18px;
-      }
-
-      h3.sub-title {
-        font-size: 16.5px;
-        margin: 22px 0 10px;
-      }
-
-      p {
-        font-size: 15px;
-      }
-
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-      }
-
-      .gallery-thumb {
-        height: 150px;
-      }
-
-      .gallery-title {
-        font-size: 11px;
-        padding: 6px 8px;
-      }
-
-      .box-formula, .box-intuitive, .box-trap, .box-casio, .box-exam-focus {
-        padding: 14px 16px;
-      }
-
-      .example-body {
-        padding: 16px 14px;
-      }
+      color: #f1f5f9;
+      border: 1px solid #334155;
+      border-radius: 4px;
+      padding: 2px 6px;
+      font-size: 12px;
+      font-family: 'JetBrains Mono', monospace;
+      box-shadow: 0 2px 0 #0f172a;
     }
   </style>
 </head>
 <body>
 
-<div class="app-container">
-
-  <!-- SIDEBAR NAVIGATION DESKTOP -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <h2>Sổ Tay Toàn Diện Toán 11</h2>
-      <p>Từ Mất Gốc Lên Nắm Vững Điểm 9+</p>
+  <!-- APP TOPBAR (STICKY HEADER) -->
+  <header class="app-topbar">
+    <div class="topbar-container">
+      <a href="#loi-chuc" class="topbar-brand">
+        <div class="brand-badge">📐</div>
+        <div class="brand-text">
+          <div class="brand-title">SỔ TAY TOÁN 11</div>
+          <div class="brand-subtitle">ĐẠI THƯ VIỆN TOÀN TẬP TỪ A - Z</div>
+        </div>
+      </a>
+      <div class="topbar-actions">
+        <button class="action-pill active" id="btnThemeToggle" onclick="toggleTheme()" title="Chế độ màu">
+          <span class="pill-dot"></span> Auto
+        </button>
+        <button class="action-icon-pill" onclick="changeFontSize(-0.1)" title="Giảm cỡ chữ">A-</button>
+        <button class="action-icon-pill" onclick="changeFontSize(0.1)" title="Tăng cỡ chữ">A+</button>
+      </div>
     </div>
-    <ul class="nav-list">
-      <li class="nav-item-title">Khởi Động & SGK</li>
-      <li><a href="#loi-chuc" class="nav-link active"><span>🌱</span> Lời nhắn & Lộ trình</a></li>
-      <li><a href="#tu-dien-mat-goc" class="nav-link"><span>📖</span> Từ điển ký hiệu cho mất gốc</a></li>
-      <li><a href="#tong-hop-sgk" class="nav-link"><span>📚</span> 21 Trang SGK Gốc (Ảnh)</a></li>
 
-      <li class="nav-item-title">Chương 1: Lượng Giác Full A-Z</li>
-      <li><a href="#bai-1" class="nav-link"><span>1️⃣</span> Bài 1: Giá trị lượng giác</a></li>
-      <li><a href="#bai-2" class="nav-link"><span>2️⃣</span> Bài 2: Công thức lượng giác</a></li>
-      <li><a href="#bai-3" class="nav-link"><span>3️⃣</span> Bài 3: Hàm số lượng giác</a></li>
-      <li><a href="#bai-4" class="nav-link"><span>4️⃣</span> Bài 4: Phương trình lượng giác</a></li>
+    <!-- SEARCH BAR -->
+    <div class="search-container">
+      <div class="search-box">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Tìm nhanh công thức, dạng bài, bài tập SGK..." oninput="handleSearch(this.value)">
+        <button class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none;">✕</button>
+      </div>
+    </div>
 
-      <li class="nav-item-title">Chương 2: Dãy Số Full A-Z</li>
-      <li><a href="#bai-5" class="nav-link"><span>5️⃣</span> Bài 5: Dãy số cốt lõi</a></li>
+    <!-- HORIZONTAL SCROLLABLE TABS (MATCHING USER SCREENSHOT) -->
+    <nav class="horizontal-tabs-container">
+      <div class="horizontal-tabs" id="tabBar">
+        <a href="#loi-chuc" class="tab-pill active"><span>⭐</span> Chung</a>
+        <a href="#tu-dien-mat-goc" class="tab-pill"><span>📖</span> Từ Điển</a>
+        <a href="#tong-hop-sgk" class="tab-pill"><span>📚</span> 21 Trang SGK</a>
+        <a href="#bai-1" class="tab-pill"><span>📐</span> Bài 1: GTLG</a>
+        <a href="#bai-2" class="tab-pill"><span>➕</span> Bài 2: Công Thức</a>
+        <a href="#bai-3" class="tab-pill"><span>📈</span> Bài 3: Hàm Số</a>
+        <a href="#bai-4" class="tab-pill"><span>🎯</span> Bài 4: Phương Trình</a>
+        <a href="#bai-5" class="tab-pill"><span>🔢</span> Bài 5: Dãy Số</a>
+        <a href="#ma-tran-thi-giua-ki" class="tab-pill"><span>🏆</span> 10 Dạng Thi</a>
+        <a href="#giai-sgk-trong-tam" class="tab-pill"><span>✍️</span> 32 Bài SGK</a>
+        <a href="#meo-casio" class="tab-pill"><span>⚡</span> Casio 580/880</a>
+      </div>
+    </nav>
+  </header>
 
-      <li class="nav-item-title">Thực Chiến & Ôn Thi Giữa Kì</li>
-      <li><a href="#ma-tran-thi-giua-ki" class="nav-link"><span>🎯</span> 8 Dạng bài thi giữa kì</a></li>
-      <li><a href="#giai-sgk-trong-tam" class="nav-link"><span>✍️</span> Giải bài tập SGK chi tiết</a></li>
-      <li><a href="#meo-casio" class="nav-link"><span>⚡</span> Bấm máy Casio FX 580/880</a></li>
-    </ul>
-  </aside>
-
-  <!-- MAIN CONTENT -->
-  <main class="main-content">
+  <!-- MAIN WRAPPER -->
+  <main class="app-main">
     
-    <!-- HERO BANNER -->
+    <!-- HERO BANNER CARD (EXACT MATCH TO USER SCREENSHOT) -->
     <section class="hero-banner" id="loi-chuc">
-      <div class="hero-badge">Bản Chi Tiết 100% Từ A Đến Z - Không Cắt Xén - Không Tóm Tắt</div>
-      <h1 class="hero-title">Đừng lo lắng! Mất gốc Toán 11 lấy lại cực kỳ dễ khi có bản đồ này!</h1>
-      <p class="hero-subtitle">
-        Bạn bị ốm nghỉ học và cảm thấy bị "hụt chân" khi nhìn vào bài của các bạn trên lớp? 
-        Đừng tự trách mình và đừng sợ hãi! Toán lớp 11 nhìn qua thì toàn ký hiệu $\pi, \alpha, k2\pi, \sin, \cos$ gây hoang mang, 
-        nhưng <strong>mọi thứ đều có quy luật logic bắt nguồn từ thực tế</strong>. 
-        Tài liệu này được viết theo yêu cầu của bạn: <strong>chi tiết đến từng milimet, giải thích từng ký hiệu nhỏ nhất, chứng minh cặn kẽ từng công thức, vạch trần mọi cái bẫy đề thi</strong>. 
-        Đọc hết trang này, tuần sau bạn sẽ tự tin bước vào lớp với tâm thế của một người hiểu sâu bản chất nhất!
+      <div class="hero-badge">🔥 TÀI LIỆU VẬN HÀNH CHÍNH THỨC • CẬP NHẬT MỚI NHẤT</div>
+      <h1 class="hero-title">
+        ĐẠI THƯ VIỆN TOÀN TẬP TOÁN 11<br>
+        <span class="gold-text">& CẨM NANG MẤT GỐC CHUẨN KNTT</span>
+      </h1>
+      <p class="hero-desc">
+        Khám phá toàn bộ 100% cơ chế lượng giác & dãy số từ A đến Z: 
+        Bảng tỷ lệ toán học chuẩn xác, hướng dẫn giải từng bước, luật dấu 4 góc phần tư, 
+        công thức biến đổi, chu kì hàm số, kỹ thuật kẹp nghiệm và danh mục chi tiết 32 bài tập SGK!
       </p>
-      <div class="hero-stats">
-        <div class="stat-pill">📱 Đã tối ưu 100% cho điện thoại (kèm thanh điều hướng dưới đáy)</div>
-        <div class="stat-pill">📖 Giải mã toàn bộ từ điển ký hiệu cho người mất gốc</div>
-        <div class="stat-pill">🎯 Bao trọn 21 trang SGK: Bài 1, 2, 3, 4, 5 không thiếu 1 ý</div>
-        <div class="stat-pill">⚠️ Bóc mẽ từng bẫy thi giữa kì & mẹo bấm Casio cứu nguy</div>
+
+      <!-- METRIC STAT CARDS GRID (2 COLUMNS ON MOBILE - Y HỆT ẢNH CHỤP) -->
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <div class="metric-val">5</div>
+          <div class="metric-label">Bài Học Đã Bị Lỡ</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">10</div>
+          <div class="metric-label">Dạng Toán Giữa Kì</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">32</div>
+          <div class="metric-label">Bài Tập SGK Chi Tiết</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">21</div>
+          <div class="metric-label">Trang Sách Kèm Zoom</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">100%</div>
+          <div class="metric-label">Bản Chất & Casio</div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-val">0đ</div>
+          <div class="metric-label">Học Phí (Tự Học A-Z)</div>
+        </div>
       </div>
     </section>
 
-    <!-- ======================================================= -->
-    <!-- PHẦN 0: TỪ ĐIỂN KÝ HIỆU & KHÁI NIỆM CHO NGƯỜI MẤT GỐC   -->
-    <!-- ======================================================= -->
-    <section class="section-card" id="tu-dien-mat-goc" style="border: 2px solid #3b82f6;">
+<section class="section-card" id="tu-dien-mat-goc" style="border: 2px solid #3b82f6;">
       <div class="section-header">
         <div class="section-number" style="background: #2563eb;">📖</div>
         <div>
@@ -3302,7 +3450,7 @@
       <div class="section-header">
         <div class="section-number" style="background: #9333ea;">⚡</div>
         <div>
-          <span class="tag-concept" style="background:#faf5ff; color:#7e22ce;">BÍ KÍP PHÒNG THI</span>
+          <span class="tag-concept" style="background:#24103c; color:#c084fc;">BÍ KÍP PHÒNG THI</span>
           <h2 class="section-title">Tuyệt Kỹ Casio Thực Chiến (FX-580VNX & FX-880BTG)</h2>
           <p class="section-meta">Không nhớ công thức vẫn khoanh trúng trắc nghiệm 100% trong 20 giây - Cứu tinh của người mất gốc</p>
         </div>
@@ -3314,16 +3462,16 @@
         <p>
           ⚠️ <strong>Lưu ý sống còn:</strong> 80% học sinh mất điểm vô lý là do máy tính đang ở chữ <strong>D (Degree - Độ)</strong> mà lại đi tính $\sin\frac{\pi}{3}$! Đề bài có chữ $\pi$ thì máy tính <strong>BẮT BUỘC PHẢI HIỆN CHỮ R (Radian)</strong>!
         </p>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 10px;">
-          <div style="background: white; padding: 14px; border-radius: 8px; border: 1px solid #d8b4fe;">
-            <strong style="color: #6b21a8;">Trên Casio FX-580VNX:</strong><br>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 10px;">
+          <div style="background: #141e34; padding: 14px; border-radius: 8px; border: 1px solid #2d3e63;">
+            <strong style="color: #c084fc;">Trên Casio FX-580VNX:</strong><br>
             • Bấm <kbd>SHIFT</kbd> $\to$ <kbd>MENU</kbd> (Setup).<br>
             • Bấm phím số <kbd>2</kbd> (Đơn vị góc / Angle Unit).<br>
             • Chọn <kbd>1</kbd> để về Độ (chữ <strong>D</strong>).<br>
             • Chọn <kbd>2</kbd> để về Radian (chữ <strong>R</strong>).
           </div>
-          <div style="background: white; padding: 14px; border-radius: 8px; border: 1px solid #d8b4fe;">
-            <strong style="color: #6b21a8;">Trên Casio FX-880BTG:</strong><br>
+          <div style="background: #141e34; padding: 14px; border-radius: 8px; border: 1px solid #2d3e63;">
+            <strong style="color: #c084fc;">Trên Casio FX-880BTG:</strong><br>
             • Bấm phím <kbd>SETTINGS</kbd>.<br>
             • Chọn dòng <kbd>Cài đặt phép tính</kbd> (Calc Settings) $\to$ <kbd>OK</kbd>.<br>
             • Chọn dòng <kbd>Đơn vị góc</kbd> (Angle Unit) $\to$ <kbd>OK</kbd>.<br>
@@ -3350,7 +3498,7 @@
         <p>
           Phương pháp "quét sạch" toàn bộ giá trị hàm số trên 1 chu kì để tìm giá trị cao nhất và thấp nhất:
         </p>
-        <div style="background: white; padding: 14px; border-radius: 8px; border: 1px solid #d8b4fe; margin-top: 10px;">
+        <div style="background: #141e34; padding: 14px; border-radius: 8px; border: 1px solid #2d3e63; margin-top: 10px;">
           • <strong>Bước 1:</strong> Chuyển máy về chế độ Radian (chữ <strong>R</strong>).<br>
           • <strong>Bước 2:</strong> Vào chức năng Table:<br>
           - Trên 580VNX: Bấm <kbd>MENU</kbd> $\to$ phím <kbd>8</kbd> (Bảng giá trị).<br>
@@ -3374,172 +3522,247 @@
           • Bấm <kbd>SHIFT</kbd> + <kbd>CALC</kbd> (<kbd>SOLVE</kbd>).<br>
           • Máy hỏi <code>x?</code>, nhập một giá trị dự đoán (ví dụ $0$ hoặc $1$ hoặc $2$) rồi bấm <kbd>=</kbd>.<br>
           • Đợi 2 giây, máy sẽ hiện ra nghiệm $x$ chính xác. Lấy nghiệm đó chia cho $\pi$ (bấm <kbd>Ans</kbd> $\div \pi$) để biết nó là bao nhiêu phần của $\pi$!
-        </div>
+        </p>
       </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer style="margin-top: 40px; padding: 32px 24px; background: white; border-radius: var(--radius-lg); border: 1px solid var(--gray-200); text-align: center; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
-      <div style="display: inline-block; background: #eff6ff; color: #1d4ed8; font-weight: 800; font-size: 13px; padding: 4px 16px; border-radius: 20px; margin-bottom: 12px;">
+    <!-- FOOTER (DARK THEME) -->
+    <footer style="margin-top: 36px; padding: 28px 20px; background: #10172a; border-radius: var(--radius-lg); border: 1px solid var(--border-color); text-align: center; box-shadow: 0 4px 16px rgba(0,0,0,0.3);">
+      <div style="display: inline-block; background: rgba(245, 158, 11, 0.15); color: var(--gold); font-weight: 800; font-size: 12px; padding: 4px 14px; border-radius: 20px; margin-bottom: 12px; border: 1px solid rgba(245, 158, 11, 0.3);">
         🎓 TÀI LIỆU TOÀN DIỆN 100% TOÁN 11 - KẾT NỐI TRI THỨC
       </div>
-      <h3 style="font-size: 20px; color: #0f172a; margin-bottom: 8px; font-weight: 800;">
+      <h3 style="font-size: 19px; color: var(--text-primary); margin-bottom: 8px; font-weight: 800;">
         🌟 Bạn Đã Nắm Trọn Vẹn 100% Kiến Thức Cần Thiết!
       </h3>
-      <p style="font-size: 15px; color: #475569; max-width: 750px; margin: 0 auto 16px; line-height: 1.8;">
+      <p style="font-size: 14px; color: var(--text-secondary); max-width: 720px; margin: 0 auto 16px; line-height: 1.8;">
         Toàn bộ 5 bài học bị lỡ (Bài 1, 2, 3, 4 Chương I và Bài 5 Chương II), 10 dạng toán thi giữa kì và 32 bài tập SGK đã được giải mã tường tận. Hãy tự tin trở lại trường học và chinh phục điểm số cao nhất nhé!
       </p>
-      <div style="font-size: 13px; color: #94a3b8; font-weight: 600;">
-        Biên soạn chuyên sâu dành riêng cho học sinh mất gốc • Hỗ trợ hiển thị tối ưu trên Máy tính & Điện thoại di động
+      <div style="font-size: 12px; color: var(--text-muted); font-weight: 600;">
+        Biên soạn chuyên sâu cho học sinh mất gốc • Giao diện Tối Tối Ưu Cho Điện Thoại • Hỗ trợ tìm kiếm & Zoom ảnh
       </div>
     </footer>
 
   </main>
-</div>
 
-<!-- FLOATING SCROLL TOP BUTTON -->
-<button class="floating-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Về đầu trang">↑</button>
+  <!-- FLOATING SCROLL TOP BUTTON -->
+  <button class="floating-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Về đầu trang">↑</button>
 
-<!-- BOTTOM NAVIGATION BAR (DÀNH RIÊNG CHO ĐIỆN THOẠI) -->
-<nav class="mobile-bottom-nav">
-  <a href="#tu-dien-mat-goc" class="mobile-nav-btn">
-    <span class="icon">📖</span>
-    <span>Từ Điển</span>
-  </a>
-  <a href="#bai-1" class="mobile-nav-btn">
-    <span class="icon">📐</span>
-    <span>Lượng Giác</span>
-  </a>
-  <a href="#bai-5" class="mobile-nav-btn">
-    <span class="icon">🔢</span>
-    <span>Dãy Số</span>
-  </a>
-  <a href="#ma-tran-thi-giua-ki" class="mobile-nav-btn">
-    <span class="icon">🎯</span>
-    <span>Thi Giữa Kì</span>
-  </a>
-  <a href="#giai-sgk-trong-tam" class="mobile-nav-btn">
-    <span class="icon">✍️</span>
-    <span>Giải SGK</span>
-  </a>
-</nav>
+  <!-- BOTTOM NAVIGATION BAR (DÀNH CHO ĐIỆN THOẠI) -->
+  <nav class="mobile-bottom-nav">
+    <a href="#tu-dien-mat-goc" class="mobile-nav-btn active">
+      <span class="icon">📖</span>
+      <span>Từ Điển</span>
+    </a>
+    <a href="#bai-1" class="mobile-nav-btn">
+      <span class="icon">📐</span>
+      <span>Lượng Giác</span>
+    </a>
+    <a href="#bai-5" class="mobile-nav-btn">
+      <span class="icon">🔢</span>
+      <span>Dãy Số</span>
+    </a>
+    <a href="#ma-tran-thi-giua-ki" class="mobile-nav-btn">
+      <span class="icon">🎯</span>
+      <span>Giữa Kì</span>
+    </a>
+    <a href="#giai-sgk-trong-tam" class="mobile-nav-btn">
+      <span class="icon">✍️</span>
+      <span>Giải SGK</span>
+    </a>
+  </nav>
 
-<!-- LIGHTBOX MODAL FOR IMAGES -->
-<div class="modal" id="imageModal" onclick="closeModal()">
-  <span class="modal-close">&times;</span>
-  <img src="" class="modal-content" id="modalImg" alt="Xem phóng to trang sách" onclick="event.stopPropagation()">
-</div>
+  <!-- LIGHTBOX MODAL FOR IMAGES -->
+  <div class="modal" id="imageModal" onclick="closeModal()">
+    <span class="modal-close">&times;</span>
+    <img src="" class="modal-content" id="modalImg" alt="Xem phóng to trang sách" onclick="event.stopPropagation()">
+  </div>
 
-<script>
-  // DANH SÁCH 21 TRANG SGK ĐÃ ĐƯỢC ĐỊNH DANH ĐẦY ĐỦ
-  const pageList = [
-    { num: 1, title: "Trang 01 (SGK tr.5): Mở đầu Bài 1", raw: "2026-10-11 21_10_29-Hành trang số.png", alt: "2026-10-11 21_10_29-Ha`nh trang số.png" },
-    { num: 2, title: "Trang 02 (SGK tr.6-7): Hệ thức Chasles", raw: "2026-10-11 21_11_23-Hành trang số.png", alt: "2026-10-11 21_11_23-Ha`nh trang số.png" },
-    { num: 3, title: "Trang 03 (SGK tr.8-9): Đơn vị Radian", raw: "2026-10-11 21_11_32-Hành trang số.png", alt: "2026-10-11 21_11_32-Ha`nh trang số.png" },
-    { num: 4, title: "Trang 04 (SGK tr.10-11): Vòng tròn LG", raw: "2026-10-11 21_11_42-Hành trang số.png", alt: "2026-10-11 21_11_42-Ha`nh trang số.png" },
-    { num: 5, title: "Trang 05 (SGK tr.12-13): Bảng dấu & góc", raw: "2026-10-11 21_11_52-Hành trang số.png", alt: "2026-10-11 21_11_52-Ha`nh trang số.png" },
-    { num: 6, title: "Trang 06 (SGK tr.14-15): Góc liên kết", raw: "2026-10-11 21_12_01-Hành trang số.png", alt: "2026 10 11 21_12_01 Hành trang số.png" },
-    { num: 7, title: "Trang 07 (SGK tr.16-17): Bài 2 - Công thức cộng", raw: "2026-10-11 21_12_09-Hành trang số.png", alt: "2026 10 11 21_12_09 Hành trang số.png" },
-    { num: 8, title: "Trang 08 (SGK tr.18-19): Công thức nhân đôi", raw: "2026-10-11 21_12_18-Hành trang số.png", alt: "2026 10 11 21_12_18-Hành trang số.png" },
-    { num: 9, title: "Trang 09 (SGK tr.20-21): Tổng thành tích", raw: "2026-10-11 21_12_29-Hành trang số.png", alt: "2026 10 11 21_12_29-Hành trang số.png" },
-    { num: 10, title: "Trang 10 (SGK tr.22-23): Định nghĩa hàm số", raw: "2026-10-11 21_12_45-Hành trang số.png", alt: "2026 10 11 21_12_45-Hành trang số.png" },
-    { num: 11, title: "Trang 11 (SGK tr.24-25): Tính tuần hoàn", raw: "2026-10-11 21_12_52-Hành trang số.png", alt: "2026 10 11 21_12_52-Hành trang số.png" },
-    { num: 12, title: "Trang 12 (SGK tr.26-27): Đồ thị sin, cos", raw: "2026-10-11 21_13_03-Hành trang số.png", alt: "2026 10 11 21_13_03-Hành trang số.png" },
-    { num: 13, title: "Trang 13 (SGK tr.28-29): Đồ thị tan, cot", raw: "2026-10-11 21_13_14-Hành trang số.png", alt: "2026 10 11 21_13_14-Hành trang số.png" },
-    { num: 14, title: "Trang 14 (SGK tr.30-31): Phương trình TĐ", raw: "2026-10-11 21_13_24-Hành trang số.png", alt: "2026 10 11 21_13_24 Hành trang số.png" },
-    { num: 15, title: "Trang 15 (SGK tr.32-33): Giải sin x = m", raw: "2026-10-11 21_13_42-Hành trang số.png", alt: "2026 10 11 21_13_42-Hành trang số.png" },
-    { num: 16, title: "Trang 16 (SGK tr.34-35): Giải cos x = m", raw: "2026-10-11 21_13_54-Hành trang số.png", alt: "2026 10 11 21_13_54-Hành trang số.png" },
-    { num: 17, title: "Trang 17 (SGK tr.36-37): Giải tan & cot", raw: "2026-10-11 21_14_03-Hành trang số.png", alt: "2026 10 11 21_14_03-Hành trang số.png" },
-    { num: 18, title: "Trang 18 (SGK tr.38-39): Bấm Shift Solve", raw: "2026-10-11 21_14_16-Hành trang số.png", alt: "2026 10 11 21_14_16-Hành trang số.png" },
-    { num: 19, title: "Trang 19 (SGK tr.42-43): Mở đầu Dãy số", raw: "2026-10-11 21_15_04-Hành trang số.png", alt: "2026 10 11 21_15_04-Hành trang số.png" },
-    { num: 20, title: "Trang 20 (SGK tr.44-45): Dãy tăng, giảm", raw: "2026-10-11 21_15_17-Hành trang số.png", alt: "2026 10 11 21_15_17-Hành trang số.png" },
-    { num: 21, title: "Trang 21 (SGK tr.46-47): Dãy bị chặn", raw: "2026-10-11 21_15_28-Hành trang số.png", alt: "2026 10 11 21_15_28 Hành trang số.png" }
-  ];
+  <script>
+    // FONT SIZE SCALING
+    let currentScale = 1;
+    try {
+      const saved = localStorage.getItem('toan11_font_scale');
+      if (saved) {
+        currentScale = parseFloat(saved);
+        document.documentElement.style.setProperty('--font-scale', currentScale);
+      }
+    } catch(e) {}
 
-  const gallery = document.getElementById('sgkGallery');
-  pageList.forEach(item => {
-    const pad = String(item.num).padStart(2, '0');
-    const card = document.createElement('div');
-    card.className = 'gallery-card';
+    function changeFontSize(delta) {
+      currentScale = Math.min(1.4, Math.max(0.85, currentScale + delta));
+      document.documentElement.style.setProperty('--font-scale', currentScale);
+      try {
+        localStorage.setItem('toan11_font_scale', currentScale);
+      } catch(e) {}
+    }
 
-    const img = document.createElement('img');
-    img.className = 'gallery-thumb';
-    img.alt = item.title;
-
-    const candidates = [
-      item.raw,
-      encodeURI(item.raw),
-      item.alt,
-      encodeURI(item.alt),
-      `page_${pad}.png`,
-      `./page_${pad}.png`,
-      item.raw.normalize('NFC'),
-      item.raw.normalize('NFD')
-    ];
-
-    let currentIdx = 0;
-    function loadNext() {
-      if (currentIdx < candidates.length) {
-        const nextUrl = candidates[currentIdx++];
-        img.onerror = loadNext;
-        img.src = nextUrl;
+    // THEME TOGGLE (Auto / Dark)
+    function toggleTheme() {
+      const btn = document.getElementById('btnThemeToggle');
+      if (document.documentElement.getAttribute('data-theme') === 'amoled') {
+        document.documentElement.removeAttribute('data-theme');
+        btn.innerHTML = '<span class="pill-dot"></span> Auto';
       } else {
-        img.onerror = null;
-        img.src = `https://placehold.co/400x300/e2e8f0/1e293b?text=Trang+${item.num}`;
+        document.documentElement.setAttribute('data-theme', 'amoled');
+        btn.innerHTML = '<span class="pill-dot" style="background:#f59e0b; box-shadow:0 0 6px #f59e0b;"></span> AMOLED';
       }
     }
-    loadNext();
 
-    const title = document.createElement('div');
-    title.className = 'gallery-title';
-    title.textContent = item.title;
-
-    card.appendChild(img);
-    card.appendChild(title);
-
-    card.onclick = function() {
-      openModal(img.src);
-    };
-
-    gallery.appendChild(card);
-  });
-
-  function openModal(src) {
-    const modal = document.getElementById('imageModal');
-    const modalImg = document.getElementById('modalImg');
-    modalImg.src = src;
-    modal.classList.add('show');
-  }
-
-  function closeModal() {
-    const modal = document.getElementById('imageModal');
-    modal.classList.remove('show');
-  }
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeModal();
-  });
-
-  window.addEventListener('scroll', function() {
-    const sections = document.querySelectorAll('section');
-    const navLinks = document.querySelectorAll('.nav-link');
-    
-    let current = '';
-    sections.forEach(section => {
-      const sectionTop = section.offsetTop;
-      if (pageYOffset >= sectionTop - 140) {
-        current = section.getAttribute('id');
+    // LIVE SEARCH
+    function handleSearch(val) {
+      const clearBtn = document.getElementById('searchClear');
+      if (val && val.trim().length > 0) {
+        clearBtn.style.display = 'block';
+        const q = val.trim().toLowerCase();
+        
+        // Find matching section or header
+        const cards = document.querySelectorAll('section.section-card, h3.sub-title, .example-card');
+        let found = null;
+        for (let el of cards) {
+          if (el.textContent.toLowerCase().includes(q)) {
+            found = el;
+            break;
+          }
+        }
+        if (found) {
+          found.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          found.style.outline = '2px solid #f59e0b';
+          setTimeout(() => { found.style.outline = 'none'; }, 2000);
+        }
+      } else {
+        clearBtn.style.display = 'none';
       }
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('searchInput');
+      input.value = '';
+      document.getElementById('searchClear').style.display = 'none';
+    }
+
+    // 21 TRANG SGK ĐÃ ĐỒNG BỘ
+    const pageList = [
+      { num: 1, title: "Trang 01 (SGK tr.5): Mở đầu Bài 1", raw: "2026-10-11 21_10_29-Hành trang số.png", alt: "2026-10-11 21_10_29-Ha`nh trang số.png" },
+      { num: 2, title: "Trang 02 (SGK tr.6-7): Hệ thức Chasles", raw: "2026-10-11 21_11_23-Hành trang số.png", alt: "2026-10-11 21_11_23-Ha`nh trang số.png" },
+      { num: 3, title: "Trang 03 (SGK tr.8-9): Đơn vị Radian", raw: "2026-10-11 21_11_32-Hành trang số.png", alt: "2026-10-11 21_11_32-Ha`nh trang số.png" },
+      { num: 4, title: "Trang 04 (SGK tr.10-11): Vòng tròn LG", raw: "2026-10-11 21_11_42-Hành trang số.png", alt: "2026-10-11 21_11_42-Ha`nh trang số.png" },
+      { num: 5, title: "Trang 05 (SGK tr.12-13): Bảng dấu & góc", raw: "2026-10-11 21_11_52-Hành trang số.png", alt: "2026-10-11 21_11_52-Ha`nh trang số.png" },
+      { num: 6, title: "Trang 06 (SGK tr.14-15): Góc liên kết", raw: "2026-10-11 21_12_01-Hành trang số.png", alt: "2026 10 11 21_12_01 Hành trang số.png" },
+      { num: 7, title: "Trang 07 (SGK tr.16-17): Bài 2 - Công thức cộng", raw: "2026-10-11 21_12_09-Hành trang số.png", alt: "2026 10 11 21_12_09 Hành trang số.png" },
+      { num: 8, title: "Trang 08 (SGK tr.18-19): Công thức nhân đôi", raw: "2026-10-11 21_12_18-Hành trang số.png", alt: "2026 10 11 21_12_18-Hành trang số.png" },
+      { num: 9, title: "Trang 09 (SGK tr.20-21): Tổng thành tích", raw: "2026-10-11 21_12_29-Hành trang số.png", alt: "2026 10 11 21_12_29-Hành trang số.png" },
+      { num: 10, title: "Trang 10 (SGK tr.22-23): Định nghĩa hàm số", raw: "2026-10-11 21_12_45-Hành trang số.png", alt: "2026 10 11 21_12_45-Hành trang số.png" },
+      { num: 11, title: "Trang 11 (SGK tr.24-25): Tính tuần hoàn", raw: "2026-10-11 21_12_52-Hành trang số.png", alt: "2026 10 11 21_12_52-Hành trang số.png" },
+      { num: 12, title: "Trang 12 (SGK tr.26-27): Đồ thị sin, cos", raw: "2026-10-11 21_13_03-Hành trang số.png", alt: "2026 10 11 21_13_03-Hành trang số.png" },
+      { num: 13, title: "Trang 13 (SGK tr.28-29): Đồ thị tan, cot", raw: "2026-10-11 21_13_14-Hành trang số.png", alt: "2026 10 11 21_13_14-Hành trang số.png" },
+      { num: 14, title: "Trang 14 (SGK tr.30-31): Phương trình TĐ", raw: "2026-10-11 21_13_24-Hành trang số.png", alt: "2026 10 11 21_13_24 Hành trang số.png" },
+      { num: 15, title: "Trang 15 (SGK tr.32-33): Giải sin x = m", raw: "2026-10-11 21_13_42-Hành trang số.png", alt: "2026 10 11 21_13_42-Hành trang số.png" },
+      { num: 16, title: "Trang 16 (SGK tr.34-35): Giải cos x = m", raw: "2026-10-11 21_13_54-Hành trang số.png", alt: "2026 10 11 21_13_54-Hành trang số.png" },
+      { num: 17, title: "Trang 17 (SGK tr.36-37): Giải tan & cot", raw: "2026-10-11 21_14_03-Hành trang số.png", alt: "2026 10 11 21_14_03-Hành trang số.png" },
+      { num: 18, title: "Trang 18 (SGK tr.38-39): Bấm Shift Solve", raw: "2026-10-11 21_14_16-Hành trang số.png", alt: "2026 10 11 21_14_16-Hành trang số.png" },
+      { num: 19, title: "Trang 19 (SGK tr.42-43): Mở đầu Dãy số", raw: "2026-10-11 21_15_04-Hành trang số.png", alt: "2026 10 11 21_15_04-Hành trang số.png" },
+      { num: 20, title: "Trang 20 (SGK tr.44-45): Dãy tăng, giảm", raw: "2026-10-11 21_15_17-Hành trang số.png", alt: "2026 10 11 21_15_17-Hành trang số.png" },
+      { num: 21, title: "Trang 21 (SGK tr.46-47): Dãy bị chặn", raw: "2026-10-11 21_15_28-Hành trang số.png", alt: "2026 10 11 21_15_28 Hành trang số.png" }
+    ];
+
+    const gallery = document.getElementById('sgkGallery');
+    if (gallery) {
+      pageList.forEach(item => {
+        const pad = String(item.num).padStart(2, '0');
+        const card = document.createElement('div');
+        card.className = 'gallery-card';
+
+        const img = document.createElement('img');
+        img.className = 'gallery-thumb';
+        img.alt = item.title;
+
+        const candidates = [
+          item.raw,
+          encodeURI(item.raw),
+          item.alt,
+          encodeURI(item.alt),
+          `page_${pad}.png`,
+          `./page_${pad}.png`,
+          item.raw.normalize('NFC'),
+          item.raw.normalize('NFD')
+        ];
+
+        let currentIdx = 0;
+        function loadNext() {
+          if (currentIdx < candidates.length) {
+            const nextUrl = candidates[currentIdx++];
+            img.onerror = loadNext;
+            img.src = nextUrl;
+          } else {
+            img.onerror = null;
+            img.src = `https://placehold.co/400x300/10182b/94a3b8?text=Trang+${item.num}`;
+          }
+        }
+        loadNext();
+
+        const title = document.createElement('div');
+        title.className = 'gallery-title';
+        title.textContent = item.title;
+
+        card.appendChild(img);
+        card.appendChild(title);
+
+        card.onclick = function() {
+          openModal(img.src);
+        };
+
+        gallery.appendChild(card);
+      });
+    }
+
+    function openModal(src) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImg');
+      modalImg.src = src;
+      modal.classList.add('show');
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('imageModal');
+      modal.classList.remove('show');
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeModal();
     });
 
-    navLinks.forEach(link => {
-      link.classList.remove('active');
-      if (link.getAttribute('href') === '#' + current) {
-        link.classList.add('active');
-      }
+    // SCROLL SPY FOR TABS & BOTTOM NAV
+    window.addEventListener('scroll', function() {
+      const sections = document.querySelectorAll('section');
+      const tabPills = document.querySelectorAll('.tab-pill');
+      const bottomBtns = document.querySelectorAll('.mobile-nav-btn');
+      
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (pageYOffset >= sectionTop - 180) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      // Update Horizontal Tabs
+      tabPills.forEach(pill => {
+        pill.classList.remove('active');
+        if (pill.getAttribute('href') === '#' + current) {
+          pill.classList.add('active');
+          pill.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        }
+      });
+
+      // Update Bottom Nav
+      bottomBtns.forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('href') === '#' + current) {
+          btn.classList.add('active');
+        }
+      });
     });
-  });
-</script>
+  </script>
 
 </body>
 </html>
