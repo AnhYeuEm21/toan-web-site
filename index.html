@@ -1207,6 +1207,200 @@
       font-size: 12px;
       font-family: 'JetBrains Mono', monospace;
       box-shadow: 0 2px 0 #0f172a;
+    /* ========================================================= */
+    /* 11. GÓC HỒI TƯỞNG - TRIỆU HỒI KIẾN THỨC LỚP 10 (ACCORDION)*/
+    /* ========================================================= */
+    .recall-box {
+      background: #0f1629;
+      border: 1.5px dashed #818cf8;
+      border-radius: var(--radius-md);
+      margin: 18px 0;
+      overflow: hidden;
+      box-shadow: 0 4px 14px rgba(99, 102, 241, 0.15);
+      transition: border-color 0.2s;
+    }
+
+    .recall-toggle {
+      width: 100%;
+      background: #141c38;
+      border: none;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      cursor: pointer;
+      font-family: inherit;
+      color: #c7d2fe;
+      font-size: 13.5px;
+      font-weight: 800;
+      text-align: left;
+      transition: background 0.15s;
+    }
+
+    .recall-toggle:hover,
+    .recall-toggle:active {
+      background: #1c274e;
+      color: #e0e7ff;
+    }
+
+    .recall-header-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .recall-badge {
+      background: #4f46e5;
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      flex-shrink: 0;
+    }
+
+    .recall-arrow {
+      font-size: 12px;
+      color: #818cf8;
+      transition: transform 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .recall-box.open .recall-arrow {
+      transform: rotate(180deg);
+    }
+
+    .recall-content {
+      display: none;
+      padding: 16px;
+      background: #0c1222;
+      border-top: 1px dashed rgba(129, 140, 248, 0.3);
+      animation: fadeIn 0.25s ease;
+      font-size: 14px;
+      line-height: 1.85;
+      color: #e2e8f0;
+    }
+
+    .recall-box.open .recall-content {
+      display: block;
+    }
+
+    .recall-cite {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: rgba(99, 102, 241, 0.15);
+      border-left: 3px solid #6366f1;
+      border-radius: 0 6px 6px 0;
+      font-size: 12.5px;
+      color: #a5b4fc;
+      font-style: italic;
+    }
+
+    /* ========================================================= */
+    /* 12. CÔNG THỨC COMBO - LẮP RÁP ĐỒ CHƠI (COMBO HỦY DIỆT)    */
+    /* ========================================================= */
+    .combo-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      margin-top: 16px;
+    }
+
+    .combo-card {
+      background: #0d1527;
+      border: 1.5px solid #f59e0b;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .combo-header {
+      background: linear-gradient(135deg, #1f1a09 0%, #291e05 100%);
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(245, 158, 11, 0.3);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .combo-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--gold-light);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .combo-badge-tag {
+      background: #f59e0b;
+      color: #080d1a;
+      font-size: 10.5px;
+      font-weight: 900;
+      padding: 3px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .combo-body {
+      padding: 16px 14px;
+    }
+
+    .combo-signal {
+      background: #172138;
+      border-left: 3px solid #38bdf8;
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      font-size: 13.5px;
+      color: #e0f2fe;
+    }
+
+    .combo-signal-label {
+      font-weight: 800;
+      color: #38bdf8;
+      font-size: 12.5px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      margin-bottom: 4px;
+    }
+
+    .combo-formula-strip {
+      background: #080e1c;
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+      color: #fef08a;
+      font-size: 14.5px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .combo-logic {
+      font-size: 13.5px;
+      color: #94a3b8;
+      line-height: 1.7;
+      margin-bottom: 10px;
+    }
+
+    .combo-example-box {
+      background: #091322;
+      border: 1px solid #1a2744;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 13.5px;
+      color: #cbd5e1;
     }
 
     @keyframes fadeIn {
@@ -1261,6 +1455,7 @@
       <a href="#bai-5" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">🔢</span> Bài 5: Dãy Số (Tăng, Giảm, Bị Chặn)</a>
 
       <div class="sidebar-group-title">Thực Chiến & Phòng Thi</div>
+      <a href="#cong-thuc-combo" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">🧩</span> Công Thức Combo (Lắp Ráp)</a>
       <a href="#ma-tran-thi-giua-ki" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">🏆</span> 10 Dạng Toán Trọng Tâm Thi GK</a>
       <a href="#giai-sgk-trong-tam" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">✍️</span> 32 Bài Tập SGK Step-by-Step</a>
       <a href="#meo-casio" class="sidebar-nav-item" onclick="toggleSidebar()"><span class="icon">⚡</span> Casio 580 & 880 (10 Giây)</a>
@@ -1308,6 +1503,7 @@
         <a href="#bai-3" class="tab-pill"><span>📈</span> Bài 3: Hàm Số</a>
         <a href="#bai-4" class="tab-pill"><span>🎯</span> Bài 4: Phương Trình</a>
         <a href="#bai-5" class="tab-pill"><span>🔢</span> Bài 5: Dãy Số</a>
+        <a href="#cong-thuc-combo" class="tab-pill"><span>🧩</span> Combo Hủy Diệt</a>
         <a href="#ma-tran-thi-giua-ki" class="tab-pill"><span>🏆</span> 10 Dạng Thi</a>
         <a href="#giai-sgk-trong-tam" class="tab-pill"><span>✍️</span> 32 Bài SGK</a>
         <a href="#meo-casio" class="tab-pill"><span>⚡</span> Casio 580/880</a>
@@ -1616,6 +1812,28 @@
         </table>
       </div>
 
+      <!-- 11. GÓC HỒI TƯỞNG: HỆ THỨC LƯỢNG TAM GIÁC LỚP 10 -->
+      <div class="recall-box">
+        <button type="button" class="recall-toggle" onclick="toggleRecall(this)">
+          <div class="recall-header-left">
+            <span class="recall-badge">KÝ ỨC LỚP 10</span>
+            <span>⏳ CỨU NẠN MẤT GỐC: Hệ thức lượng & Định lý Sin, Cos trong tam giác</span>
+          </div>
+          <span class="recall-arrow">▼</span>
+        </button>
+        <div class="recall-content">
+          <p><strong>Nhiều bạn lên lớp 11 quên sạch tam giác thường giải bằng gì:</strong></p>
+          <ul style="margin-left: 20px; line-height: 1.9;">
+            <li><strong>Định lý Côsin:</strong> $a^2 = b^2 + c^2 - 2bc\cos A \iff \cos A = \frac{b^2 + c^2 - a^2}{2bc}$. <em>(Dùng khi biết 2 cạnh và 1 góc kẹp giữa để tìm cạnh còn lại, hoặc biết 3 cạnh để tính góc!).</em></li>
+            <li><strong>Định lý Sin:</strong> $\frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C} = 2R$ (với $R$ là bán kính đường tròn ngoại tiếp). <em>(Dùng khi biết 1 cạnh và góc đối diện!).</em></li>
+            <li><strong>5 công thức tính diện tích $S$:</strong> $S = \frac{1}{2}ab\sin C = \frac{abc}{4R} = pr = \sqrt{p(p-a)(p-b)(p-c)}$ (với $p = \frac{a+b+c}{2}$).</li>
+          </ul>
+          <div class="recall-cite">
+            📌 <em>Công thức này mượn tạm từ Chương IV Toán 10 (Hệ thức lượng trong tam giác), lôi ra đây để giải các bài toán đo chiều cao ngọn hải đăng, khoảng cách 2 con tàu trong SGK Bài 1 & 4 nhé!</em>
+          </div>
+        </div>
+      </div>
+
       <!-- 3. ĐƯỜNG TRÒN LƯỢNG GIÁC & DẤU 4 GÓC PHẦN TƯ -->
       <h3 class="sub-title">3. Đường Tròn Lượng Giác & Bảng Dấu 4 Góc Phần Tư</h3>
 
@@ -1696,6 +1914,34 @@
           Theo định lý Pytago lớp 7: $\text{kề}^2 + \text{đối}^2 = \text{huyền}^2 \iff \cos^2\alpha + \sin^2\alpha = 1^2 = 1$! Đơn giản thế thôi!
           <br>Muốn ra công thức (2), lấy cả hai vế chia cho $\cos^2\alpha$.
           <br>Muốn ra công thức (3), lấy cả hai vế chia cho $\sin^2\alpha$.
+        </div>
+      </div>
+
+      <!-- 11. GÓC HỒI TƯỞNG: HẰNG ĐẲNG THỨC ĐÁNG NHỚ LỚP 8-10 -->
+      <div class="recall-box">
+        <button type="button" class="recall-toggle" onclick="toggleRecall(this)">
+          <div class="recall-header-left">
+            <span class="recall-badge">KÝ ỨC LỚP 10</span>
+            <span>⏳ CỨU NẠN MẤT GỐC: Hằng đẳng thức biến hóa khôn lường với Sin và Cos</span>
+          </div>
+          <span class="recall-arrow">▼</span>
+        </button>
+        <div class="recall-content">
+          <p><strong>Đừng bao giờ quên 3 hằng đẳng thức "gối đầu giường" khi rút gọn biểu thức:</strong></p>
+          <ul style="margin-left: 20px; line-height: 1.9;">
+            <li><strong>Bình phương của một tổng/hiệu:</strong><br>
+            $(\sin x \pm \cos x)^2 = \sin^2 x \pm 2\sin x\cos x + \cos^2 x = \mathbf{1 \pm 2\sin x\cos x = 1 \pm \sin 2x}$.
+            </li>
+            <li><strong>Tổng hai lập phương $a^3 + b^3 = (a+b)(a^2 - ab + b^2)$:</strong><br>
+            $\sin^3 x + \cos^3 x = (\sin x + \cos x)(\sin^2 x - \sin x\cos x + \cos^2 x) = \mathbf{(\sin x + \cos x)(1 - \sin x\cos x)}$.
+            </li>
+            <li><strong>Lũy thừa bậc 4: $a^4 + b^4 = (a^2 + b^2)^2 - 2a^2b^2$:</strong><br>
+            $\sin^4 x + \cos^4 x = (\sin^2 x + \cos^2 x)^2 - 2\sin^2 x\cos^2 x = \mathbf{1 - 2\sin^2 x\cos^2 x = 1 - \frac{1}{2}\sin^2 2x}$.
+            </li>
+          </ul>
+          <div class="recall-cite">
+            📌 <em>Mượn tạm từ Đại số lớp 8-10. Đề kiểm tra rút gọn biểu thức hay bắt chứng minh "biểu thức không phụ thuộc vào $x$" toàn lấy mấy cái này ra gài bẫy thôi!</em>
+          </div>
         </div>
       </div>
 
@@ -2229,7 +2475,28 @@
             $$3 - 2 \le 3 - 2\cos\left(2x + \frac{\pi}{4}\right) \le 3 + 2 \iff 1 \le y \le 5$$
             <strong>Kết luận:</strong>
             <br>• Giá trị lớn nhất: $\mathbf{\max y = 5}$ (đạt được khi $\cos\left(2x + \frac{\pi}{4}\right) = -1$).
-            <br>• Giá trị nhỏ nhất: $\mathbf{\min y = 1}$ (đạt được khi $\cos\left(2x + \frac{\pi}{4}\right) = 1$).
+        </div>
+      </div>
+
+      <!-- 11. GÓC HỒI TƯỞNG: TAM THỨC BẬC HAI & ĐỈNH PARABOL LỚP 10 -->
+      <div class="recall-box">
+        <button type="button" class="recall-toggle" onclick="toggleRecall(this)">
+          <div class="recall-header-left">
+            <span class="recall-badge">KÝ ỨC LỚP 10</span>
+            <span>⏳ CỨU NẠN MẤT GỐC: Đỉnh Parabol & Khảo sát Min-Max trên đoạn [-1; 1]</span>
+          </div>
+          <span class="recall-arrow">▼</span>
+        </button>
+        <div class="recall-content">
+          <p><strong>Nhiều bạn lên lớp 11 cứ thấy $\sin^2 x$ là đơ người, thực ra nó là Parabol lớp 10:</strong></p>
+          <ul style="margin-left: 20px; line-height: 1.9;">
+            <li><strong>Đỉnh Parabol:</strong> Hàm số $f(t) = at^2 + bt + c$ có hoành độ đỉnh là $\mathbf{t_0 = -\frac{b}{2a}}$.</li>
+            <li><strong>Nếu $a > 0$:</strong> Bề lõm quay lên trên $\implies$ Đỉnh $t_0$ là điểm THẤP NHẤT (GTNN).</li>
+            <li><strong>Nếu $a < 0$:</strong> Bề lõm úp xuống dưới $\implies$ Đỉnh $t_0$ là điểm CAO NHẤT (GTLN).</li>
+            <li><strong>Kỹ thuật kẹp đoạn $[-1; 1]$:</strong> Đặt $t = \sin x$ hoặc $t = \cos x$ thì $t$ bị nhốt trong $[-1; 1]$. Bạn chỉ cần tính đúng 3 giá trị: $f(-1), f(1)$ và $f(t_0)$ (nếu $t_0 \in [-1; 1]$). Giá trị to nhất là Max, bé nhất là Min!</li>
+          </ul>
+          <div class="recall-cite">
+            📌 <em>Công thức này mượn từ Chương III Toán 10 (Hàm số bậc hai). Lôi ra đây để giải quyết các bài toán tìm Min Max dạng $y = a\sin^2 x + b\sin x + c$ trong đề thi giữa kì nhé!</em>
           </div>
         </div>
       </div>
@@ -2377,6 +2644,28 @@
         1. <strong>BẪY THIẾU HỌ NGHIỆM THỨ HAI:</strong> Khi giải $\sin x = \frac{1}{2}$, rất nhiều bạn chỉ viết $x = \frac{\pi}{6} + k2\pi$ mà quên mất nghiệm $x = \pi - \frac{\pi}{6} + k2\pi = \frac{5\pi}{6} + k2\pi \implies$ <strong>MẤT 50% SỐ ĐIỂM!</strong>
         <br>2. <strong>BẪY CHIA QUÊN ĐUÔI $k2\pi$:</strong> Khi giải $2x = \frac{\pi}{3} + k2\pi$, học sinh chia 2 ra $x = \frac{\pi}{6} + k2\pi \implies$ <strong>SAI!</strong> Phải chia cả đuôi $k2\pi$ cho 2 thành: $x = \frac{\pi}{6} + k\pi$!
         <br>3. <strong>BẪY LẪN LỘN ĐỘ VÀ RADIAN:</strong> Cấm kỵ tuyệt đối việc viết một nửa là độ, một nửa là pi: $x = 30^\circ + k2\pi \implies$ <strong>ĂN 0 ĐIỂM NGAY!</strong> Đã dùng độ thì phải $+ k360^\circ$, đã dùng radian thì phải $+ k2\pi$!
+      </div>
+
+      <!-- 11. GÓC HỒI TƯỞNG: PHƯƠNG TRÌNH QUY VỀ BẬC HAI & LOẠI NGHIỆM LỚP 10 -->
+      <div class="recall-box">
+        <button type="button" class="recall-toggle" onclick="toggleRecall(this)">
+          <div class="recall-header-left">
+            <span class="recall-badge">KÝ ỨC LỚP 10</span>
+            <span>⏳ CỨU NẠN MẤT GỐC: Phương trình bậc hai & Bẫy loại nghiệm ẩn phụ</span>
+          </div>
+          <span class="recall-arrow">▼</span>
+        </button>
+        <div class="recall-content">
+          <p><strong>Rất nhiều đề thi cho phương trình dạng $a\sin^2 x + b\sin x + c = 0$ (hoặc cos):</strong></p>
+          <ul style="margin-left: 20px; line-height: 1.9;">
+            <li><strong>Bước 1:</strong> Đặt $t = \sin x$ hoặc $t = \cos x$. <strong>ĐIỀU KIỆN SỐNG CÒN: $-1 \le t \le 1$</strong>.</li>
+            <li><strong>Bước 2:</strong> Bấm máy tính giải phương trình bậc hai $at^2 + bt + c = 0$ ra 2 nghiệm $t_1, t_2$.</li>
+            <li><strong>Bước 3 (Bẫy tử thần):</strong> Nghiệm nào nằm ngoài đoạn $[-1; 1]$ (ví dụ $t = 2$ hoặc $t = -3.5$) thì <strong>LOẠI NGAY LẬP TỨC</strong>! Chỉ giữ lại nghiệm thỏa mãn $-1 \le t \le 1$ rồi giải tiếp tìm $x$.</li>
+          </ul>
+          <div class="recall-cite">
+            📌 <em>Công thức này mượn từ Bài 3 Chương III Toán 10 (Phương trình quy về bậc hai). Đừng bao giờ nhận cả nghiệm $t = 2$ rồi ngồi bấm máy $\sin x = 2$ mà ăn chửi nhé!</em>
+          </div>
+        </div>
       </div>
 
       <!-- 4. THỰC CHIẾN BÀI TẬP MẪU 3 BƯỚC -->
@@ -2571,6 +2860,33 @@
         <br>• <strong>Bị chặn toàn diện:</strong> Dãy số vừa bị chặn dưới vừa bị chặn trên: <strong>$m \le u_n \le M$</strong> với mọi $n \in \mathbb{N}^*$!
       </div>
 
+      <!-- 11. GÓC HỒI TƯỞNG: QUY NẠP TOÁN HỌC & BẤT ĐẲNG THỨC CÔ-SI LỚP 10 -->
+      <div class="recall-box">
+        <button type="button" class="recall-toggle" onclick="toggleRecall(this)">
+          <div class="recall-header-left">
+            <span class="recall-badge">KÝ ỨC LỚP 10</span>
+            <span>⏳ CỨU NẠN MẤT GỐC: Phương pháp Quy nạp toán học 3 bước & Bất đẳng thức Cô-si</span>
+          </div>
+          <span class="recall-arrow">▼</span>
+        </button>
+        <div class="recall-content">
+          <p><strong>1. Vũ khí tối thượng chứng minh dãy số: Phương pháp Quy nạp toán học 3 bước:</strong></p>
+          <ul style="margin-left: 20px; line-height: 1.9;">
+            <li><strong>Bước 1 (Cơ sở quy nạp):</strong> Kiểm tra mệnh đề đúng với giá trị đầu tiên $n = 1$ (tính trực tiếp $u_1$).</li>
+            <li><strong>Bước 2 (Giả thiết quy nạp):</strong> Giả sử mệnh đề đúng với $n = k$ ($k \ge 1$), tức là ta đã có trong tay mệnh đề đúng ở bước $k$.</li>
+            <li><strong>Bước 3 (Bước quy nạp):</strong> Ta phải chứng minh mệnh đề cũng đúng với $n = k + 1$ bằng cách biến đổi biểu thức $u_{k+1}$ dựa trên giả thiết bước 2. $\implies$ Kết luận mệnh đề đúng với mọi $n \in \mathbb{N}^*$.</li>
+          </ul>
+          <p style="margin-top: 10px;"><strong>2. Bất đẳng thức Cô-si (AM-GM) 2 số không âm:</strong></p>
+          <div style="background: rgba(255,255,255,0.04); padding: 8px 12px; border-radius: 6px; font-family: monospace;">
+            Với $a, b \ge 0 \implies a + b \ge 2\sqrt{ab}$. Dấu "=" xảy ra khi và chỉ khi $a = b$.
+          </div>
+          <p style="margin-top: 8px;"><em>Ứng dụng tìm chặn dưới siêu nhanh:</em> Ví dụ dãy $u_n = n + \frac{1}{n} \ge 2\sqrt{n \cdot \frac{1}{n}} = 2 \implies u_n \ge 2$ với mọi $n \implies$ Bị chặn dưới bởi $2$ trong đúng 3 giây!</p>
+          <div class="recall-cite">
+            📌 <em>Công thức này mượn tạm từ Bài Quy nạp toán học & Bất đẳng thức lớp 10, lôi ra đây để xử lý các bài dãy số truy hồi và tìm chặn dưới trong đề kiểm tra giữa kì nhé!</em>
+          </div>
+        </div>
+      </div>
+
       <!-- 5. PHẦN THỰC CHIẾN 3 BƯỚC -->
       <h3 class="sub-title">5. Phần Thực Chiến: Bài Tập Mẫu Step-by-Step Cầm Tay Chỉ Việc</h3>
 
@@ -2671,6 +2987,199 @@
         </div>
       </div>
 
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- MỤC 12: CÔNG THỨC COMBO - LẮP RÁP ĐỒ CHƠI (COMBO HỦY DIỆT HAY GẶP)  -->
+    <!-- =================================================================== -->
+    <section class="section-card" id="cong-thuc-combo" style="border: 2px solid var(--gold);">
+      <div class="section-header">
+        <div class="section-number" style="background: linear-gradient(135deg, #f59e0b, #d97706);">🧩</div>
+        <div>
+          <span class="tag-concept" style="background: rgba(245, 158, 11, 0.2); color: var(--gold-light);">MỤC ĐẶC BIỆT: VŨ KHÍ HẠNG NẶNG</span>
+          <h2 class="section-title">"Công Thức Combo" - Lắp Ráp Đồ Chơi (Combo Hủy Diệt Hay Gặp)</h2>
+          <p class="section-meta">Đi thi đéo bao giờ ốp 1 công thức cơ bản mà ra! Phải ghép 2-3 công thức lai tạo sẵn để phản xạ 10 giây!</p>
+        </div>
+      </div>
+
+      <div class="block-theory">
+        <div class="block-theory-title">🧠 Tư duy chiến thuật: Tại sao phải học "Công Thức Combo"?</div>
+        Đề thi THPT Quốc Gia và đề thi giữa kì bây giờ toàn bẫy học sinh bằng cách <strong>bắt ghép 2 đến 3 công thức lại với nhau</strong>. 
+        Đứa nào ngồi phòng thi lụi hụi biến đổi từng bước từ đầu thì hết giờ! 
+        Dưới đây là <strong>6 Bộ Combo Hủy Diệt</strong> đã được biến đổi gộp sẵn, kèm "Dấu hiệu nhận biết" để bạn vừa liếc mắt thấy đề là ốp thẳng vào ăn điểm ngay!
+      </div>
+
+      <div class="combo-grid">
+        
+        <!-- COMBO 1 -->
+        <div class="combo-card">
+          <div class="combo-header">
+            <div class="combo-title">
+              <span>⚡</span> COMBO 1: Cặp Đôi Hoàn Hảo $(\sin x \pm \cos x)$
+            </div>
+            <div class="combo-badge-tag">Tỉ lệ thi 99%</div>
+          </div>
+          <div class="combo-body">
+            <div class="combo-signal">
+              <div class="combo-signal-label">🎯 Dấu hiệu nhận biết trong đề thi:</div>
+              Thấy đề bài xuất hiện cụm tổng $\sin x + \cos x$, cụm hiệu $\sin x - \cos x$ hoặc phương trình chứa cả tổng $(\sin x + \cos x)$ lẫn tích $(\sin x \cos x)$!
+            </div>
+            <div class="combo-formula-strip">
+              $$\mathbf{\sin x + \cos x = \sqrt{2}\sin\left(x + \frac{\pi}{4}\right) = \sqrt{2}\cos\left(x - \frac{\pi}{4}\right)}$$
+              $$\mathbf{\sin x - \cos x = \sqrt{2}\sin\left(x - \frac{\pi}{4}\right) = -\sqrt{2}\cos\left(x + \frac{\pi}{4}\right)}$$
+              $$\mathbf{(\sin x \pm \cos x)^2 = 1 \pm \sin 2x \iff \sin 2x = \pm [(\sin x \pm \cos x)^2 - 1]}$$
+            </div>
+            <div class="combo-logic">
+              <strong>Tư duy xâu chuỗi:</strong> Ghép công thức cộng $\sin x + \cos x = \sqrt{2}(\frac{1}{\sqrt{2}}\sin x + \frac{1}{\sqrt{2}}\cos x)$ với $\cos\frac{\pi}{4} = \sin\frac{\pi}{4} = \frac{1}{\sqrt{2}}$. 
+              Khi bình phương lên: $(\sin x + \cos x)^2 = \sin^2 x + \cos^2 x + 2\sin x\cos x = 1 + \sin 2x$!
+            </div>
+            <div class="combo-example-box">
+              <strong style="color: var(--gold);">🚀 Ứng dụng 5 giây:</strong> Giải phương trình $\sin x + \cos x = 1$.<br>
+              Ốp thẳng combo: $\sqrt{2}\sin\left(x + \frac{\pi}{4}\right) = 1 \iff \sin\left(x + \frac{\pi}{4}\right) = \frac{1}{\sqrt{2}} = \sin\frac{\pi}{4}$. Ra nghiệm trong 2 dòng!
+            </div>
+          </div>
+        </div>
+
+        <!-- COMBO 2 -->
+        <div class="combo-card">
+          <div class="combo-header">
+            <div class="combo-title">
+              <span>⚡</span> COMBO 2: Khử Mẫu & Phá Căn Thần Tốc $(1 \pm \cos 2x)$ và $(1 \pm \sin 2x)$
+            </div>
+            <div class="combo-badge-tag">Cực hay gặp</div>
+          </div>
+          <div class="combo-body">
+            <div class="combo-signal">
+              <div class="combo-signal-label">🎯 Dấu hiệu nhận biết trong đề thi:</div>
+              Thấy dưới mẫu số hoặc nằm bên trong căn bậc hai chứa các cụm: $\sqrt{1 + \cos 2x}$, $\sqrt{1 - \cos 2x}$ hoặc $\sqrt{1 + \sin 2x}$!
+            </div>
+            <div class="combo-formula-strip">
+              $$\mathbf{1 + \cos 2x = 2\cos^2 x \implies \sqrt{1 + \cos 2x} = \sqrt{2}|\cos x|}$$
+              $$\mathbf{1 - \cos 2x = 2\sin^2 x \implies \sqrt{1 - \cos 2x} = \sqrt{2}|\sin x|}$$
+              $$\mathbf{1 \pm \sin 2x = (\sin x \pm \cos x)^2 \implies \sqrt{1 \pm \sin 2x} = |\sin x \pm \cos x|}$$
+            </div>
+            <div class="combo-logic">
+              <strong>Tư duy xâu chuỗi:</strong> Thay số $1$ bằng $(\sin^2 x + \cos^2 x)$, ghép với $\sin 2x = 2\sin x\cos x$ để biến thành bình phương hoàn hảo $\to$ trục căn bậc hai bay màu ngay lập tức!
+            </div>
+            <div class="combo-example-box">
+              <strong style="color: var(--gold);">🚀 Ứng dụng 5 giây:</strong> Rút gọn $B = \frac{1 - \cos 2x}{\sin 2x}$.<br>
+              Ốp thẳng combo: $B = \frac{2\sin^2 x}{2\sin x\cos x} = \frac{\sin x}{\cos x} = \mathbf{\tan x}$. Không cần nháp!
+            </div>
+          </div>
+        </div>
+
+        <!-- COMBO 3 -->
+        <div class="combo-card">
+          <div class="combo-header">
+            <div class="combo-title">
+              <span>⚡</span> COMBO 3: Phương Trình Bậc Nhất Sin-Cos Bất Bại $(a\sin x + b\cos x = c)$
+            </div>
+            <div class="combo-badge-tag">Trọng tâm 8+</div>
+          </div>
+          <div class="combo-body">
+            <div class="combo-signal">
+              <div class="combo-signal-label">🎯 Dấu hiệu nhận biết trong đề thi:</div>
+              Phương trình có dạng $a\sin x + b\cos x = c$, hoặc bài toán tìm tham số $m$ để hàm số có nghiệm, hoặc tìm Min/Max của biểu thức $y = a\sin x + b\cos x$!
+            </div>
+            <div class="combo-formula-strip">
+              $$\mathbf{\text{ĐIỀU KIỆN CÓ NGHIỆM: } a^2 + b^2 \ge c^2} \quad (\text{Nếu } a^2 + b^2 < c^2 \implies \text{VÔ NGHIỆM KHOANH NGAY!})$$
+              $$\mathbf{-\sqrt{a^2 + b^2} \le a\sin x + b\cos x \le \sqrt{a^2 + b^2}}$$
+              $$\mathbf{\max(a\sin x + b\cos x) = \sqrt{a^2 + b^2}, \quad \min(a\sin x + b\cos x) = -\sqrt{a^2 + b^2}}$$
+            </div>
+            <div class="combo-logic">
+              <strong>Tư duy xâu chuỗi:</strong> Chia cả 2 vế cho độ dài $\sqrt{a^2+b^2}$, biến vế trái thành $\sin(x + \varphi)$. Vì $\sin(x+\varphi)$ chỉ chạy từ $-1$ đến $1$, nên tỷ số $\frac{c}{\sqrt{a^2+b^2}}$ buộc phải $\le 1 \implies a^2+b^2 \ge c^2$!
+            </div>
+            <div class="combo-example-box">
+              <strong style="color: var(--gold);">🚀 Ứng dụng 5 giây:</strong> Tìm Max của $y = 3\sin x + 4\cos x - 2$.<br>
+              Áp dụng combo: Phần $3\sin x + 4\cos x$ đạt Max $= \sqrt{3^2 + 4^2} = 5$.<br>
+              $\implies \max y = 5 - 2 = \mathbf{3}$. Tính nhẩm trong 3 giây!
+            </div>
+          </div>
+        </div>
+
+        <!-- COMBO 4 -->
+        <div class="combo-card">
+          <div class="combo-header">
+            <div class="combo-title">
+              <span>⚡</span> COMBO 4: Bậc 4 & Bậc 6 Rút Gọn Siêu Tốc $(\sin^4 x + \cos^4 x)$ và $(\sin^6 x + \cos^6 x)$
+            </div>
+            <div class="combo-badge-tag">Rút gọn 10 giây</div>
+          </div>
+          <div class="combo-body">
+            <div class="combo-signal">
+              <div class="combo-signal-label">🎯 Dấu hiệu nhận biết trong đề thi:</div>
+              Thấy biểu thức lượng giác chứa lũy thừa bậc 4 hoặc bậc 6 của Sin và Cos!
+            </div>
+            <div class="combo-formula-strip">
+              $$\mathbf{\sin^4 x + \cos^4 x = 1 - 2\sin^2 x\cos^2 x = 1 - \frac{1}{2}\sin^2 2x = \frac{3}{4} + \frac{1}{4}\cos 4x}$$
+              $$\mathbf{\sin^6 x + \cos^6 x = 1 - 3\sin^2 x\cos^2 x = 1 - \frac{3}{4}\sin^2 2x = \frac{5}{8} + \frac{3}{8}\cos 4x}$$
+            </div>
+            <div class="combo-logic">
+              <strong>Tư duy xâu chuỗi:</strong> Lấy hằng đẳng thức $a^2+b^2 = (a+b)^2 - 2ab$ và $a^3+b^3 = (a+b)(a^2-ab+b^2)$ của lớp 10, gộp với $\sin^2 x+\cos^2 x=1$ và $\sin x\cos x = \frac{1}{2}\sin 2x$. 
+              Chỉ cần nhớ 2 con số: Bậc 4 thì trừ $\frac{1}{2}\sin^2 2x$, Bậc 6 thì trừ $\frac{3}{4}\sin^2 2x$!
+            </div>
+            <div class="combo-example-box">
+              <strong style="color: var(--gold);">🚀 Ứng dụng 5 giây:</strong> Tìm Min của $P = \sin^4 x + \cos^4 x$.<br>
+              Ốp combo: $P = 1 - \frac{1}{2}\sin^2 2x$. Vì $\sin^2 2x \le 1 \implies P \ge 1 - \frac{1}{2}(1) = \mathbf{\frac{1}{2}}$. Xong bài!
+            </div>
+          </div>
+        </div>
+
+        <!-- COMBO 5 -->
+        <div class="combo-card">
+          <div class="combo-header">
+            <div class="combo-title">
+              <span>⚡</span> COMBO 5: Tam Thức Lượng Giác & Đỉnh Parabol Kẹp Min-Max
+            </div>
+            <div class="combo-badge-tag">Dạng phân loại</div>
+          </div>
+          <div class="combo-body">
+            <div class="combo-signal">
+              <div class="combo-signal-label">🎯 Dấu hiệu nhận biết trong đề thi:</div>
+              Hàm số có dạng hỗn hợp bậc 2: $y = A\sin^2 x + B\sin x + C$ (hoặc với cos), yêu cầu tìm Min, Max!
+            </div>
+            <div class="combo-formula-strip">
+              $$\mathbf{\text{Quy tắc 3 điểm rơi: Đặt } t = \sin x \text{ (hoặc } \cos x\text{) với } t \in [-1; 1]}$$
+              $$\mathbf{\text{Tính đúng 3 giá trị: } f(-1), \quad f(1), \quad \text{và } f(t_0) = f\left(-\frac{B}{2A}\right) \quad (\text{nếu } -1 \le t_0 \le 1)}$$
+              $$\mathbf{\max y = \max\{f(-1), f(1), f(t_0)\}, \qquad \min y = \min\{f(-1), f(1), f(t_0)\}}$$
+            </div>
+            <div class="combo-logic">
+              <strong>Tư duy xâu chuỗi:</strong> Ghép bài toán lượng giác với Đỉnh Parabol lớp 10. Trên một đoạn đóng $[-1; 1]$, giá trị lớn nhất và nhỏ nhất CHỈ CÓ THỂ RƠI VÀO 2 ĐẦU MÚT HOẶC ĐỈNH PARABOL! Cấm đi mò mẫm lung tung!
+            </div>
+          </div>
+        </div>
+
+        <!-- COMBO 6 -->
+        <div class="combo-card">
+          <div class="combo-header">
+            <div class="combo-title">
+              <span>⚡</span> COMBO 6: Dãy Phân Thức Bậc Nhất Đạo Hàm Tích Chéo $\left(u_n = \frac{an + b}{cn + d}\right)$
+            </div>
+            <div class="combo-badge-tag">Dãy số 3 giây</div>
+          </div>
+          <div class="combo-body">
+            <div class="combo-signal">
+              <div class="combo-signal-label">🎯 Dấu hiệu nhận biết trong đề thi:</div>
+              Đề bài cho dãy số dạng phân thức bậc nhất trên bậc nhất: $u_n = \frac{an + b}{cn + d}$ (với mẫu $cn + d > 0, \forall n \ge 1$), hỏi dãy tăng hay giảm, bị chặn bởi số nào?
+            </div>
+            <div class="combo-formula-strip">
+              $$\mathbf{\text{TÍNH ĐẠO HÀM NHẨM: } \Delta = ad - bc}$$
+              $$\mathbf{\Delta = ad - bc > 0 \implies \text{Dãy số TĂNG}}$$
+              $$\mathbf{\Delta = ad - bc < 0 \implies \text{Dãy số GIẢM}}$$
+              $$\mathbf{\text{Khoảng bị chặn: Kẹp giữa } u_1 = \frac{a+b}{c+d} \quad \text{và tiệm cận ngang } \frac{a}{c}}$$
+            </div>
+            <div class="combo-logic">
+              <strong>Tư duy xâu chuỗi:</strong> Hiệu $u_{n+1} - u_n$ sau khi quy đồng có tử số chính là hằng số $ad - bc$! 
+              Do đó chỉ cần nhân chéo $a \times d - b \times c$ là biết ngay dấu của cả dãy số!
+            </div>
+            <div class="combo-example-box">
+              <strong style="color: var(--gold);">🚀 Ứng dụng 3 giây:</strong> Cho $u_n = \frac{3n - 1}{2n + 5}$. Dãy tăng hay giảm?<br>
+              Nhân chéo: $\Delta = (3)(5) - (-1)(2) = 15 + 2 = 17 > 0 \implies$ <strong>DÃY TĂNG NGAY LẬP TỨC!</strong> Không cần quy đồng 1 dòng nào!
+            </div>
+          </div>
+        </div>
+
+      </div>
     </section>
 
     <!-- ======================================================= -->
@@ -3905,6 +4414,13 @@
         content.classList.add('show');
         btn.innerHTML = '🙈 Ẩn đáp án (Tự suy nghĩ lại)';
       }
+    }
+
+    // TOGGLE GÓC HỒI TƯỞNG (ACCORDION KÝ ỨC LỚP 10)
+    function toggleRecall(btn) {
+      const box = btn.closest('.recall-box');
+      if (!box) return;
+      box.classList.toggle('open');
     }
 
     // TOOLTIP MOBILE TAP SUPPORT
