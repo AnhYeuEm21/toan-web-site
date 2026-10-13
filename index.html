@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
   <meta charset="UTF-8">
@@ -1007,45 +1007,83 @@
       letter-spacing: 0.03em;
     }
 
-    /* TOOLTIP GIẢI NGHĨA TỨC THÌ */
+    /* TOOLTIP GIẢI NGHĨA TỨC THÌ (HOVER & TAP BONG BÓNG) */
     .tip-term {
       color: var(--gold);
-      border-bottom: 1.5px dashed var(--gold);
-      cursor: help;
+      border-bottom: 2px dashed var(--gold);
+      cursor: pointer;
       position: relative;
       font-weight: 700;
       display: inline-block;
+      padding: 0 4px;
       user-select: none;
+      transition: color 0.15s, background-color 0.15s;
+      border-radius: 4px;
+    }
+
+    .tip-term:hover,
+    .tip-term:focus,
+    .tip-term.active {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--gold-light);
     }
 
     .tip-term::after {
       content: attr(data-tooltip);
+    }
+    .tip-term[data-tip]:not([data-tooltip])::after {
+      content: attr(data-tip);
       position: absolute;
-      bottom: calc(100% + 8px);
+      bottom: calc(100% + 10px);
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(4px);
       background: var(--bg-surface);
       color: var(--text-primary);
-      border: 1px solid var(--border-color);
-      padding: 8px 12px;
-      border-radius: var(--radius-sm);
-      font-size: 12.5px;
-      line-height: 1.5;
+      border: 1.5px solid var(--gold);
+      padding: 10px 14px;
+      border-radius: var(--radius-md);
+      font-size: 13px;
+      line-height: 1.55;
       width: max-content;
-      max-width: 280px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+      max-width: 300px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.2s, visibility 0.2s;
-      z-index: 1500;
+      transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+      z-index: 9999;
       pointer-events: none;
-      font-weight: normal;
+      font-weight: 500;
       text-align: left;
+      white-space: normal;
+    }
+
+    .tip-term::before {
+      content: "";
+      position: absolute;
+      bottom: calc(100% + 2px);
+      left: 50%;
+      transform: translateX(-50%);
+      border-width: 8px 6px 0 6px;
+      border-style: solid;
+      border-color: var(--gold) transparent transparent transparent;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+      z-index: 10000;
+      pointer-events: none;
     }
 
     .tip-term:hover::after,
     .tip-term:focus::after,
     .tip-term.active::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .tip-term:hover::before,
+    .tip-term:focus::before,
+    .tip-term.active::before {
       opacity: 1;
       visibility: visible;
     }
@@ -1641,9 +1679,148 @@
       color: var(--text-body);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(-4px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* ========================================================= */
+    /* 13. HỆ THỐNG THỬ THÁCH 3 CẤP ĐỘ (DỄ - VỪA - KHÓ)          */
+    /* ========================================================= */
+    .quiz-container {
+      background: var(--bg-card);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      margin: 24px 0 16px;
+      padding: 18px 20px;
+      box-shadow: var(--box-shadow-sm);
+    }
+
+    .quiz-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .quiz-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quiz-badge {
+      font-size: 11px;
+      font-weight: 700;
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--gold);
+      padding: 3px 10px;
+      border-radius: 12px;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .quiz-body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .quiz-item {
+      background: var(--bg-inner);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      border: 1px solid var(--border-subtle);
+      transition: border-color 0.15s;
+    }
+
+    .quiz-item.quiz-easy {
+      border-left: 4px solid #10b981;
+    }
+
+    .quiz-item.quiz-medium {
+      border-left: 4px solid #f59e0b;
+    }
+
+    .quiz-item.quiz-hard {
+      border-left: 4px solid #ef4444;
+    }
+
+    .quiz-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .level-badge {
+      font-size: 11px;
+      font-weight: 800;
+      padding: 2px 8px;
+      border-radius: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .level-easy {
+      background: rgba(16, 185, 129, 0.15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .level-medium {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--gold);
+      border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+
+    .level-hard {
+      background: rgba(239, 68, 68, 0.15);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .quiz-question {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+      line-height: 1.6;
+    }
+
+    .quiz-choices {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      margin-bottom: 12px;
+    }
+
+    @media (min-width: 640px) {
+      .quiz-choices {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .quiz-choice {
+      padding: 8px 12px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      color: var(--text-body);
+      line-height: 1.5;
+    }
+
+    .quiz-btn {
+      font-size: 12px !important;
+      padding: 6px 14px !important;
+      border-radius: 16px !important;
+    }
+
+    .quiz-answer {
+      font-size: 13.5px;
+      line-height: 1.7;
     }
 
     /* PRINT STYLES FOR PHAO CỨU SINH */
@@ -1726,6 +1903,11 @@
         <a href="#bai-4" class="tab-pill"><span>🎯</span> Bài 4: Phương Trình</a>
         <a href="#bai-5" class="tab-pill"><span>🔢</span> Bài 5: Dãy Số</a>
         <a href="#cong-thuc-combo" class="tab-pill"><span>🧩</span> Combo Hủy Diệt</a>
+        <a href="#tong-hop-sgk-hinh" class="tab-pill"><span>📐</span> 13 Trang Hình</a>
+        <a href="#bai-10" class="tab-pill"><span>📐</span> Bài 10: ĐT & MP</a>
+        <a href="#bai-11" class="tab-pill"><span>📐</span> Bài 11: ĐT // & Chéo</a>
+        <a href="#bai-12" class="tab-pill"><span>📐</span> Bài 12: ĐT // MP</a>
+        <a href="#bai-13" class="tab-pill"><span>📐</span> Bài 13: 2 MP //</a>
         <a href="#ma-tran-thi-giua-ki" class="tab-pill"><span>🏆</span> 10 Dạng Thi</a>
         <a href="#giai-sgk-trong-tam" class="tab-pill"><span>✍️</span> 32 Bài SGK</a>
         <a href="#meo-casio" class="tab-pill"><span>⚡</span> Casio 580/880</a>
@@ -1760,6 +1942,13 @@
 
         <div class="sidebar-group-title">Chương II: Dãy Số A-Z</div>
         <a href="#bai-5" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">🔢</span> Bài 5: Dãy Số (Tăng, Giảm, Bị Chặn)</a>
+
+        <div class="sidebar-group-title">Chương IV: Hình Học Không Gian A-Z</div>
+        <a href="#tong-hop-sgk-hinh" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">📐</span> 13 Trang SGK Hình (Zoom HD)</a>
+        <a href="#bai-10" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">📐</span> Bài 10: ĐT & Mặt Phẳng Không Gian</a>
+        <a href="#bai-11" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">📐</span> Bài 11: Hai ĐT Song Song & Chéo Nhau</a>
+        <a href="#bai-12" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">📐</span> Bài 12: Đường Thẳng Song Song Mặt Phẳng</a>
+        <a href="#bai-13" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">📐</span> Bài 13: Hai Mặt Phẳng Song Song</a>
 
         <div class="sidebar-group-title">Thực Chiến & Phòng Thi</div>
         <a href="#cong-thuc-combo" class="sidebar-nav-item" onclick="onSidebarItemClick()"><span class="icon">🧩</span> Công Thức Combo (Lắp Ráp)</a>
@@ -1894,11 +2083,11 @@
         <div class="interactive-header">⚡ THỬ NGHIỆM TƯƠNG TÁC: CHỐNG LÚ TỪ VỰNG</div>
         <p class="interactive-problem">
           Hãy chạm hoặc rê chuột vào các từ chuyên ngành sau đây để xem bong bóng giải nghĩa tức thì:
-          <span class="tip-term" data-tip="Đơn vị đo góc chuẩn quốc tế. 1 Radian là góc chắn cung tròn có độ dài đúng bằng bán kính R!">Radian</span>, 
-          <span class="tip-term" data-tip="Khoảng thời gian hoặc độ dài góc ngắn nhất để hàm số lặp lại hình dạng y xì đúc như cũ!">Chu kỳ tuần hoàn</span>, 
-          <span class="tip-term" data-tip="Tập hợp tất cả các giá trị của x làm cho biểu thức toán học tính ra kết quả hợp lệ, mẫu không bằng 0!">Tập xác định</span>, 
-          <span class="tip-term" data-tip="Xếp hàng từ bé đến lớn, số đứng sau luôn to hơn hoặc bằng số đứng trước!">Dãy số tăng</span>, 
-          <span class="tip-term" data-tip="Có một cái trần nhà (M) chặn ở trên và một cái sàn nhà (m) đỡ ở dưới, không bao giờ vọt quá!">Dãy số bị chặn</span>.
+          <span class="tip-term" data-tooltip="Đơn vị đo góc chuẩn quốc tế. 1 Radian là góc chắn cung tròn có độ dài đúng bằng bán kính R!" data-tip="Đơn vị đo góc chuẩn quốc tế. 1 Radian là góc chắn cung tròn có độ dài đúng bằng bán kính R!">Radian</span>, 
+          <span class="tip-term" data-tooltip="Khoảng thời gian hoặc độ dài góc ngắn nhất để hàm số lặp lại hình dạng y xì đúc như cũ!" data-tip="Khoảng thời gian hoặc độ dài góc ngắn nhất để hàm số lặp lại hình dạng y xì đúc như cũ!">Chu kỳ tuần hoàn</span>, 
+          <span class="tip-term" data-tooltip="Tập hợp tất cả các giá trị của x làm cho biểu thức toán học tính ra kết quả hợp lệ, mẫu không bằng 0!" data-tip="Tập hợp tất cả các giá trị của x làm cho biểu thức toán học tính ra kết quả hợp lệ, mẫu không bằng 0!">Tập xác định</span>, 
+          <span class="tip-term" data-tooltip="Xếp hàng từ bé đến lớn, số đứng sau luôn to hơn hoặc bằng số đứng trước!" data-tip="Xếp hàng từ bé đến lớn, số đứng sau luôn to hơn hoặc bằng số đứng trước!">Dãy số tăng</span>, 
+          <span class="tip-term" data-tooltip="Có một cái trần nhà (M) chặn ở trên và một cái sàn nhà (m) đỡ ở dưới, không bao giờ vọt quá!" data-tip="Có một cái trần nhà (M) chặn ở trên và một cái sàn nhà (m) đỡ ở dưới, không bao giờ vọt quá!">Dãy số bị chặn</span>.
         </p>
       </div>
 
@@ -1997,6 +2186,71 @@
         </div>
       </div>
 
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 1 -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: KHÁI NIỆM GÓC LƯỢNG GIÁC & CHIỀU QUAY</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 1</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Theo quy ước quốc tế về đường tròn lượng giác, chiều quay DƯƠNG được xác định là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Cùng chiều kim đồng hồ</div>
+              <div class="quiz-choice"><b>B.</b> Ngược chiều kim đồng hồ</div>
+              <div class="quiz-choice"><b>C.</b> Từ trái sang phải trên trục hoành</div>
+              <div class="quiz-choice"><b>D.</b> Từ trên xuống dưới trên trục tung</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: B</b><br>
+              <i>Giải thích:</i> Quy ước quốc tế: Chiều quay ngược chiều kim đồng hồ là chiều DƯƠNG (+). Chiều cùng chiều kim đồng hồ là chiều ÂM (-). Nhớ mẹo: vặn nắp chai mở ra ngược chiều kim đồng hồ là "đi lên" (dương).
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Một tia $Ou$ quay ngược chiều kim đồng hồ 2 vòng rưỡi (tức 2,5 vòng) để tạo thành tia $Ov$. Số đo của góc lượng giác $(Ou, Ov)$ này bằng bao nhiêu độ?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $720^\circ$</div>
+              <div class="quiz-choice"><b>B.</b> $900^\circ$</div>
+              <div class="quiz-choice"><b>C.</b> $-900^\circ$</div>
+              <div class="quiz-choice"><b>D.</b> $540^\circ$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: B</b><br>
+              <i>Giải thích:</i> 1 vòng tròn $= 360^\circ$. Quay ngược chiều kim đồng hồ là chiều dương $\implies$ góc quay $= +2{,}5 	imes 360^\circ = +900^\circ$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Hai góc lượng giác $lpha_1 = 45^\circ$ và $lpha_2 = -1035^\circ$ có cùng tia đầu $Ou$ và tia cuối $Ov$ không? Vì sao?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Không, vì một góc mang dấu dương còn một góc mang dấu âm</div>
+              <div class="quiz-choice"><b>B.</b> Có, vì hiệu hai góc bằng đúng một bội nguyên của $360^\circ$: $45^\circ - (-1035^\circ) = 1080^\circ = 3 	imes 360^\circ$</div>
+              <div class="quiz-choice"><b>C.</b> Không, vì $1035^\circ$ không chia hết cho $90^\circ$</div>
+              <div class="quiz-choice"><b>D.</b> Có, vì hai tia luôn trùng nhau sau mỗi $180^\circ$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: B</b><br>
+              <i>Giải thích:</i> Bẫy phòng thi rất hay hỏi "Hai góc này có cùng biểu diễn 1 vị trí tia cuối không?". Công thức tổng quát: $(Ou, Ov) = lpha + k \cdot 360^\circ$. Lấy hiệu: $45^\circ - (-1035^\circ) = 1080^\circ$. Chia cho $360^\circ$: $1080 / 360 = 3$ (nguyên đúng 3 vòng). Vậy tia cuối của chúng hoàn toàn trùng khớp nhau!
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- 2. ĐƠN VỊ RADIAN -->
       <h3 class="sub-title">2. Đơn Vị Radian & Tại Sao Lại Đẻ Ra Radian?</h3>
 
@@ -2092,6 +2346,71 @@
         </div>
       </div>
 
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 2 -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: ĐƠN VỊ RADIAN & CÔNG THỨC ĐỘ DÀI CUNG</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 2</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Góc lượng giác có số đo $180^\circ$ tương ứng với bao nhiêu radian?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $rac{\pi}{2}	ext{ rad}$</div>
+              <div class="quiz-choice"><b>B.</b> $\pi	ext{ rad}$</div>
+              <div class="quiz-choice"><b>C.</b> $2\pi	ext{ rad}$</div>
+              <div class="quiz-choice"><b>D.</b> $rac{\pi}{4}	ext{ rad}$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: B</b><br>
+              <i>Giải thích:</i> Mốc quy đổi bất biến của nhân loại: $180^\circ = \pi	ext{ rad}$. Muốn đổi từ độ sang rad chỉ cần nhân $rac{\pi}{180}$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Trên đường tròn bán kính $R = 8	ext{ cm}$, một cung tròn có góc ở tâm $lpha = 1{,}5	ext{ rad}$. Độ dài cung tròn $l$ bằng bao nhiêu?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $12	ext{ cm}$</div>
+              <div class="quiz-choice"><b>B.</b> $12\pi	ext{ cm}$</div>
+              <div class="quiz-choice"><b>C.</b> $5{,}33	ext{ cm}$</div>
+              <div class="quiz-choice"><b>D.</b> $9{,}6	ext{ cm}$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Công thức thần sầu $l = lpha \cdot R$ (bắt buộc $lpha$ tính bằng radian!). Thay số: $l = 1{,}5 	imes 8 = 12	ext{ cm}$. Tuyệt đối không tự ý nhét số $\pi$ vào khi đề đã cho sẵn số thực radian!
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Đổi góc $lpha = -rac{7\pi}{6}	ext{ rad}$ sang đơn vị độ. Kết quả chính xác là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $-210^\circ$</div>
+              <div class="quiz-choice"><b>B.</b> $210^\circ$</div>
+              <div class="quiz-choice"><b>C.</b> $-150^\circ$</div>
+              <div class="quiz-choice"><b>D.</b> $-330^\circ$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Thay trực tiếp $\pi = 180^\circ$: $lpha = -rac{7 	imes 180^\circ}{6} = -7 	imes 30^\circ = -210^\circ$. Bẫy phòng thi học sinh hay làm mất dấu âm $(-)$ dẫn tới chọn sai thành $210^\circ$.
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- 3. ĐƯỜNG TRÒN LƯỢNG GIÁC & DẤU 4 GÓC PHẦN TƯ -->
       <h3 class="sub-title">3. Đường Tròn Lượng Giác & Bảng Dấu 4 Góc Phần Tư</h3>
 
@@ -2107,42 +2426,112 @@
       </div>
 
       <!-- SƠ ĐỒ MINDMAP MINH HỌA DẤU BẰNG SVG TRỰC QUAN -->
-      <div class="mindmap-card">
-        <div class="mindmap-title">📐 Sơ Đồ Trực Quan Đường Tròn Lượng Giác & Dấu 4 Góc Phần Tư</div>
-        <div style="text-align: center; margin: 10px 0;">
-          <svg viewBox="0 0 320 320" style="max-width: 280px; width: 100%; height: auto; background: #070d1d; border-radius: 12px; border: 1px solid #1e293b;">
-            <!-- Trục tọa độ -->
-            <line x1="20" y1="160" x2="300" y2="160" stroke="#64748b" stroke-width="1.5" />
-            <line x1="160" y1="300" x2="160" y2="20" stroke="#64748b" stroke-width="1.5" />
-            <!-- Mũi tên -->
-            <polygon points="300,160 292,156 292,164" fill="#64748b" />
-            <polygon points="160,20 156,28 164,28" fill="#64748b" />
-            <!-- Nhãn trục -->
-            <text x="290" y="150" fill="#f59e0b" font-size="12" font-weight="bold">Trục Cos</text>
-            <text x="168" y="32" fill="#38bdf8" font-size="12" font-weight="bold">Trục Sin</text>
-            <!-- Đường tròn R=100 -->
-            <circle cx="160" cy="160" r="100" stroke="#3b82f6" stroke-width="2" fill="none" stroke-dasharray="4 2" />
-            <!-- Các mốc góc -->
-            <text x="265" y="175" fill="#e2e8f0" font-size="11">0 (2π)</text>
-            <text x="150" y="52" fill="#e2e8f0" font-size="11">π/2</text>
-            <text x="35" y="175" fill="#e2e8f0" font-size="11">π</text>
-            <text x="145" y="275" fill="#e2e8f0" font-size="11">3π/2</text>
-            <!-- 4 Góc Phần Tư -->
-            <rect x="175" y="45" width="85" height="45" rx="6" fill="#0f291e" stroke="#10b981" />
-            <text x="185" y="62" fill="#34d399" font-size="10" font-weight="bold">Góc I (0 -> π/2)</text>
-            <text x="185" y="80" fill="#a7f3d0" font-size="9">All (+): Sin,Cos,Tan,Cot &gt; 0</text>
+      <!-- SƠ ĐỒ MINDMAP MINH HỌA DẤU BẰNG SVG TRỰC QUAN (PHÓNG TO CỰC ĐẠI - RÕ TỪNG CHI TIẾT) -->
+      <div class="mindmap-card" style="border: 2px solid var(--primary); padding: 18px 20px;">
+        <div class="mindmap-title" style="font-size: 16px; color: var(--gold); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+          <span>🎯 Sơ Đồ Trực Quan Đường Tròn Lượng Giác & Dấu 4 Góc Phần Tư (Size Lớn Chuẩn HD)</span>
+          <span style="font-size: 12px; background: rgba(59, 130, 246, 0.2); color: #60a5fa; padding: 4px 10px; border-radius: 12px; border: 1px solid #3b82f6;">Bán kính R = 1 | Tâm O(0; 0)</span>
+        </div>
+        <div style="text-align: center; margin: 16px auto; overflow-x: auto;">
+          <svg viewBox="0 0 640 560" style="max-width: 620px; width: 100%; min-width: 320px; height: auto; background: radial-gradient(circle at center, #091427 0%, #030712 100%); border-radius: 16px; border: 1.5px solid #334155; box-shadow: 0 12px 30px rgba(0,0,0,0.55);">
+            <!-- Definitions for glow and gradients -->
+            <defs>
+              <filter id="glowCircle" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="3.5" result="blur" />
+                <feComposite in="SourceGraphic" in2="blur" operator="over" />
+              </filter>
+              <linearGradient id="gradCosAxis" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stop-color="#ea580c" />
+                <stop offset="50%" stop-color="#f59e0b" />
+                <stop offset="100%" stop-color="#fef08a" />
+              </linearGradient>
+              <linearGradient id="gradSinAxis" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" stop-color="#0284c7" />
+                <stop offset="50%" stop-color="#38bdf8" />
+                <stop offset="100%" stop-color="#bae6fd" />
+              </linearGradient>
+            </defs>
 
-            <rect x="35" y="45" width="85" height="45" rx="6" fill="#182238" stroke="#3b82f6" />
-            <text x="45" y="62" fill="#60a5fa" font-size="10" font-weight="bold">Góc II (π/2 -> π)</text>
-            <text x="45" y="80" fill="#bfdbfe" font-size="9">Sin &gt; 0, Cos,Tan,Cot &lt; 0</text>
+            <!-- Lưới tọa độ mờ -->
+            <line x1="60" y1="280" x2="580" y2="280" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="4 4" />
+            <line x1="320" y1="40" x2="320" y2="520" stroke="#1e293b" stroke-width="1.5" stroke-dasharray="4 4" />
 
-            <rect x="35" y="225" width="85" height="45" rx="6" fill="#2d1c08" stroke="#f59e0b" />
-            <text x="42" y="242" fill="#fbbf24" font-size="10" font-weight="bold">Góc III (π -> 3π/2)</text>
-            <text x="42" y="260" fill="#fef3c7" font-size="9">Tan,Cot &gt; 0, Sin,Cos &lt; 0</text>
+            <!-- Vòng tròn lượng giác R=170 -->
+            <circle cx="320" cy="280" r="170" stroke="#3b82f6" stroke-width="3" fill="rgba(59, 130, 246, 0.05)" />
+            
+            <!-- Mũi tên chỉ chiều dương lượng giác (ngược chiều kim đồng hồ) -->
+            <path d="M 320 145 A 135 135 0 0 1 455 280" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-dasharray="6 4" />
+            <polygon points="455,270 463,283 448,283" fill="#f59e0b" transform="rotate(90 455 280)" />
+            <text x="390" y="200" fill="#fbbf24" font-size="12" font-weight="700">Chiều Dương (+)</text>
 
-            <rect x="175" y="225" width="85" height="45" rx="6" fill="#2b0f1a" stroke="#ec4899" />
-            <text x="185" y="242" fill="#f472b6" font-size="10" font-weight="bold">Góc IV (3π/2 -> 2π)</text>
-            <text x="185" y="260" fill="#fbcfe8" font-size="9">Cos &gt; 0, Sin,Tan,Cot &lt; 0</text>
+            <!-- Trục Cos (Ox nằm ngang) -->
+            <line x1="60" y1="280" x2="580" y2="280" stroke="url(#gradCosAxis)" stroke-width="3" />
+            <polygon points="586,280 572,273 572,287" fill="#fbbf24" />
+            <text x="500" y="265" fill="#fbbf24" font-size="14" font-weight="800">Trục COS (Ox)</text>
+
+            <!-- Trục Sin (Oy thẳng đứng) -->
+            <line x1="320" y1="520" x2="320" y2="40" stroke="url(#gradSinAxis)" stroke-width="3" />
+            <polygon points="320,34 313,48 327,48" fill="#38bdf8" />
+            <text x="330" y="48" fill="#38bdf8" font-size="14" font-weight="800">Trục SIN (Oy)</text>
+
+            <!-- Gốc O -->
+            <circle cx="320" cy="280" r="4.5" fill="#ffffff" />
+            <text x="306" y="297" fill="#94a3b8" font-size="13" font-weight="bold">O</text>
+
+            <!-- 4 Mốc Góc Chuẩn Trên Trục -->
+            <circle cx="490" cy="280" r="5" fill="#10b981" />
+            <text x="498" y="285" fill="#34d399" font-size="13" font-weight="800">A(1;0) | 0, 2π</text>
+
+            <circle cx="320" cy="110" r="5" fill="#38bdf8" />
+            <text x="328" y="105" fill="#38bdf8" font-size="13" font-weight="800">B(0;1) | π/2 (90°)</text>
+
+            <circle cx="150" cy="280" r="5" fill="#f43f5e" />
+            <text x="60" y="285" fill="#f43f5e" font-size="13" font-weight="800">A'(-1;0) | π (180°)</text>
+
+            <circle cx="320" cy="450" r="5" fill="#a855f7" />
+            <text x="328" y="470" fill="#c084fc" font-size="13" font-weight="800">B'(0;-1) | 3π/2 (270°)</text>
+
+            <!-- 4 HỘP CARD DẤU GÓC PHẦN TƯ (SIZE TO, RÕ RÀNG) -->
+            <!-- Góc I -->
+            <g transform="translate(355, 115)">
+              <rect width="185" height="74" rx="10" fill="#062e22" stroke="#10b981" stroke-width="1.5" />
+              <text x="12" y="24" fill="#34d399" font-size="13" font-weight="800">GÓC I: (0 &lt; α &lt; π/2)</text>
+              <text x="12" y="44" fill="#6ee7b7" font-size="12" font-weight="700">⭐ NHẤT CẢ: All (+)</text>
+              <text x="12" y="62" fill="#a7f3d0" font-size="11">sin&gt;0, cos&gt;0, tan&gt;0, cot&gt;0</text>
+            </g>
+
+            <!-- Góc II -->
+            <g transform="translate(95, 115)">
+              <rect width="185" height="74" rx="10" fill="#172554" stroke="#3b82f6" stroke-width="1.5" />
+              <text x="12" y="24" fill="#60a5fa" font-size="13" font-weight="800">GÓC II: (π/2 &lt; α &lt; π)</text>
+              <text x="12" y="44" fill="#93c5fd" font-size="12" font-weight="700">⭐ NHÌ SIN: Chỉ Sin (+)</text>
+              <text x="12" y="62" fill="#bfdbfe" font-size="11">sin &gt; 0 | cos &lt; 0, tan &lt; 0, cot &lt; 0</text>
+            </g>
+
+            <!-- Góc III -->
+            <g transform="translate(95, 360)">
+              <rect width="185" height="74" rx="10" fill="#451a03" stroke="#f59e0b" stroke-width="1.5" />
+              <text x="12" y="24" fill="#fbbf24" font-size="13" font-weight="800">GÓC III: (π &lt; α &lt; 3π/2)</text>
+              <text x="12" y="44" fill="#fde68a" font-size="12" font-weight="700">⭐ TAM TANG: Tan, Cot (+)</text>
+              <text x="12" y="62" fill="#fef3c7" font-size="11">tan&gt;0, cot&gt;0 | sin &lt; 0, cos &lt; 0</text>
+            </g>
+
+            <!-- Góc IV -->
+            <g transform="translate(355, 360)">
+              <rect width="185" height="74" rx="10" fill="#4a044e" stroke="#ec4899" stroke-width="1.5" />
+              <text x="12" y="24" fill="#f472b6" font-size="13" font-weight="800">GÓC IV: (3π/2 &lt; α &lt; 2π)</text>
+              <text x="12" y="44" fill="#fbcfe8" font-size="12" font-weight="700">⭐ TỨ COS: Chỉ Cos (+)</text>
+              <text x="12" y="62" fill="#fdf2f8" font-size="11">cos &gt; 0 | sin &lt; 0, tan &lt; 0, cot &lt; 0</text>
+            </g>
+
+            <!-- Điểm M minh họa -->
+            <line x1="320" y1="280" x2="445" y2="155" stroke="#f59e0b" stroke-width="2" stroke-dasharray="3 3" />
+            <circle cx="445" cy="155" r="6" fill="#f59e0b" filter="url(#glowCircle)" />
+            <text x="455" y="150" fill="#fde047" font-size="13" font-weight="800">M(cos α; sin α)</text>
+            <line x1="445" y1="155" x2="445" y2="280" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4 2" />
+            <line x1="445" y1="155" x2="320" y2="155" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="4 2" />
+            <text x="435" y="296" fill="#fbbf24" font-size="11" font-weight="bold">cos α</text>
+            <text x="282" y="159" fill="#38bdf8" font-size="11" font-weight="bold">sin α</text>
           </svg>
         </div>
       </div>
@@ -2156,6 +2545,71 @@
         <br>• <strong>Góc III (Tam Tang):</strong> Cặp bài trùng <strong>TANG & COT</strong> mang dấu $(+)$, còn Sin và Cos âm $(-)$.
         <br>• <strong>Góc IV (Tứ Cos):</strong> Chỉ có một mình ông trùm <strong>COS</strong> mang dấu $(+)$, còn lại đều âm $(-)$.
       </div>
+
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 3 -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: ĐƯỜNG TRÒN LƯỢNG GIÁC & DẤU 4 GÓC PHẦN TƯ</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 3</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Câu thần chú "Nhất cả - Nhì Sin - Tam Tang - Tứ Cos" cho biết ở góc phần tư thứ II ($rac{\pi}{2} < lpha < \pi$), giá trị lượng giác nào mang dấu DƯƠNG?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Chỉ có $\coslpha$</div>
+              <div class="quiz-choice"><b>B.</b> Chỉ có $\sinlpha$</div>
+              <div class="quiz-choice"><b>C.</b> Cả $	anlpha$ và $\cotlpha$</div>
+              <div class="quiz-choice"><b>D.</b> Tất cả 4 giá trị đều dương</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: B</b><br>
+              <i>Giải thích:</i> "Nhì Sin" nghĩa là ở góc phần tư II, chỉ duy nhất đại ca $\sinlpha > 0$. Còn lại $\coslpha < 0, 	anlpha < 0, \cotlpha < 0$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Cho góc $lpha = rac{5\pi}{3}$. Điểm biểu diễn góc $lpha$ nằm ở góc phần tư thứ mấy và $\coslpha$ mang dấu gì?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Góc phần tư II, $\coslpha < 0$</div>
+              <div class="quiz-choice"><b>B.</b> Góc phần tư III, $\coslpha < 0$</div>
+              <div class="quiz-choice"><b>C.</b> Góc phần tư IV, $\coslpha > 0$</div>
+              <div class="quiz-choice"><b>D.</b> Góc phần tư I, $\coslpha > 0$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: C</b><br>
+              <i>Giải thích:</i> Ta có $rac{5\pi}{3} = 2\pi - rac{\pi}{3} = 300^\circ$. Vì $270^\circ < 300^\circ < 360^\circ$ nên nằm ở góc phần tư IV. "Tứ Cos" $\implies \coslpha > 0$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Cho góc $lpha$ thỏa mãn $\pi < lpha < rac{3\pi}{2}$ (góc phần tư thứ III). Dấu của biểu thức $A = \sinlpha \cdot \coslpha + \cotlpha$ là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $A < 0$</div>
+              <div class="quiz-choice"><b>B.</b> $A > 0$</div>
+              <div class="quiz-choice"><b>C.</b> $A = 0$</div>
+              <div class="quiz-choice"><b>D.</b> Không xác định được vì phụ thuộc vào độ lớn của $lpha$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: B</b><br>
+              <i>Giải thích:</i> Ở góc III: $\sinlpha < 0$ và $\coslpha < 0 \implies \sinlpha \cdot \coslpha > 0$ (âm nhân âm thành dương). Đồng thời "Tam Tang" nên $\cotlpha > 0$. Tổng của hai số dương chắc chắn $> 0 \implies A > 0$.
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- 4. HỆ THỨC LƯỢNG GIÁC CƠ BẢN -->
       <h3 class="sub-title">4. Mổ Xẻ 4 Hệ Thức Lượng Giác Cơ Bản</h3>
@@ -2203,6 +2657,72 @@
         </div>
       </div>
 
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 4 -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: 4 HỆ THỨC LƯỢNG GIÁC CƠ BẢN</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 4</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Với mọi góc $lpha$ làm cho biểu thức có nghĩa, hệ thức nào sau đây luôn ĐÚNG?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $\sin^2lpha + \cos^2lpha = 1$</div>
+              <div class="quiz-choice"><b>B.</b> $\sin^2lpha - \cos^2lpha = 1$</div>
+              <div class="quiz-choice"><b>C.</b> $1 + 	an^2lpha = rac{1}{\sin^2lpha}$</div>
+              <div class="quiz-choice"><b>D.</b> $	anlpha \cdot \cotlpha = -1$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Hệ thức Pythagore thần thánh: $\sin^2lpha + \cos^2lpha = 1$. Còn $	anlpha \cdot \cotlpha = +1$, $1 + 	an^2lpha = rac{1}{\cos^2lpha}$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Cho $\coslpha = -rac{4}{5}$ với $rac{\pi}{2} < lpha < \pi$ (góc phần tư thứ II). Giá trị của $\sinlpha$ bằng:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $rac{3}{5}$</div>
+              <div class="quiz-choice"><b>B.</b> $-rac{3}{5}$</div>
+              <div class="quiz-choice"><b>C.</b> $\pm rac{3}{5}$</div>
+              <div class="quiz-choice"><b>D.</b> $rac{9}{25}$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> $\sin^2lpha = 1 - \cos^2lpha = 1 - rac{16}{25} = rac{9}{25}$. Vì $lpha$ ở góc phần tư II ("Nhì Sin" $\implies \sinlpha > 0$) nên chọn $\sinlpha = +\sqrt{rac{9}{25}} = rac{3}{5}$. Bẫy quên xét dấu sẽ bị mất điểm!
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Cho $	anlpha = 3$. Tính giá trị của biểu thức $P = rac{\sinlpha + 2\coslpha}{3\sinlpha - 4\coslpha}$ bằng phương pháp chia cả tử và mẫu cho $\coslpha$:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $1$</div>
+              <div class="quiz-choice"><b>B.</b> $rac{5}{5} = 1$</div>
+              <div class="quiz-choice"><b>C.</b> $2$</div>
+              <div class="quiz-choice"><b>D.</b> $-1$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Chia cả tử và mẫu cho $\coslpha 
+e 0$: $P = rac{	anlpha + 2}{3	anlpha - 4} = rac{3 + 2}{3(3) - 4} = rac{5}{9 - 4} = rac{5}{5} = 1$. Cực kỳ nhanh, không cần tính lòng vòng ra $\sinlpha$ và $\coslpha$!
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- 5. GÓC LIÊN KẾT ĐẶC BIỆT -->
       <h3 class="sub-title">5. Góc Lượng Giác Liên Kết: Thần Chú Bất Hủ</h3>
 
@@ -2245,6 +2765,80 @@
           </tbody>
         </table>
       </div>
+
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 5 -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: CÔNG THỨC GÓC LƯỢNG GIÁC LIÊN KẾT</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 5</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Theo thần chú "Cos đối - Sin bù - Phụ chéo - Hơn kém pi tang", giá trị của $\cos(-x)$ bằng:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $-\cos x$</div>
+              <div class="quiz-choice"><b>B.</b> $\cos x$</div>
+              <div class="quiz-choice"><b>C.</b> $\sin x$</div>
+              <div class="quiz-choice"><b>D.</b> $-\sin x$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: B</b><br>
+              <i>Giải thích:</i> "Cos đối" nghĩa là với hai góc đối nhau $(x$ và $-x)$, đại ca Cos nuốt trọn dấu âm: $\cos(-x) = \cos x$. Ba hàm còn lại văng dấu âm ra trước: $\sin(-x) = -\sin x, 	an(-x) = -	an x, \cot(-x) = -\cot x$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Cho hai góc phụ nhau ($a + b = rac{\pi}{2}$). Hệ thức nào sau đây luôn ĐÚNG theo quy tắc "Phụ chéo"?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $\sin\left(rac{\pi}{2} - x
+ight) = \cos x$</div>
+              <div class="quiz-choice"><b>B.</b> $\sin\left(rac{\pi}{2} - x
+ight) = -\cos x$</div>
+              <div class="quiz-choice"><b>C.</b> $\cos\left(rac{\pi}{2} - x
+ight) = -\sin x$</div>
+              <div class="quiz-choice"><b>D.</b> $	an\left(rac{\pi}{2} - x
+ight) = -\cot x$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> "Phụ chéo": Góc này đổi chéo sang hàm kia mà KHÔNG ĐỔI DẤU: $\sin(rac{\pi}{2}-x) = \cos x$, $\cos(rac{\pi}{2}-x) = \sin x$, $	an(rac{\pi}{2}-x) = \cot x$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Rút gọn biểu thức $M = \sin(\pi - x) + \cos\left(rac{\pi}{2} - x
+ight) + \sin(-x)$. Kết quả là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $M = \sin x$</div>
+              <div class="quiz-choice"><b>B.</b> $M = 3\sin x$</div>
+              <div class="quiz-choice"><b>C.</b> $M = -\sin x$</div>
+              <div class="quiz-choice"><b>D.</b> $M = 0$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Áp dụng thần chú từng bước:<br>
+              • $\sin(\pi - x) = \sin x$ (Sin bù)<br>
+              • $\cos(rac{\pi}{2} - x) = \sin x$ (Phụ chéo)<br>
+              • $\sin(-x) = -\sin x$ (Cos đối, Sin nhả âm)<br>
+              $\implies M = \sin x + \sin x - \sin x = \sin x$.
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- 6. PHẦN THỰC CHIẾN BÀI TẬP STEP-BY-STEP (CHUẨN BRIEF) -->
       <h3 class="sub-title">6. Phần Thực Chiến: Giải Bài Tập Mẫu Step-by-Step Cầm Tay Chỉ Việc</h3>
@@ -2369,6 +2963,73 @@
         <br>• <strong>Bẫy điều kiện xác định của Tan:</strong> Khi dùng $\tan(a+b)$, cả $a$, $b$ và $(a+b)$ đều không được rơi vào góc $\frac{\pi}{2} + k\pi$ (vì tại đó mẫu số bằng 0, tan không xác định).
       </div>
 
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 1: CÔNG THỨC CỘNG -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: CÔNG THỨC CỘNG LƯỢNG GIÁC</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 1</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Theo câu vè "Cos thì cos cos sin sin, đổi dấu", đẳng thức nào sau đây luôn ĐÚNG?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $\cos(a + b) = \cos a\cos b - \sin a\sin b$</div>
+              <div class="quiz-choice"><b>B.</b> $\cos(a + b) = \cos a\cos b + \sin a\sin b$</div>
+              <div class="quiz-choice"><b>C.</b> $\cos(a + b) = \sin a\cos b + \cos a\sin b$</div>
+              <div class="quiz-choice"><b>D.</b> $\cos(a + b) = \cos a + \cos b$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Công thức cộng của hàm Cos: $\cos(a + b) = \cos a\cos b - \sin a\sin b$. Lưu ý bẫy đổi dấu: bên trái là DẤU CỘNG thì bên phải biến thành DẤU TRỪ!
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Khai triển biểu thức $\sin\left(x + rac{\pi}{6}
+ight)$ theo công thức cộng sin:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $rac{\sqrt{3}}{2}\sin x + rac{1}{2}\cos x$</div>
+              <div class="quiz-choice"><b>B.</b> $rac{1}{2}\sin x + rac{\sqrt{3}}{2}\cos x$</div>
+              <div class="quiz-choice"><b>C.</b> $rac{\sqrt{3}}{2}\sin x - rac{1}{2}\cos x$</div>
+              <div class="quiz-choice"><b>D.</b> $\sin x + rac{1}{2}$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> $\sin\left(x + rac{\pi}{6}
+ight) = \sin x \cosrac{\pi}{6} + \cos x \sinrac{\pi}{6} = \sin x \cdot rac{\sqrt{3}}{2} + \cos x \cdot rac{1}{2} = rac{\sqrt{3}}{2}\sin x + rac{1}{2}\cos x$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Cho $	an a = rac{1}{2}$ và $	an b = rac{1}{3}$. Giá trị của $	an(a + b)$ bằng:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $1$</div>
+              <div class="quiz-choice"><b>B.</b> $rac{5}{6}$</div>
+              <div class="quiz-choice"><b>C.</b> $rac{5}{7}$</div>
+              <div class="quiz-choice"><b>D.</b> $2$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Áp dụng công thức cộng tan: $	an(a+b) = rac{	an a + 	an b}{1 - 	an a	an b} = rac{rac{1}{2} + rac{1}{3}}{1 - rac{1}{2} \cdot rac{1}{3}} = rac{rac{5}{6}}{1 - rac{1}{6}} = rac{rac{5}{6}}{rac{5}{6}} = 1$. (Từ đây suy ra góc $a + b = rac{\pi}{4}$ nếu $a, b \in (0; \pi/2)$).
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- 2. CÔNG THỨC NHÂN ĐÔI & HẠ BẬC -->
       <h3 class="sub-title">2. Mổ Xẻ Công Thức Nhân Đôi & Hạ Bậc (Bản Chất Từ Đâu Mà Ra?)</h3>
 
@@ -2412,6 +3073,74 @@
         Tương tự: $\cos^2(4x) = \frac{1 + \cos(8x)}{2}$. Cứ hạ bậc là góc bên trong tự động gấp đôi lên!
       </div>
 
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 2: CÔNG THỨC NHÂN ĐÔI & HẠ BẬC -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: CÔNG THỨC NHÂN ĐÔI & HẠ BẬC</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 2</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Công thức nhân đôi nào của $\cos 2x$ sau đây là ĐÚNG?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $\cos 2x = 2\cos^2 x - 1$</div>
+              <div class="quiz-choice"><b>B.</b> $\cos 2x = 1 - 2\cos^2 x$</div>
+              <div class="quiz-choice"><b>C.</b> $\cos 2x = 2\cos x$</div>
+              <div class="quiz-choice"><b>D.</b> $\cos 2x = \cos^2 x + \sin^2 x$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> $\cos 2x$ có 3 dạng biến hình thần thánh:<br>
+              • $\cos^2 x - \sin^2 x$<br>
+              • $2\cos^2 x - 1$<br>
+              • $1 - 2\sin^2 x$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Cho $\sin x = rac{3}{5}$ và $\cos x = rac{4}{5}$. Giá trị của $\sin 2x$ bằng:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $rac{24}{25}$</div>
+              <div class="quiz-choice"><b>B.</b> $rac{12}{25}$</div>
+              <div class="quiz-choice"><b>C.</b> $rac{7}{25}$</div>
+              <div class="quiz-choice"><b>D.</b> $rac{6}{5}$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Công thức nhân đôi sin: $\sin 2x = 2\sin x\cos x = 2 	imes rac{3}{5} 	imes rac{4}{5} = rac{24}{25}$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Công thức hạ bậc tính $\sin^2 x$ là công thức nào sau đây? (Nhớ thần chú dấu cộng/trừ hạ bậc)</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $\sin^2 x = rac{1 - \cos 2x}{2}$</div>
+              <div class="quiz-choice"><b>B.</b> $\sin^2 x = rac{1 + \cos 2x}{2}$</div>
+              <div class="quiz-choice"><b>C.</b> $\sin^2 x = 1 - \cos 2x$</div>
+              <div class="quiz-choice"><b>D.</b> $\sin^2 x = rac{1 - \sin 2x}{2}$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Thần chú bất biến: <b>"Hạ bậc góc nhân đôi: Sin bình mang dấu TRỪ, Cos bình mang dấu CỘNG"</b>. Do đó: $\sin^2 x = rac{1 - \cos 2x}{2}$, còn $\cos^2 x = rac{1 + \cos 2x}{2}$. Bẫy phòng thi cực hay đổi nhầm sang $\sin 2x$ hoặc lộn dấu!
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- 3. CÔNG THỨC BIẾN ĐỔI TÍCH THÀNH TỔNG & TỔNG THÀNH TÍCH -->
       <h3 class="sub-title">3. Công Thức Biến Đổi Tích $\leftrightarrow$ Tổng (Giải Cứu Đề Thi Khó)</h3>
 
@@ -2445,6 +3174,75 @@
         <br>• <strong>"Sin cộng Sin bằng hai Sin Cos"</strong>
         <br>• <strong>"Sin trừ Sin bằng hai Cos Sin"</strong>!
       </div>
+
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 3: BIẾN ĐỔI TÍCH - TỔNG -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: CÔNG THỨC BIẾN ĐỔI TÍCH $\leftrightarrow$ TỔNG</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 3</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Theo câu vè "Cos cộng cos bằng hai cos cos", công thức khai triển $\cos a + \cos b$ là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $2\cosrac{a+b}{2}\cosrac{a-b}{2}$</div>
+              <div class="quiz-choice"><b>B.</b> $-2\sinrac{a+b}{2}\sinrac{a-b}{2}$</div>
+              <div class="quiz-choice"><b>C.</b> $2\sinrac{a+b}{2}\cosrac{a-b}{2}$</div>
+              <div class="quiz-choice"><b>D.</b> $\cos(a + b)$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> $\cos a + \cos b = 2\cosrac{a+b}{2}\cosrac{a-b}{2}$. (Còn $\cos a - \cos b = -2\sinrac{a+b}{2}\sinrac{a-b}{2}$, có dấu trừ phía trước!).
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Biến đổi tích $2\sin 3x\cos x$ thành tổng ta thu được biểu thức:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $\sin 4x + \sin 2x$</div>
+              <div class="quiz-choice"><b>B.</b> $\sin 4x - \sin 2x$</div>
+              <div class="quiz-choice"><b>C.</b> $\cos 4x + \cos 2x$</div>
+              <div class="quiz-choice"><b>D.</b> $\cos 4x - \cos 2x$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Công thức tích thành tổng: $2\sin u\cos v = \sin(u + v) + \sin(u - v)$. Ở đây $u=3x, v=x \implies 2\sin 3x\cos x = \sin(3x+x) + \sin(3x-x) = \sin 4x + \sin 2x$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Rút gọn phân thức lượng giác $P = rac{\sin 3x + \sin x}{\cos 3x + \cos x}$ (với điều kiện mẫu số khác 0):</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $	an 2x$</div>
+              <div class="quiz-choice"><b>B.</b> $\cot 2x$</div>
+              <div class="quiz-choice"><b>C.</b> $	an 4x$</div>
+              <div class="quiz-choice"><b>D.</b> $	an x$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Dùng công thức tổng thành tích cho cả tử và mẫu:<br>
+              • Tử số: $\sin 3x + \sin x = 2\sinrac{3x+x}{2}\cosrac{3x-x}{2} = 2\sin 2x\cos x$<br>
+              • Mẫu số: $\cos 3x + \cos x = 2\cosrac{3x+x}{2}\cosrac{3x-x}{2} = 2\cos 2x\cos x$<br>
+              Triệt tiêu đại lượng chung $2\cos x 
+e 0 \implies P = rac{\sin 2x}{\cos 2x} = 	an 2x$. Siêu nhanh và gọn gàng!
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- 4. THỰC CHIẾN BÀI TẬP MẪU 3 BƯỚC -->
       <h3 class="sub-title">4. Phần Thực Chiến: Bài Tập Mẫu Step-by-Step Cầm Tay Chỉ Việc</h3>
@@ -2548,6 +3346,73 @@
         Đó cũng chính là cách sóng biển dập dềnh, dòng điện xoay chiều 220V chạy trong nhà bạn và máy đo nhịp tim bệnh viện hoạt động!
       </div>
 
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 1: BẢN CHẤT HÀM SỐ LƯỢNG GIÁC -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: BẢN CHẤT HÀM SỐ LƯỢNG GIÁC</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 1</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Tập giá trị (miền giá trị nhận được) của hai hàm số $y = \sin x$ và $y = \cos x$ là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $[-1; 1]$</div>
+              <div class="quiz-choice"><b>B.</b> $(-\infty; +\infty)$</div>
+              <div class="quiz-choice"><b>C.</b> $[0; 1]$</div>
+              <div class="quiz-choice"><b>D.</b> $(-1; 1)$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Dù $x$ có bay bổng cỡ nào thì $\sin x$ và $\cos x$ cũng bị kẹp cứng ngắc giữa sàn nhà $-1$ và trần nhà $+1$: $-1 \le \sin x \le 1$ và $-1 \le \cos x \le 1$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Giá trị lớn nhất ($M$) và nhỏ nhất ($m$) của hàm số $y = 3\sin x - 2$ lần lượt là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $M = 1; m = -5$</div>
+              <div class="quiz-choice"><b>B.</b> $M = 3; m = -2$</div>
+              <div class="quiz-choice"><b>C.</b> $M = 5; m = -5$</div>
+              <div class="quiz-choice"><b>D.</b> $M = 1; m = -1$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Ta có $-1 \le \sin x \le 1 \implies 3(-1) - 2 \le y \le 3(1) - 2 \iff -5 \le y \le 1$. Vậy $M = 1, m = -5$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Tính giá trị của hàm số $y = \sin x$ tại điểm $x = rac{101\pi}{2}$:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $1$</div>
+              <div class="quiz-choice"><b>B.</b> $-1$</div>
+              <div class="quiz-choice"><b>C.</b> $0$</div>
+              <div class="quiz-choice"><b>D.</b> $rac{1}{2}$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Tách góc lượng giác: $rac{101\pi}{2} = rac{100\pi + \pi}{2} = 50\pi + rac{\pi}{2} = 25 	imes 2\pi + rac{\pi}{2}$. Vì quay chẵn lần $2\pi$ (25 vòng tròn) thì quay về điểm cũ $\implies \sin\left(rac{101\pi}{2}
+ight) = \sin\left(rac{\pi}{2}
+ight) = 1$.
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- 2. TÍNH CHẴN LẺ -->
       <h3 class="sub-title">2. Tính Chẵn Lẻ: Bí Mật Đối Xứng</h3>
 
@@ -2563,6 +3428,71 @@
           <br>• Cả 3 hàm còn lại <strong style="color: #34d399;">$y = \sin x, y = \tan x, y = \cot x$ đều là HÀM SỐ LẺ</strong> (vì gặp $-x$ là nhả dấu trừ ra ngoài).
         </div>
       </div>
+
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 2: TÍNH CHẴN LẺ -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: TÍNH CHẴN LẺ CỦA HÀM SỐ LƯỢNG GIÁC</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 2</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Trong 4 hàm số lượng giác cơ bản, hàm số nào là HÀM SỐ CHẴN?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $y = \cos x$</div>
+              <div class="quiz-choice"><b>B.</b> $y = \sin x$</div>
+              <div class="quiz-choice"><b>C.</b> $y = 	an x$</div>
+              <div class="quiz-choice"><b>D.</b> $y = \cot x$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Thần chú: <b>"Cos là anh cả duy nhất Chẵn, 3 đứa còn lại (Sin, Tan, Cot) đều là hàm số Lẻ"</b>. Lý do: $\cos(-x) = \cos x$, còn 3 hàm kia đều văng dấu trừ ra ngoài: $f(-x) = -f(x)$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Xét tính chẵn lẻ của hàm số $f(x) = x \cdot \sin x$:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Là hàm số chẵn</div>
+              <div class="quiz-choice"><b>B.</b> Là hàm số lẻ</div>
+              <div class="quiz-choice"><b>C.</b> Không chẵn không lẻ</div>
+              <div class="quiz-choice"><b>D.</b> Vừa chẵn vừa lẻ</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Xét $f(-x) = (-x) \cdot \sin(-x)$. Vì $\sin(-x) = -\sin x$ nên: $f(-x) = (-x) \cdot (-\sin x) = x \sin x = f(x)$. Do $f(-x) = f(x)$ nên đây là hàm số CHẴN! (Nhớ quy tắc nhân dấu: Lẻ $	imes$ Lẻ = Chẵn).
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Về mặt hình học, đồ thị của hàm số LẺ (như $y = \sin x, y = 	an x$) có đặc điểm đối xứng nào sau đây?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Nhận gốc tọa độ $O(0; 0)$ làm tâm đối xứng</div>
+              <div class="quiz-choice"><b>B.</b> Nhận trục tung $Oy$ làm trục đối xứng</div>
+              <div class="quiz-choice"><b>C.</b> Nhận trục hoành $Ox$ làm trục đối xứng</div>
+              <div class="quiz-choice"><b>D.</b> Nhận đường phân giác $y = x$ làm trục đối xứng</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Bản chất hình học cần ghi nhớ: Đồ thị hàm số CHẴN đối xứng qua trục tung $Oy$ (gập đôi tờ giấy theo Oy thì hai nửa khớp nhau). Đồ thị hàm số LẺ nhận gốc tọa độ $O(0; 0)$ làm TÂM ĐỐI XỨNG (quay $180^\circ$ quanh O thì đồ thị trùng khít).
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- 3. TÍNH TUẦN HOÀN & CÔNG THỨC CHU KÌ -->
       <h3 class="sub-title">3. Tính Tuần Hoàn & Tại Sao Tan, Cot Lại Có Chu Kì Khác Biệt?</h3>
@@ -2593,6 +3523,74 @@
         Hệ số của $x$ ở đây là $\omega = -2$.<br>
         Áp dụng công thức: $T = \frac{2\pi}{|\omega|} = \frac{2\pi}{|-2|} = \frac{2\pi}{2} = \pi$!
       </div>
+
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 3: TÍNH TUẦN HOÀN & CHU KỲ -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: TÍNH TUẦN HOÀN & CÔNG THỨC CHU KỲ</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 3</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Chu kỳ tuần hoàn cơ bản $T$ của hai hàm số $y = 	an x$ và $y = \cot x$ là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $T = \pi$</div>
+              <div class="quiz-choice"><b>B.</b> $T = 2\pi$</div>
+              <div class="quiz-choice"><b>C.</b> $T = rac{\pi}{2}$</div>
+              <div class="quiz-choice"><b>D.</b> $T = 4\pi$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Hai hàm $y = \sin x$ và $y = \cos x$ có chu kỳ $2\pi$. Còn hai hàm $y = 	an x$ và $y = \cot x$ chỉ cần nửa vòng tròn (chu kỳ $\pi$) là đã lặp lại toàn bộ hình dáng!
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Chu kỳ tuần hoàn $T$ của hàm số $y = \cos(4x + 3)$ là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $T = rac{\pi}{2}$</div>
+              <div class="quiz-choice"><b>B.</b> $T = 2\pi$</div>
+              <div class="quiz-choice"><b>C.</b> $T = rac{\pi}{4}$</div>
+              <div class="quiz-choice"><b>D.</b> $T = 8\pi$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Công thức chu kỳ của hàm số $\cos(\omega x + arphi)$ là $T = rac{2\pi}{|\omega|}$. Ở đây $\omega = 4 \implies T = rac{2\pi}{4} = rac{\pi}{2}$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Tìm chu kỳ tuần hoàn $T$ của hàm số $y = 	an\left(rac{x}{3} - 1
+ight)$:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $T = 3\pi$</div>
+              <div class="quiz-choice"><b>B.</b> $T = rac{\pi}{3}$</div>
+              <div class="quiz-choice"><b>C.</b> $T = 6\pi$</div>
+              <div class="quiz-choice"><b>D.</b> $T = rac{2\pi}{3}$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> 2 bẫy phòng thi liên hoàn:<br>
+              1. Hàm $	an$ chu kỳ gốc là $\pi$ (không phải $2\pi$). Công thức: $T = rac{\pi}{|\omega|}$.<br>
+              2. Hệ số của $x$ là $\omega = rac{1}{3}$. Chia cho phân số là nhân đảo ngược: $T = rac{\pi}{1/3} = 3\pi$.
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- 4. BẢNG TỔNG HỢP SO SÁNH 4 HÀM SỐ CHỐT HẠ -->
       <h3 class="sub-title">4. Bảng So Sánh 4 Hàm Số Lượng Giác Chốt Hạ Vấn Đề</h3>
@@ -2647,6 +3645,84 @@
           </tbody>
         </table>
       </div>
+
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 4: BẢNG SO SÁNH & TẬP XÁC ĐỊNH -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: TẬP XÁC ĐỊNH & BẢNG SO SÁNH 4 HÀM SỐ</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 4</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Tập xác định của hàm số $y = 	an x$ là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $D = \mathbb{R} \setminus \left\{ rac{\pi}{2} + k\pi, k \in \mathbb{Z} 
+ight\}$</div>
+              <div class="quiz-choice"><b>B.</b> $D = \mathbb{R} \setminus \{ k\pi, k \in \mathbb{Z} \}$</div>
+              <div class="quiz-choice"><b>C.</b> $D = \mathbb{R}$</div>
+              <div class="quiz-choice"><b>D.</b> $D = [-1; 1]$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> $	an x = rac{\sin x}{\cos x}$. Mẫu phải khác 0: $\cos x 
+e 0 \iff x 
+e rac{\pi}{2} + k\pi$. Do đó tập xác định là $D = \mathbb{R} \setminus \left\{ rac{\pi}{2} + k\pi, k \in \mathbb{Z} 
+ight\}$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Tập xác định của hàm số $y = \cot x$ là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $D = \mathbb{R} \setminus \{ k\pi, k \in \mathbb{Z} \}$</div>
+              <div class="quiz-choice"><b>B.</b> $D = \mathbb{R} \setminus \left\{ rac{\pi}{2} + k\pi, k \in \mathbb{Z} 
+ight\}$</div>
+              <div class="quiz-choice"><b>C.</b> $D = \mathbb{R}$</div>
+              <div class="quiz-choice"><b>D.</b> $D = (0; +\infty)$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> $\cot x = rac{\cos x}{\sin x}$. Điều kiện mẫu khác 0: $\sin x 
+e 0 \iff x 
+e k\pi$. Do đó $D = \mathbb{R} \setminus \{ k\pi, k \in \mathbb{Z} \}$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Tìm tập xác định $D$ của hàm số $y = rac{1}{\sin x - 1}$:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $D = \mathbb{R} \setminus \left\{ rac{\pi}{2} + k2\pi, k \in \mathbb{Z} 
+ight\}$</div>
+              <div class="quiz-choice"><b>B.</b> $D = \mathbb{R} \setminus \{ k\pi, k \in \mathbb{Z} \}$</div>
+              <div class="quiz-choice"><b>C.</b> $D = \mathbb{R} \setminus \left\{ -rac{\pi}{2} + k2\pi, k \in \mathbb{Z} 
+ight\}$</div>
+              <div class="quiz-choice"><b>D.</b> $D = \mathbb{R}$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Điều kiện xác định: mẫu khác 0 $\iff \sin x - 1 
+e 0 \iff \sin x 
+e 1$. Điểm trên cùng đường tròn lượng giác có tung độ bằng 1 là $rac{\pi}{2}$, chu kỳ đúng 1 vòng $2\pi \implies x 
+e rac{\pi}{2} + k2\pi$. Vậy $D = \mathbb{R} \setminus \left\{ rac{\pi}{2} + k2\pi, k \in \mathbb{Z} 
+ight\}$.
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- 5. PHẦN THỰC CHIẾN 3 BƯỚC -->
       <h3 class="sub-title">5. Phần Thực Chiến: Bài Tập Mẫu Step-by-Step Cầm Tay Chỉ Việc</h3>
@@ -2812,6 +3888,71 @@
         Đó chính là lý do vì sao phương trình Sin luôn luôn có <strong>2 họ nghiệm bù nhau</strong>!
       </div>
 
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 1: BẢN CHẤT PHƯƠNG TRÌNH LƯỢNG GIÁC -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: BẢN CHẤT PHƯƠNG TRÌNH LƯỢNG GIÁC</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 1</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Tại sao nghiệm của phương trình lượng giác luôn có đuôi $+k2\pi$ hoặc $+k\pi$ ($k \in \mathbb{Z}$)?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Vì mỗi khi quay thêm đúng 1 vòng tròn ($2\pi$) hay nửa vòng ($\pi$), điểm ngọn cung lại rơi trúng vào cùng vị trí ban đầu</div>
+              <div class="quiz-choice"><b>B.</b> Vì góc lượng giác chỉ được phép lớn hơn $360^\circ$</div>
+              <div class="quiz-choice"><b>C.</b> Vì quy ước toán học chỉ cho phép giải nghiệm nguyên dương</div>
+              <div class="quiz-choice"><b>D.</b> Vì số $k$ là một hằng số cố định bằng $1$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Đường tròn lượng giác là một vòng khép kín. Dù bạn quay thêm 1 vòng, 2 vòng hay 100 vòng (bội nguyên của $2\pi$), bạn vẫn đứng yên tại điểm đó trên đường tròn. Do đó nghiệm lượng giác là vô số và được biểu diễn theo họ nghiệm chứa tham số $k \in \mathbb{Z}$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Trong các công thức họ nghiệm, tham số $k$ bắt buộc phải thuộc tập hợp số nào?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $k \in \mathbb{Z}$ (tập hợp các số nguyên $\{\dots, -2, -1, 0, 1, 2, \dots\}$)</div>
+              <div class="quiz-choice"><b>B.</b> $k \in \mathbb{R}$ (tập hợp số thực bất kỳ)</div>
+              <div class="quiz-choice"><b>C.</b> $k \in \mathbb{N}^*$ (tập hợp số tự nhiên khác 0)</div>
+              <div class="quiz-choice"><b>D.</b> $k \in \mathbb{Q}$ (tập hợp số hữu tỉ)</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> $k$ đại diện cho số vòng quay (quay thuận hay quay ngược), bắt buộc phải là số NGUYÊN $k \in \mathbb{Z}$. Nếu viết thiếu $(k \in \mathbb{Z})$ trong bài thi tự luận, giáo viên sẽ trừ từ $0{,}25$ đến $0{,}5$ điểm!
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Đuôi họ nghiệm của phương trình $\sin x = m, \cos x = m$ khác gì so với phương trình $	an x = m, \cot x = m$?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Sin và Cos có đuôi $+k2\pi$ (chu kỳ $2\pi$), còn Tan và Cot có đuôi $+k\pi$ (chu kỳ $\pi$)</div>
+              <div class="quiz-choice"><b>B.</b> Tan và Cot có đuôi $+k2\pi$, còn Sin và Cos có đuôi $+k\pi$</div>
+              <div class="quiz-choice"><b>C.</b> Cả 4 phương trình đều bắt buộc phải dùng đuôi $+k2\pi$</div>
+              <div class="quiz-choice"><b>D.</b> Đuôi của Tan và Cot luôn là $+krac{\pi}{2}$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Bẫy kinh điển: Học sinh rất hay quen tay phết đuôi $+k2\pi$ cho phương trình $	an$ và $\cot$. Hãy nhớ: Chu kỳ tuần hoàn của $	an$ và $\cot$ là $\pi$, nên đuôi nghiệm của $	an x = m$ và $\cot x = m$ CHỈ LÀ $+k\pi$!
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- 2. BẢNG CÔNG THỨC 4 PHƯƠNG TRÌNH CHUẨN -->
       <h3 class="sub-title">2. Mổ Xẻ Bốn Phương Trình Lượng Giác Cơ Bản</h3>
 
@@ -2849,6 +3990,78 @@
           <br>• Đuôi nghiệm chỉ là <strong>$+ k\pi$</strong> (chứ KHÔNG PHẢI $+ k2\pi$), và chỉ có <strong>DUY NHẤT 1 DÒNG NGHIỆM</strong>!
         </div>
       </div>
+
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 2: 4 PHƯƠNG TRÌNH LƯỢNG GIÁC CƠ BẢN -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: 4 PHƯƠNG TRÌNH LƯỢNG GIÁC CƠ BẢN</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 2</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Phương trình $\sin x = m$ có nghiệm khi và chỉ khi giá trị tham số $m$ thỏa mãn:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $-1 \le m \le 1$ (tức $|m| \le 1$)</div>
+              <div class="quiz-choice"><b>B.</b> $m > 0$</div>
+              <div class="quiz-choice"><b>C.</b> $m \in \mathbb{R}$ tùy ý</div>
+              <div class="quiz-choice"><b>D.</b> $m \ge 1$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Vì giá trị của $\sin x$ bị chặn trong đoạn $[-1; 1]$, nên nếu $|m| > 1$ (ví dụ $\sin x = 1{,}5$ hay $\sin x = -2$) thì phương trình VÔ NGHIỆM ngay lập tức!
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Công thức họ nghiệm của phương trình $\cos x = \coslpha$ là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $\left[egin{array}{l} x = lpha + k2\pi \ x = -lpha + k2\pi \end{array}
+ight.$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>B.</b> $\left[egin{array}{l} x = lpha + k2\pi \ x = \pi - lpha + k2\pi \end{array}
+ight.$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>C.</b> $x = lpha + k\pi$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>D.</b> $x = lpha + k2\pi$ ($k \in \mathbb{Z}$)</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> "Cos đối" $\implies \cos(-lpha) = \coslpha$. Do đó họ nghiệm của $\cos$ gồm hai nhánh đối dấu nhau: $x = \pmlpha + k2\pi$. Còn nhánh $\pi - lpha$ là của hàm SIN ("Sin bù")!
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Giải phương trình $\sin x = rac{1}{2}$. Họ nghiệm chuẩn xác là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $\left[egin{array}{l} x = rac{\pi}{6} + k2\pi \ x = rac{5\pi}{6} + k2\pi \end{array}
+ight.$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>B.</b> $x = \pmrac{\pi}{6} + k2\pi$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>C.</b> $\left[egin{array}{l} x = rac{\pi}{6} + k\pi \ x = rac{5\pi}{6} + k\pi \end{array}
+ight.$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>D.</b> $x = rac{\pi}{6} + k2\pi$ ($k \in \mathbb{Z}$)</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Vì $rac{1}{2} = \sinrac{\pi}{6}$ nên theo công thức nghiệm hàm Sin:<br>
+              • Nhánh 1: $x = rac{\pi}{6} + k2\pi$<br>
+              • Nhánh 2 ("Sin bù"): $x = \pi - rac{\pi}{6} + k2\pi = rac{5\pi}{6} + k2\pi$.<br>
+              Bẫy thường gặp là viết nhầm thành $\pmrac{\pi}{6}$ (của hàm cos) hoặc quên mất nhánh thứ hai!
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- 3. BẢNG 6 TRƯỜNG HỢP ĐẶC BIỆT GỘP NGHIỆM SIÊU TỐC -->
       <h3 class="sub-title">3. Bảng 6 Trường Hợp Đặc Biệt Gộp Nghiệm Siêu Tốc (Học Thuộc Để Không Bị Dài Dòng)</h3>
@@ -2925,6 +4138,73 @@
           </div>
         </div>
       </div>
+
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 3: 6 TRƯỜNG HỢP ĐẶC BIỆT -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: 6 TRƯỜNG HỢP ĐẶC BIỆT GỘP NGHIỆM SIÊU TỐC</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 3</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Phương trình $\sin x = 0$ có họ nghiệm thu gọn là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $x = k\pi$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>B.</b> $x = k2\pi$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>C.</b> $x = rac{\pi}{2} + k\pi$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>D.</b> $x = rac{\pi}{2} + k2\pi$ ($k \in \mathbb{Z}$)</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Trên đường tròn lượng giác, tung độ bằng 0 tại 2 điểm là $A(0)$ và $A'(\pi)$. Hai điểm này cách đều nhau đúng nửa vòng tròn $\pi$, nên gộp gọn lại thành duy nhất một họ: $x = k\pi$ ($k \in \mathbb{Z}$).
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Phương trình $\cos x = 0$ có họ nghiệm thu gọn là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $x = rac{\pi}{2} + k\pi$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>B.</b> $x = rac{\pi}{2} + k2\pi$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>C.</b> $x = k\pi$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>D.</b> $x = \pi + k2\pi$ ($k \in \mathbb{Z}$)</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Hoành độ bằng 0 tại 2 điểm $B(rac{\pi}{2})$ và $B'(-rac{\pi}{2})$. Hai điểm này cách nhau đúng nửa vòng tròn $\pi$, gộp gọn thành: $x = rac{\pi}{2} + k\pi$ ($k \in \mathbb{Z}$).
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Phương trình $\cos x = -1$ có nghiệm là họ nào? (Chú ý số điểm biểu diễn trên đường tròn)</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $x = \pi + k2\pi$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>B.</b> $x = \pi + k\pi$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>C.</b> $x = -rac{\pi}{2} + k2\pi$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>D.</b> $x = k2\pi$ ($k \in \mathbb{Z}$)</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Bẫy phân biệt cực kỳ quan trọng:<br>
+              • Khi giá trị bằng 0 ($\sin x = 0$ hoặc $\cos x = 0$): có 2 điểm biểu diễn $\implies$ đuôi là $+k\pi$.<br>
+              • Khi giá trị bằng $\pm 1$ ($\cos x = -1$, $\cos x = 1$, $\sin x = \pm 1$): chỉ có DUY NHẤT 1 ĐIỂM trên đường tròn $\implies$ bắt buộc phải quay đủ 1 vòng tròn, đuôi phải là $+k2\pi$! Do đó nghiệm là $x = \pi + k2\pi$. Ghi $+k\pi$ là sai hoàn toàn!
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- 4. THỰC CHIẾN BÀI TẬP MẪU 3 BƯỚC -->
       <h3 class="sub-title">4. Phần Thực Chiến: Bài Tập Mẫu Step-by-Step Cầm Tay Chỉ Việc</h3>
@@ -3062,6 +4342,71 @@
         Đó chính là quy luật tự nhiên của cánh hoa hướng dương, vỏ ốc anh vũ và các thuật toán máy tính ngày nay!
       </div>
 
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 1: BẢN CHẤT DÃY SỐ -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: BẢN CHẤT DÃY SỐ</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 1</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Biến số thứ tự $n$ trong dãy số $(u_n)$ bắt buộc phải thuộc tập hợp số nào?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Tập hợp số tự nhiên khác 0: $n \in \mathbb{N}^* = \{1, 2, 3, 4, \dots\}$</div>
+              <div class="quiz-choice"><b>B.</b> Tập hợp số thực $\mathbb{R}$</div>
+              <div class="quiz-choice"><b>C.</b> Tập hợp số nguyên $\mathbb{Z}$</div>
+              <div class="quiz-choice"><b>D.</b> Khoảng số dương $(0; +\infty)$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Khác với hàm số $f(x)$ nhận số thực liên tục (như $x = 1{,}5$ hay $x = \sqrt{2}$), dãy số là xếp hàng điểm danh người: Chỉ có người thứ 1 ($u_1$), người thứ 2 ($u_2$), người thứ 3 ($u_3$)... không bao giờ có người thứ $1{,}5$ hay người thứ $-2$! Do đó $n \in \mathbb{N}^*$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Cho dãy số $(u_n)$ có công thức số hạng tổng quát $u_n = 2n + 1$. Số hạng thứ 5 ($u_5$) của dãy số là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $11$</div>
+              <div class="quiz-choice"><b>B.</b> $10$</div>
+              <div class="quiz-choice"><b>C.</b> $9$</div>
+              <div class="quiz-choice"><b>D.</b> $13$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Muốn tìm số hạng thứ mấy, chỉ cần thay chỉ số $n$ tương ứng vào công thức: Thay $n = 5 \implies u_5 = 2(5) + 1 = 11$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Dãy số hữu hạn $1, 4, 9, 16, 25$ có số hạng đầu và số hạng cuối là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Số hạng đầu $u_1 = 1$, số hạng cuối $u_5 = 25$</div>
+              <div class="quiz-choice"><b>B.</b> Số hạng đầu $u_0 = 1$, số hạng cuối $u_5 = 25$</div>
+              <div class="quiz-choice"><b>C.</b> Số hạng đầu $u_1 = 1$, không có số hạng cuối vì là vô hạn</div>
+              <div class="quiz-choice"><b>D.</b> Số hạng đầu $u_1 = 4$, số hạng cuối $u_5 = 25$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Dãy số hữu hạn là dãy chỉ có một số lượng hữu hạn phần tử. Ở đây có đúng 5 số hạng: $u_1 = 1, u_2 = 4, u_3 = 9, u_4 = 16, u_5 = 25$. Số hạng đầu là $u_1 = 1$, số hạng cuối là $u_5 = 25$. Bẫy hay nhầm $u_0 = 1$ (sai vì chỉ số bắt đầu từ $1$).
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- 2. BỐN CÁCH CHO MỘT DÃY SỐ -->
       <h3 class="sub-title">2. Mổ Xẻ 4 Cách Cho Dãy Số Trong Sách Giáo Khoa</h3>
 
@@ -3074,6 +4419,73 @@
         <br>• <strong>Cách 4: Hệ thức truy hồi:</strong> Cho số đầu tiên $u_1$, và cho công thức tính số đứng sau dựa vào số đứng trước.
         <br><em>Ví dụ: $\begin{cases} u_1 = 3 \\ u_{n+1} = 2u_n + 1 \end{cases} \implies u_2 = 2(3) + 1 = 7, \quad u_3 = 2(7) + 1 = 15$.</em>
       </div>
+
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 2: 4 CÁCH CHO DÃY SỐ -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: 4 CÁCH CHO DÃY SỐ</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 2</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Cách cho dãy số bằng "Hệ thức truy hồi" là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Cho trước số hạng đầu (hoặc vài số đầu) và quy tắc tính số đứng sau thông qua các số đứng trước</div>
+              <div class="quiz-choice"><b>B.</b> Cho một công thức $u_n$ tính trực tiếp theo biến $n$</div>
+              <div class="quiz-choice"><b>C.</b> Liệt kê hết toàn bộ các số hạng từ 1 đến vô cùng</div>
+              <div class="quiz-choice"><b>D.</b> Vẽ biểu đồ hình cột</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> "Truy hồi" nghĩa là phải dựa vào quá khứ (số đứng trước) để tính hiện tại (số đứng sau). Ví dụ: $u_1 = 2$, $u_{n+1} = u_n + 3$. Muốn có $u_2$ phải có $u_1$, muốn có $u_3$ phải có $u_2$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Cho dãy số xác định bởi: $u_1 = 2$ và $u_{n+1} = 3u_n - 1$ với mọi $n \ge 1$. Giá trị của số hạng $u_3$ bằng:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $14$</div>
+              <div class="quiz-choice"><b>B.</b> $5$</div>
+              <div class="quiz-choice"><b>C.</b> $15$</div>
+              <div class="quiz-choice"><b>D.</b> $41$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Tính tuần tự từng bước bắc cầu:<br>
+              • Bước 1 ($n=1$): $u_2 = 3u_1 - 1 = 3(2) - 1 = 5$<br>
+              • Bước 2 ($n=2$): $u_3 = 3u_2 - 1 = 3(5) - 1 = 14$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Cho dãy số $(u_n)$ với $u_n = 2^n$. Khẳng định nào sau đây diễn đạt dãy số này dưới dạng hệ thức truy hồi đúng nhất?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $u_1 = 2$ và $u_{n+1} = 2u_n$ ($n \ge 1$)</div>
+              <div class="quiz-choice"><b>B.</b> $u_1 = 2$ và $u_{n+1} = u_n + 2$ ($n \ge 1$)</div>
+              <div class="quiz-choice"><b>C.</b> $u_1 = 1$ và $u_{n+1} = 2u_n$ ($n \ge 1$)</div>
+              <div class="quiz-choice"><b>D.</b> $u_1 = 2$ và $u_{n+1} = u_n^2$ ($n \ge 1$)</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Ta có $u_1 = 2^1 = 2$. Với mỗi bước $n+1$: $u_{n+1} = 2^{n+1} = 2 \cdot 2^n = 2u_n$. Đây chính là cấp số nhân công bội 2 diễn đạt qua truy hồi!
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- 3. DÃY SỐ TĂNG & DÃY SỐ GIẢM -->
       <h3 class="sub-title">3. Dãy Số Tăng, Dãy Số Giảm (Quy Trình Xét Dấu Chuẩn Xác)</h3>
@@ -3106,6 +4518,71 @@
         <strong>Khắc cốt ghi tâm:</strong> $u_{n+1}$ nghĩa là: <strong>CHỖ NÀO TRONG CÔNG THỨC CÓ CHỮ $n$, BẠN PHẢI THAY BẰNG CỤM $(n + 1)$</strong>!
         $$\text{Đúng chuẩn: } u_{n+1} = \frac{2(n + 1) - 1}{(n + 1) + 1} = \frac{2n + 2 - 1}{n + 2} = \frac{2n + 1}{n + 2}$$
       </div>
+
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 3: DÃY SỐ TĂNG & GIẢM -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: DÃY SỐ TĂNG & DÃY SỐ GIẢM</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 3</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Dãy số $(u_n)$ được định nghĩa là DÃY SỐ TĂNG khi và chỉ khi với mọi $n \in \mathbb{N}^*$:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $u_{n+1} > u_n$ (số đứng sau luôn lớn hơn số đứng liền trước)</div>
+              <div class="quiz-choice"><b>B.</b> $u_{n+1} < u_n$</div>
+              <div class="quiz-choice"><b>C.</b> $u_{n+1} \ge 0$</div>
+              <div class="quiz-choice"><b>D.</b> $u_1 < u_2$ (chỉ cần 2 số đầu tăng)</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Dãy số tăng nghĩa là càng đi về sau thì giá trị càng cao: $u_1 < u_2 < u_3 < \dots < u_n < u_{n+1}$. Điều kiện chuẩn là $u_{n+1} - u_n > 0$ với MỌI $n \in \mathbb{N}^*$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Xét tính tăng/giảm của dãy số $u_n = rac{1}{n}$ ($n \in \mathbb{N}^*$):</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Là dãy số giảm</div>
+              <div class="quiz-choice"><b>B.</b> Là dãy số tăng</div>
+              <div class="quiz-choice"><b>C.</b> Không tăng không giảm</div>
+              <div class="quiz-choice"><b>D.</b> Vừa tăng vừa giảm</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Xét hiệu: $u_{n+1} - u_n = rac{1}{n+1} - rac{1}{n} = rac{n - (n+1)}{n(n+1)} = rac{-1}{n(n+1)} < 0$ (với mọi $n \ge 1$). Vì hiệu luôn âm nên $u_{n+1} < u_n \implies$ dãy số GIẢM.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Dãy số $u_n = (-1)^n$ là dãy số:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Dãy số KHÔNG TĂNG VÀ KHÔNG GIẢM</div>
+              <div class="quiz-choice"><b>B.</b> Dãy số tăng vì có số hạng dương bằng 1</div>
+              <div class="quiz-choice"><b>C.</b> Dãy số giảm vì có số hạng âm bằng -1</div>
+              <div class="quiz-choice"><b>D.</b> Dãy số hằng số</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Viết vài số hạng đầu: $u_1 = -1, u_2 = 1, u_3 = -1, u_4 = 1, \dots$ Giá trị nhảy nhót lúc lên lúc xuống: từ $-1$ lên $1$ là tăng, từ $1$ xuống $-1$ là giảm. Dãy số đan dấu kiểu này KHÔNG TĂNG VÀ CŨNG KHÔNG GIẢM! Bẫy thi học sinh rất hay kết luận vội vàng.
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- 4. DÃY SỐ BỊ CHẶN -->
       <h3 class="sub-title">4. Dãy Số Bị Chặn (Trần Nhà & Mặt Đất)</h3>
@@ -3144,6 +4621,74 @@
           </div>
         </div>
       </div>
+
+      
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 4: DÃY SỐ BỊ CHẶN -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: DÃY SỐ BỊ CHẶN (TRẦN NHÀ & MẶT ĐẤT)</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 4</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Một dãy số $(u_n)$ được gọi là BỊ CHẶN (bị chặn toàn diện) khi nào?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Vừa bị chặn trên (có số $M$) vừa bị chặn dưới (có số $m$): $m \le u_n \le M$ với mọi $n \in \mathbb{N}^*$</div>
+              <div class="quiz-choice"><b>B.</b> Chỉ cần bị chặn trên $u_n \le M$</div>
+              <div class="quiz-choice"><b>C.</b> Chỉ cần bị chặn dưới $u_n \ge m$</div>
+              <div class="quiz-choice"><b>D.</b> Tất cả các số hạng của dãy đều bằng một hằng số</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Giống như đứng trong phòng kín: phải có cả TRẦN NHÀ chặn ở trên ($M$) và SÀN NHÀ đỡ ở dưới ($m$) thì người ta mới gọi là "bị giam cầm" (BỊ CHẶN TOÀN DIỆN)!
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Dãy số $u_n = rac{1}{n}$ ($n \in \mathbb{N}^*$) bị chặn dưới bởi số nào?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Bị chặn dưới bởi số $0$ (vì $u_n > 0$ với mọi $n \ge 1$)</div>
+              <div class="quiz-choice"><b>B.</b> Bị chặn dưới bởi số $1$</div>
+              <div class="quiz-choice"><b>C.</b> Bị chặn dưới bởi số $-1$</div>
+              <div class="quiz-choice"><b>D.</b> Không bị chặn dưới vì mẫu số tăng vô hạn</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Vì tử số dương ($1 > 0$) và mẫu số $n \ge 1 > 0$ nên phân số $u_n = rac{1}{n} > 0$ với mọi $n \in \mathbb{N}^*$. Tồn tại số $m = 0$ sao cho $u_n \ge m \implies$ dãy bị chặn dưới bởi 0!
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Dãy số $u_n = rac{2n + 1}{n + 2}$ có bị chặn không? Vì sao?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Bị chặn toàn diện, vì $1 \le u_n < 2$ với mọi $n \in \mathbb{N}^*$</div>
+              <div class="quiz-choice"><b>B.</b> Không bị chặn vì khi $n 	o +\infty$ thì tử số tiến ra vô cùng</div>
+              <div class="quiz-choice"><b>C.</b> Chỉ bị chặn trên bởi $2$, không bị chặn dưới</div>
+              <div class="quiz-choice"><b>D.</b> Chỉ bị chặn dưới bởi $0$, không bị chặn trên</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Tách phân thức đại số: $u_n = rac{2(n + 2) - 3}{n + 2} = 2 - rac{3}{n + 2}$.<br>
+              • Vì $n \ge 1 \implies n + 2 \ge 3 \implies 0 < rac{3}{n+2} \le 1$.<br>
+              • Do đó: $2 - 1 \le u_n < 2 - 0 \iff 1 \le u_n < 2$.<br>
+              Dãy số bị kẹp chặt giữa sàn nhà $m = 1$ và trần nhà $M = 2$. Vậy dãy số BỊ CHẶN TOÀN DIỆN!
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <!-- 5. PHẦN THỰC CHIẾN 3 BƯỚC -->
       <h3 class="sub-title">5. Phần Thực Chiến: Bài Tập Mẫu Step-by-Step Cầm Tay Chỉ Việc</h3>
@@ -3437,6 +4982,666 @@
           </div>
         </div>
 
+      </div>
+    </section>
+
+
+    <!-- ======================================================= -->
+    <!-- PHẦN: 13 TRANG SGK HÌNH HỌC KHÔNG GIAN (CHƯƠNG IV KNTT) -->
+    <!-- ======================================================= -->
+    <section class="section-card" id="tong-hop-sgk-hinh">
+      <div class="section-header">
+        <div class="section-number" style="background: #0284c7;">📐</div>
+        <div>
+          <span class="tag-concept" style="background:#e0f2fe; color:#0369a1;">CHƯƠNG IV: QUAN HỆ SONG SONG TRONG KHÔNG GIAN</span>
+          <h2 class="section-title">Tổng Hợp 13 Trang SGK Gốc Hình Học 11 (Zoom HD)</h2>
+          <p class="section-meta">Xem trực tiếp toàn bộ 13 trang sách giáo khoa Toán 11 KNTT Bài 10, 11, 12, 13 - Có hỗ trợ phóng to chi tiết không vỡ hạt</p>
+        </div>
+      </div>
+
+      <div class="toggle-gallery-container">
+        <button type="button" class="btn-toggle-gallery" id="btnToggleHinhGallery" onclick="toggleHinhGallery()">
+          <span id="hinhGalleryToggleIcon">📖</span>
+          <span id="hinhGalleryToggleText">Mở xem toàn bộ 13 trang SGK Hình học</span>
+        </button>
+      </div>
+
+      <div class="gallery-grid" id="hinhGallery" style="display: none;">
+        <!-- Javascript sẽ tự động render 13 ảnh thumbnail vào đây -->
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- BÀI 10: ĐƯỜNG THẲNG VÀ MẶT PHẲNG TRONG KHÔNG GIAN       -->
+    <!-- ======================================================= -->
+    <section class="section-card" id="bai-10">
+      <div class="section-header">
+        <div class="section-number" style="background: #0284c7;">10</div>
+        <div>
+          <span class="tag-concept" style="background:#e0f2fe; color:#0369a1;">HÌNH HỌC KHÔNG GIAN TỪ GỐC RỄ</span>
+          <h2 class="section-title">Bài 10: Đường Thẳng & Mặt Phẳng Trong Không Gian</h2>
+          <p class="section-meta">Phá vỡ nỗi sợ hình không gian - Nắm chắc quy tắc nét đứt nét liền và 4 cách xác định mặt phẳng</p>
+        </div>
+      </div>
+
+      <!-- GÓC HỒI TƯỞNG LỚP 10 -->
+      <div class="recall-box">
+        <div class="recall-header" onclick="toggleRecall(this)">
+          <div class="recall-title">
+            <span>🕰️</span> Ký Ức Ùa Về: Hình Học Phẳng Lớp 10 (Euclid)
+          </div>
+          <span class="recall-badge">Bấm để ôn lại 1 phút</span>
+        </div>
+        <div class="recall-content">
+          <p>Ở lớp 10, chúng ta chỉ sống trong "thế giới 2D" (mặt phẳng tờ giấy):</p>
+          <ul>
+            <li>Qua 2 điểm phân biệt, vẽ được <strong>duy nhất 1 đường thẳng</strong>.</li>
+            <li>Hai đường thẳng hoặc cắt nhau, hoặc song song, hoặc trùng nhau.</li>
+          </ul>
+          <p><strong>Lên lớp 11:</strong> Bước vào thế giới 3D! Mặt phẳng không còn là tất cả mà chỉ là một "lát cắt" vô tận trong vũ trụ. Hai đường thẳng có thể KHÔNG ĐỤNG NHAU nhưng cũng KHÔNG SONG SONG (được gọi là <em>chéo nhau</em>)!</p>
+        </div>
+      </div>
+
+      <!-- 1. MẶT PHẲNG & QUY TẮC VẼ HÌNH -->
+      <h3 class="sub-title">1. Mặt Phẳng Trong Không Gian & Quy Tắc Vàng Vẽ Nét Liền - Nét Đứt</h3>
+
+      <div class="block-theory">
+        <div class="block-theory-title">📖 Dịch SGK sang tiếng người: Mặt phẳng là cái gì?</div>
+        Mặt phẳng không có độ dày và nó <strong>trải rộng vô tận về mọi phía</strong>.
+        <br>Hãy tưởng tượng mặt bàn, mặt sân bóng đá hay mặt nước hồ phẳng lặng kéo dài mãi mãi ra tận vô cực.
+        <br>• Ký hiệu mặt phẳng: Đặt tên bằng chữ cái hoa trong dấu ngoặc đơn: $(P), (Q), (lpha), (eta)$ hoặc qua các điểm: $(ABC), (ABCD)$.
+        <br>• Điểm thuộc mặt phẳng: $A \in (P)$ (điểm $A$ nằm trên mặt phẳng). Điểm không thuộc: $S 
+otin (P)$.
+      </div>
+
+      <div class="block-trap">
+        <div class="block-trap-title">🚨 QUY TẮC VẼ HÌNH KHÔNG GIAN BẤT BIẾN (VẼ SAI = TRỪ HẾT ĐIỂM)</div>
+        Quy tắc sống còn khi cầm bút vẽ hình 3D trên tờ giấy 2D:
+        <ul>
+          <li><strong>Đường nhìn thấy:</strong> Vẽ bằng <strong>NÉT LIỀN (——)</strong>. Đó là các cạnh quay ra mặt trước hoặc không bị vật thể khác che khuất.</li>
+          <li><strong>Đường bị che khuất (bị giấu đằng sau):</strong> BẮT BUỘC vẽ bằng <strong>NÉT ĐỨT (------)</strong>.</li>
+          <li>Hai đường thẳng song song trong không gian $\implies$ vẽ thành hai đường thẳng song song trên giấy.</li>
+          <li>Quan hệ thuộc tính: Giữ nguyên tỉ lệ đoạn thẳng trên cùng một đường thẳng (trung điểm vẽ thành trung điểm). Nhưng <em>góc vuông, góc nhọn, góc tù không cần giữ nguyên độ lớn</em> (góc vuông thường vẽ thành góc nghiêng)!</li>
+        </ul>
+      </div>
+
+      <div class="block-story">
+        <div class="block-story-title">🎭 Câu chuyện thực tế: "Chiếc bàn 3 chân không bao giờ bập bênh"</div>
+        Tại sao ghế đẩu hay kiềng đun bếp luôn làm <strong>3 chân</strong> thay vì 4 chân?
+        <br>Vì trong toán học: <strong>"Qua 3 điểm không thẳng hàng, xác định DUY NHẤT một mặt phẳng!"</strong>
+        <br>Ba đầu mút chân bàn chạm đất luôn tạo thành đúng 1 mặt phẳng duy nhất, nên kiềng 3 chân không bao giờ bị cập kênh dù mặt đất có mấp mô cỡ nào. Còn bàn 4 chân nếu thợ cưa lệch 1 milimet là 4 điểm không đồng phẳng $\implies$ bập bênh ngay lập tức!
+      </div>
+
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 1 -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: QUY TẮC VẼ HÌNH & KHÁI NIỆM MẶT PHẲNG</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 1</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Khi vẽ hình biểu diễn của một hình không gian trên mặt phẳng giấy, các đoạn thẳng bị che khuất bắt buộc phải vẽ bằng:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Nét đứt (------)</div>
+              <div class="quiz-choice"><b>B.</b> Nét liền (——)</div>
+              <div class="quiz-choice"><b>C.</b> Nét chấm gạch</div>
+              <div class="quiz-choice"><b>D.</b> Nét lượn sóng</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Quy ước chuẩn vẽ hình không gian: Các cạnh bị che khuất (nằm phía sau hoặc bên trong khối hình) phải vẽ bằng nét đứt. Cạnh nhìn thấy vẽ bằng nét liền.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Hình biểu diễn của một hình vuông trong không gian thường được vẽ dưới dạng hình nào trên mặt phẳng giấy?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Hình bình hành (hoặc hình thoi)</div>
+              <div class="quiz-choice"><b>B.</b> Bắt buộc phải là hình vuông giữ nguyên góc $90^\circ$</div>
+              <div class="quiz-choice"><b>C.</b> Hình tròn</div>
+              <div class="quiz-choice"><b>D.</b> Hình thang vuông</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Trong phép chiếu song song biểu diễn không gian, các cạnh đối song song vẫn được vẽ song song, nhưng độ lớn góc vuông không được bảo toàn. Vì vậy hình vuông, hình chữ nhật thường được vẽ thành hình bình hành.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Khẳng định nào sau đây là SAI về quy tắc vẽ hình biểu diễn của hình không gian?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Tỉ số độ dài của hai đoạn thẳng nằm trên hai đường thẳng cắt nhau luôn được giữ nguyên</div>
+              <div class="quiz-choice"><b>B.</b> Hai đường thẳng song song phải được biểu diễn bằng hai đường thẳng song song (hoặc trùng nhau)</div>
+              <div class="quiz-choice"><b>C.</b> Trung điểm của một đoạn thẳng được biểu diễn bằng trung điểm của đoạn thẳng tương ứng</div>
+              <div class="quiz-choice"><b>D.</b> Điểm thuộc đoạn thẳng được biểu diễn thành điểm thuộc đoạn thẳng tương ứng</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Tỉ số độ dài chỉ được bảo toàn trên CÙNG MỘT ĐƯỜNG THẲNG hoặc trên HAI ĐƯỜNG THẲNG SONG SONG! Tỉ số giữa hai đoạn thẳng nằm trên hai đường thẳng cắt nhau hoặc chéo nhau KHÔNG được bảo toàn.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2. BỐN CÁCH XÁC ĐỊNH MẶT PHẲNG -->
+      <h3 class="sub-title">2. Mổ Xẻ 4 Cách Duy Nhất Để Xác Định Một Mặt Phẳng</h3>
+
+      <div class="block-formula">
+        <div class="block-formula-title">⚡ 4 CÁCH KHÓA CHẶT MỘT MẶT PHẲNG DUY NHẤT</div>
+        Một mặt phẳng hoàn toàn được xác định (duy nhất) khi biết:
+        <ol style="margin: 8px 0 0 20px; line-height: 1.8;">
+          <li><strong>Cách 1:</strong> Đi qua <strong>3 điểm không thẳng hàng</strong>: $A, B, C \implies (ABC)$.</li>
+          <li><strong>Cách 2:</strong> Đi qua <strong>1 điểm và 1 đường thẳng</strong> không chứa điểm đó: $A 
+otin d \implies (A, d)$.</li>
+          <li><strong>Cách 3:</strong> Đi qua <strong>2 đường thẳng cắt nhau</strong>: $a \cap b = \{I\} \implies (a, b)$.</li>
+          <li><strong>Cách 4:</strong> Đi qua <strong>2 đường thẳng song song</strong> phân biệt: $a \parallel b \implies (a, b)$.</li>
+        </ol>
+      </div>
+
+      <div class="block-trap">
+        <div class="block-trap-title">🚨 BẪY PHÒNG THI KINH ĐIỂN: "3 ĐIỂM THẲNG HÀNG"</div>
+        Đề thi hay gài câu trắc nghiệm: <em>"Qua 3 điểm bất kỳ luôn xác định duy nhất một mặt phẳng?"</em>
+        <br>$\implies$ <strong>SAI HOÀN TOÀN!</strong> Nếu 3 điểm thẳng hàng thì có <strong>VÔ SỐ</strong> mặt phẳng đi qua chúng (giống như gáy quyển sách: vô số trang giấy cùng xoay quanh 1 đường thẳng)! Bắt buộc phải có chữ: <strong>"KHÔNG THẲNG HÀNG"</strong>.
+      </div>
+
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 2 -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: CÁC CÁCH XÁC ĐỊNH MẶT PHẲNG</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 2</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Điều kiện cần và đủ để 3 điểm phân biệt xác định được duy nhất một mặt phẳng là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Ba điểm đó không thẳng hàng</div>
+              <div class="quiz-choice"><b>B.</b> Ba điểm đó thẳng hàng</div>
+              <div class="quiz-choice"><b>C.</b> Ba điểm tạo thành một góc tù</div>
+              <div class="quiz-choice"><b>D.</b> Ba điểm nằm trên cùng một đường tròn</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Qua 3 điểm KHÔNG THẲNG HÀNG xác định một và chỉ một mặt phẳng duy nhất.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Cho hai đường thẳng phân biệt $a$ và $b$ cùng song song với nhau. Có bao nhiêu mặt phẳng đi qua cả hai đường thẳng $a$ và $b$?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Duy nhất 1 mặt phẳng</div>
+              <div class="quiz-choice"><b>B.</b> Vô số mặt phẳng</div>
+              <div class="quiz-choice"><b>C.</b> Không có mặt phẳng nào</div>
+              <div class="quiz-choice"><b>D.</b> Có đúng 2 mặt phẳng</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Đây là Cách 4 xác định mặt phẳng: Hai đường thẳng song song phân biệt xác định duy nhất một mặt phẳng chứa cả hai đường thẳng đó.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Cho 4 điểm không đồng phẳng $A, B, C, D$. Có thể tạo ra tối đa bao nhiêu mặt phẳng phân biệt đi qua 3 trong số 4 điểm trên?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> 4 mặt phẳng: $(ABC), (ABD), (ACD), (BCD)$</div>
+              <div class="quiz-choice"><b>B.</b> 6 mặt phẳng</div>
+              <div class="quiz-choice"><b>C.</b> 1 mặt phẳng</div>
+              <div class="quiz-choice"><b>D.</b> Vô số mặt phẳng</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Số mặt phẳng chọn 3 điểm từ 4 điểm không đồng phẳng là tổ hợp $C_4^3 = 4$ mặt phẳng. Bốn mặt phẳng này chính là 4 mặt của hình tứ diện $ABCD$!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. PHƯƠNG PHÁP TÌM GIAO TUYẾN 2 MẶT PHẲNG -->
+      <h3 class="sub-title">3. Phương Pháp Tìm Giao Tuyến Của Hai Mặt Phẳng (Tư Duy Săn 2 Điểm Chung)</h3>
+
+      <div class="block-theory">
+        <div class="block-theory-title">🎯 Bản chất giao tuyến là gì?</div>
+        Giao tuyến của hai mặt phẳng $(P)$ và $(Q)$ là <strong>đường thẳng chung duy nhất</strong> chứa tất cả các điểm chung của hai mặt phẳng đó.
+        <br>Tưởng tượng như nếp gấp giữa hai trang sách đang mở: Nếp gấp đó chính là giao tuyến!
+      </div>
+
+      <div class="block-formula">
+        <div class="block-formula-title">⚡ QUY TRÌNH 2 BƯỚC TÌM GIAO TUYẾN KINH ĐIỂN</div>
+        Muốn tìm giao tuyến của $(P)$ và $(Q)$:
+        <ul>
+          <li><strong>Bước 1: Tìm điểm chung thứ nhất $A$:</strong> Điểm này thường lộ rõ ngay trong tên gọi của hai mặt phẳng (ví dụ: $(SAB)$ và $(SAC)$ thì điểm chung thứ nhất lộ liễu là $S$).</li>
+          <li><strong>Bước 2: Tìm điểm chung thứ hai $B$:</strong> Tìm trong $(P)$ một đường thẳng $d_1$ và trong $(Q)$ một đường thẳng $d_2$ sao cho $d_1$ và $d_2$ cùng nằm trong một mặt phẳng thứ ba và cắt nhau tại $B = d_1 \cap d_2$.</li>
+          <li><strong>Kết luận:</strong> Đường thẳng $AB$ chính là giao tuyến cần tìm: $(P) \cap (Q) = AB$!</li>
+        </ul>
+      </div>
+
+      <!-- THỬ THÁCH 3 CẤP ĐỘ MỤC 3 -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: TÌM GIAO TUYẾN CỦA HAI MẶT PHẲNG</div>
+          <span class="quiz-badge">Chỉ test kiến thức mục 3</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Nếu hai mặt phẳng phân biệt có một điểm chung, thì chúng có tất cả bao nhiêu điểm chung?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Vô số điểm chung nằm trên một đường thẳng duy nhất (gọi là giao tuyến)</div>
+              <div class="quiz-choice"><b>B.</b> Chỉ có duy nhất 1 điểm chung đó</div>
+              <div class="quiz-choice"><b>C.</b> Đúng 2 điểm chung</div>
+              <div class="quiz-choice"><b>D.</b> Đúng 3 điểm chung</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Định lý cơ bản SGK: Nếu hai mặt phẳng phân biệt có một điểm chung thì chúng có một đường thẳng chung duy nhất đi qua điểm chung đó. Đường thẳng này chứa vô số điểm chung.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Giao tuyến của hai mặt phẳng $(SAC)$ và $(SBD)$ là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Đường thẳng $SO$, với $O = AC \cap BD$</div>
+              <div class="quiz-choice"><b>B.</b> Đường thẳng $AB$</div>
+              <div class="quiz-choice"><b>C.</b> Đường thẳng $SA$</div>
+              <div class="quiz-choice"><b>D.</b> Không có giao tuyến vì hai mặt phẳng chéo nhau</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Điểm chung thứ nhất là đỉnh $S$. Điểm chung thứ hai: Trong mặt phẳng đáy $(ABCD)$, hai đường chéo $AC$ và $BD$ cắt nhau tại $O \implies O \in AC \subset (SAC)$ và $O \in BD \subset (SBD)$. Vậy giao tuyến là $SO$!
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Điều kiện để hai đường thẳng $a$ và $b$ trong không gian có thể cắt nhau tại một điểm là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Chúng phải cùng thuộc một mặt phẳng (đồng phẳng) và không song song</div>
+              <div class="quiz-choice"><b>B.</b> Chúng chỉ cần không song song với nhau</div>
+              <div class="quiz-choice"><b>C.</b> Một đường nằm trên mặt đáy, một đường nằm trên mặt bên</div>
+              <div class="quiz-choice"><b>D.</b> Hai đường thẳng bất kỳ kéo dài ra vô tận luôn cắt nhau</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> BẪY TỬ THẦN CỦA HÌNH KHÔNG GIAN: Trên giấy bạn thấy 2 đường chéo qua nhau trông như cắt nhau, nhưng trong không gian chúng có thể ở hai tầng khác nhau (chéo nhau)! Muốn cắt nhau, BẮT BUỘC hai đường thẳng đó phải CÙNG NẰM TRONG MỘT MẶT PHẲNG!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- BÀI 11: HAI ĐƯỜNG THẲNG SONG SONG VÀ CHÉO NHAU          -->
+    <!-- ======================================================= -->
+    <section class="section-card" id="bai-11">
+      <div class="section-header">
+        <div class="section-number" style="background: #0284c7;">11</div>
+        <div>
+          <span class="tag-concept" style="background:#e0f2fe; color:#0369a1;">VỊ TRÍ TƯƠNG ĐỐI TRONG KHÔNG GIAN</span>
+          <h2 class="section-title">Bài 11: Hai Đường Thẳng Song Song & Hai Đường Thẳng Chéo Nhau</h2>
+          <p class="section-meta">Hiểu sâu khái niệm chéo nhau, định lý 3 giao tuyến và phương pháp chứng minh song song</p>
+        </div>
+      </div>
+
+      <!-- 1. VỊ TRÍ TƯƠNG ĐỐI -->
+      <h3 class="sub-title">1. Vị Trí Tương Đối Của Hai Đường Thẳng: Đồng Phẳng vs Chéo Nhau</h3>
+
+      <div class="block-theory">
+        <div class="block-theory-title">📖 Dịch sang tiếng người: "Chéo nhau" là cái quái gì?</div>
+        Trong không gian 3D, hai đường thẳng $a$ và $b$ có 2 nhánh lớn:
+        <br><strong>Trường hợp 1: CÙNG THUỘC MỘT MẶT PHẲNG (Đồng phẳng)</strong>
+        <ul>
+          <li>Cắt nhau: Có đúng 1 điểm chung ($a \cap b = \{M\}$).</li>
+          <li>Song song: Cùng nằm trong 1 mặt phẳng và KHÔNG có điểm chung nào ($a \parallel b$).</li>
+          <li>Trùng nhau: Có vô số điểm chung ($a \equiv b$).</li>
+        </ul>
+        <strong>Trường hợp 2: KHÔNG CÙNG THUỘC BẤT KỲ MẶT PHẲNG NÀO $\implies$ CHÉO NHAU!</strong>
+        <br>Hai đường thẳng chéo nhau không cắt nhau, cũng không song song với nhau.
+        <br><em>Ví dụ thực tế:</em> Một chiếc máy bay đang bay từ Bắc vào Nam ở độ cao 10.000m, và một đoàn tàu hỏa đang chạy trên mặt đất từ Đông sang Tây. Hai quỹ đạo này không bao giờ đụng nhau, nhưng cũng không song song $\implies$ chúng CHÉO NHAU!
+      </div>
+
+      <!-- 2. ĐỊNH LÝ 3 GIAO TUYẾN -->
+      <h3 class="sub-title">2. Định Lý 3 Đường Giao Tuyến & Tính Chất Bắc Cầu</h3>
+
+      <div class="block-formula">
+        <div class="block-formula-title">⚡ ĐỊNH LÝ 3 ĐƯỜNG GIAO TUYẾN THẦN THÁNH</div>
+        Nếu ba mặt phẳng đôi một cắt nhau theo ba giao tuyến phân biệt $d_1, d_2, d_3$, thì ba giao tuyến đó:
+        <br><strong style="color: var(--gold); font-size: 16px;">HOẶC ĐÔI MỘT SONG SONG, HOẶC ĐỒNG QUY TẠI MỘT ĐIỂM!</strong>
+        <br>$$\left[egin{array}{l} d_1 \parallel d_2 \parallel d_3 \ d_1 \cap d_2 \cap d_3 = \{I\} \end{array}
+ight.$$
+      </div>
+
+      <div class="block-theory">
+        <div class="block-theory-title">💡 Tính chất bắc cầu của quan hệ song song</div>
+        Hai đường thẳng phân biệt cùng song song với một đường thẳng thứ ba thì song song với nhau:
+        $$egin{cases} a \parallel c \ b \parallel c \ a 
+e b \end{cases} \implies a \parallel b$$
+      </div>
+
+      <!-- THỬ THÁCH 3 CẤP ĐỘ BÀI 11 -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: HAI ĐƯỜNG THẲNG SONG SONG & CHÉO NHAU</div>
+          <span class="quiz-badge">Chỉ test kiến thức Bài 11</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Hai đường thẳng chéo nhau trong không gian là hai đường thẳng:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Không cùng nằm trong bất kỳ một mặt phẳng nào</div>
+              <div class="quiz-choice"><b>B.</b> Cùng nằm trong một mặt phẳng và không có điểm chung</div>
+              <div class="quiz-choice"><b>C.</b> Cắt nhau tạo thành góc vuông</div>
+              <div class="quiz-choice"><b>D.</b> Trùng nhau</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Định nghĩa SGK: Hai đường thẳng gọi là chéo nhau nếu chúng không đồng phẳng (không có mặt phẳng nào chứa cả hai đường thẳng đó).
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Cho hình tứ diện $ABCD$. Cặp đường thẳng nào sau đây CHÉO NHAU?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $AB$ và $CD$</div>
+              <div class="quiz-choice"><b>B.</b> $AB$ và $AC$</div>
+              <div class="quiz-choice"><b>C.</b> $BC$ và $CD$</div>
+              <div class="quiz-choice"><b>D.</b> $AD$ và $BD$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Tứ diện $ABCD$ có 4 đỉnh không đồng phẳng. Hai cạnh đối diện $AB$ và $CD$ không có điểm chung và không đồng phẳng $\implies$ chéo nhau! Các cặp còn lại như $AB$ và $AC$ cắt nhau tại $A$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Khẳng định: "Nếu hai đường thẳng $a$ và $b$ không có điểm chung thì $a \parallel b$" là đúng hay sai?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> SAI, vì trong không gian chúng có thể chéo nhau</div>
+              <div class="quiz-choice"><b>B.</b> ĐÚNG, vì không có điểm chung chính là định nghĩa song song</div>
+              <div class="quiz-choice"><b>C.</b> ĐÚNG, nếu $a$ và $b$ là hai đường thẳng phân biệt</div>
+              <div class="quiz-choice"><b>D.</b> SAI, vì chúng có thể cắt nhau tại vô cực</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> BẪY KINH ĐIỂN MẤT GỐC LỚP 10 MANG LÊN LỚP 11: Ở lớp 10 (mặt phẳng) thì không có điểm chung $\implies$ song song. Nhưng trong không gian 3D, không có điểm chung thì có THỂ SONG SONG hoặc CHÉO NHAU! Bắt buộc phải thêm điều kiện "cùng thuộc một mặt phẳng" thì mới suy ra song song được.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- BÀI 12: ĐƯỜNG THẲNG VÀ MẶT PHẲNG SONG SONG              -->
+    <!-- ======================================================= -->
+    <section class="section-card" id="bai-12">
+      <div class="section-header">
+        <div class="section-number" style="background: #0284c7;">12</div>
+        <div>
+          <span class="tag-concept" style="background:#e0f2fe; color:#0369a1;">QUAN HỆ SONG SONG CỐT LÕI</span>
+          <h2 class="section-title">Bài 12: Đường Thẳng Song Song Với Mặt Phẳng</h2>
+          <p class="section-meta">Chiến thuật bắc cầu: Muốn song song với mặt phẳng, chỉ cần kết thân với một đường thẳng nằm bên trong</p>
+        </div>
+      </div>
+
+      <!-- 1. VỊ TRÍ TƯƠNG ĐỐI ĐT VÀ MP -->
+      <h3 class="sub-title">1. Vị Trí Tương Đối Giữa Đường Thẳng Và Mặt Phẳng</h3>
+
+      <div class="block-theory">
+        <div class="block-theory-title">📖 Ba trạng thái giữa đường thẳng $d$ và mặt phẳng $(lpha)$</div>
+        <ul>
+          <li><strong>$d$ nằm trong $(lpha)$ ($d \subset (lpha)$):</strong> Mọi điểm của $d$ đều thuộc $(lpha)$ (vô số điểm chung).</li>
+          <li><strong>$d$ cắt $(lpha)$ ($d \cap (lpha) = \{M\}$):</strong> Có đúng 1 điểm chung duy nhất (như que tăm đâm thủng tờ giấy).</li>
+          <li><strong>$d$ song song với $(lpha)$ ($d \parallel (lpha)$):</strong> $d$ và $(lpha)$ <strong>KHÔNG CÓ ĐIỂM CHUNG NÀO</strong>!</li>
+        </ul>
+      </div>
+
+      <!-- 2. PHƯƠNG PHÁP CHỨNG MINH ĐT // MP -->
+      <h3 class="sub-title">2. Phương Pháp Vàng Chứng Minh Đường Thẳng Song Song Mặt Phẳng</h3>
+
+      <div class="block-formula">
+        <div class="block-formula-title">⚡ ĐỊNH LÝ 1: CÂU THẦN CHÚ "BẮC CẦU VỆ SĨ"</div>
+        Nếu đường thẳng $d$ không nằm trong mặt phẳng $(lpha)$ và $d$ song song với một đường thẳng $a$ nằm trong $(lpha)$ thì $d$ song song với $(lpha)$:
+        $$egin{cases} d 
+ot\subset (lpha) \ a \subset (lpha) \ d \parallel a \end{cases} \implies \mathbf{d \parallel (lpha)}$$
+      </div>
+
+      <div class="block-story">
+        <div class="block-story-title">🎭 Câu chuyện thực tế: "Làm quen với vệ sĩ trong phòng"</div>
+        Bạn là đường thẳng $d$ (đang đứng bên ngoài căn phòng $(lpha)$). Bạn muốn đi song song, đồng hành với cả căn phòng đó.
+        <br>Bạn không cần phải làm quen với tất cả mọi người trong phòng! Bạn chỉ cần tìm đúng <strong>MỘT NGƯỜI BẠN $a$</strong> đang ở trong phòng sao cho bạn và người đó song song với nhau ($d \parallel a$). Lập tức cả căn phòng $(lpha)$ công nhận bạn song song với họ!
+      </div>
+
+      <div class="block-trap">
+        <div class="block-trap-title">🚨 BẪY PHÒNG THI: QUÊN ĐIỀU KIỆN $d 
+ot\subset (lpha)$</div>
+        Rất nhiều bạn khi làm bài tự luận chỉ ghi: <em>"Vì $d \parallel a$ mà $a \subset (lpha) \implies d \parallel (lpha)$"</em>.
+        <br>$\implies$ Bị giáo viên gạch trừ $0{,}25$ điểm ngay lập tức! Vì nếu $d$ lỡ nằm luôn trong $(lpha)$ thì làm sao song song được? BẮT BUỘC phải kiểm tra điều kiện $d 
+ot\subset (lpha)$!
+      </div>
+
+      <!-- THỬ THÁCH 3 CẤP ĐỘ BÀI 12 -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: ĐƯỜNG THẲNG SONG SONG VỚI MẶT PHẲNG</div>
+          <span class="quiz-badge">Chỉ test kiến thức Bài 12</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Đường thẳng $d$ song song với mặt phẳng $(lpha)$ khi và chỉ khi:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $d$ và $(lpha)$ không có điểm chung nào</div>
+              <div class="quiz-choice"><b>B.</b> $d$ có đúng 1 điểm chung với $(lpha)$</div>
+              <div class="quiz-choice"><b>C.</b> $d$ nằm hoàn toàn trong $(lpha)$</div>
+              <div class="quiz-choice"><b>D.</b> $d$ vuông góc với $(lpha)$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Định nghĩa SGK: Đường thẳng và mặt phẳng gọi là song song nếu chúng không có điểm chung.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Đường thẳng $AB$ song song với mặt phẳng nào sau đây?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Mặt phẳng $(SCD)$</div>
+              <div class="quiz-choice"><b>B.</b> Mặt phẳng $(SAD)$</div>
+              <div class="quiz-choice"><b>C.</b> Mặt phẳng $(SBC)$</div>
+              <div class="quiz-choice"><b>D.</b> Mặt phẳng $(SAC)$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Vì đáy là hình bình hành nên $AB \parallel CD$. Ta có:<br>
+              • $CD \subset (SCD)$<br>
+              • $AB 
+ot\subset (SCD)$<br>
+              • $AB \parallel CD$<br>
+              $\implies AB \parallel (SCD)$!
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Cho đường thẳng $d \parallel (lpha)$. Mặt phẳng $(eta)$ chứa $d$ và cắt $(lpha)$ theo giao tuyến $d'$. Khi đó vị trí tương đối giữa $d$ và $d'$ là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $d \parallel d'$</div>
+              <div class="quiz-choice"><b>B.</b> $d$ cắt $d'$</div>
+              <div class="quiz-choice"><b>C.</b> $d$ và $d'$ chéo nhau</div>
+              <div class="quiz-choice"><b>D.</b> $d$ trùng với $d'$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Định lý giao tuyến (Định lý 2 SGK): Nếu đường thẳng $d$ song song với mặt phẳng $(lpha)$ thì mọi mặt phẳng $(eta)$ chứa $d$ mà cắt $(lpha)$ theo giao tuyến $d'$ thì $d'$ bắt buộc phải SONG SONG với $d$! (Định lý này cực kỳ quan trọng để dựng thiết diện).
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================= -->
+    <!-- BÀI 13: HAI MẶT PHẲNG SONG SONG                         -->
+    <!-- ======================================================= -->
+    <section class="section-card" id="bai-13">
+      <div class="section-header">
+        <div class="section-number" style="background: #0284c7;">13</div>
+        <div>
+          <span class="tag-concept" style="background:#e0f2fe; color:#0369a1;">QUAN HỆ SONG SONG TOÀN DIỆN</span>
+          <h2 class="section-title">Bài 13: Hai Mặt Phẳng Song Song - Lăng Trụ & Hình Hộp</h2>
+          <p class="section-meta">Điều kiện cần và đủ để 2 mặt phẳng song song, định lý Ta-lét không gian và kiến trúc hình hộp</p>
+        </div>
+      </div>
+
+      <!-- 1. ĐIỀU KIỆN 2 MP SONG SONG -->
+      <h3 class="sub-title">1. Điều Kiện Để Hai Mặt Phẳng Song Song: Bẫy 2 Đường Thẳng Cắt Nhau</h3>
+
+      <div class="block-theory">
+        <div class="block-theory-title">📖 Hai mặt phẳng song song là gì?</div>
+        Hai mặt phẳng $(lpha)$ và $(eta)$ được gọi là song song với nhau nếu chúng <strong>KHÔNG CÓ ĐIỂM CHUNG NÀO</strong>:
+        $$(lpha) \parallel (eta) \iff (lpha) \cap (eta) = \emptyset$$
+        <em>Ví dụ:</em> Trần nhà và sàn nhà của một căn phòng hộp vuông vức!
+      </div>
+
+      <div class="block-formula">
+        <div class="block-formula-title">⚡ ĐỊNH LÝ CỐT LÕI: ĐIỀU KIỆN ĐỂ HAI MẶT PHẲNG SONG SONG</div>
+        Nếu mặt phẳng $(lpha)$ chứa <strong>hai đường thẳng cắt nhau</strong> $a$ và $b$ cùng song song với mặt phẳng $(eta)$ thì $(lpha)$ song song với $(eta)$:
+        $$egin{cases} a \subset (lpha), b \subset (lpha) \ a \cap b = \{I\} \ a \parallel (eta) \ b \parallel (eta) \end{cases} \implies \mathbf{(lpha) \parallel (eta)}$$
+      </div>
+
+      <div class="block-trap">
+        <div class="block-trap-title">🚨 BẪY CHẾT NGƯỜI: THIẾU TỪ "CẮT NHAU"</div>
+        Nếu chỉ có: <em>"Mặt phẳng $(lpha)$ chứa hai đường thẳng song song với $(eta)$ thì $(lpha) \parallel (eta)$"</em> $\implies$ <strong>SAI!</strong>
+        <br>Lý do: Nếu hai đường thẳng đó song song với nhau ($a \parallel b$) thì mặt phẳng $(lpha)$ vẫn có thể quay quanh trục đó và cắt $(eta)$ theo một góc nào đó! BẮT BUỘC hai đường thẳng đó phải <strong>CẮT NHAU</strong> thì mới "khóa cứng" được góc nghiêng của mặt phẳng!
+      </div>
+
+      <!-- 2. HÌNH LĂNG TRỤ VÀ HÌNH HỘP -->
+      <h3 class="sub-title">2. Mổ Xẻ Hình Lăng Trụ & Hình Hộp (Bản Chất Từ 2 Mặt Phẳng Song Song)</h3>
+
+      <div class="block-theory">
+        <div class="block-theory-title">📦 Hình lăng trụ sinh ra từ đâu?</div>
+        Đặt hai đa giác bằng nhau nằm trên hai mặt phẳng song song $(lpha)$ và $(eta)$, rồi nối các đỉnh tương ứng lại với nhau:
+        <ul>
+          <li><strong>Hai mặt đáy:</strong> Là hai đa giác bằng nhau và nằm trên hai mặt phẳng song song.</li>
+          <li><strong>Các mặt bên:</strong> Luôn luôn là <strong>CÁC HÌNH BÌNH HÀNH</strong>!</li>
+          <li><strong>Các cạnh bên:</strong> Song song và bằng nhau từng đôi một!</li>
+        </ul>
+        <strong>Hình hộp:</strong> Là hình lăng trụ có mặt đáy là <strong>hình bình hành</strong>. Kết quả: Toàn bộ 6 mặt của hình hộp đều là các hình bình hành!
+      </div>
+
+      <!-- THỬ THÁCH 3 CẤP ĐỘ BÀI 13 -->
+      <div class="quiz-container">
+        <div class="quiz-header">
+          <div class="quiz-title">⚡ THỬ THÁCH 3 CẤP ĐỘ: HAI MẶT PHẲNG SONG SONG & HÌNH HỘP</div>
+          <span class="quiz-badge">Chỉ test kiến thức Bài 13</span>
+        </div>
+        <div class="quiz-body">
+          <div class="quiz-item quiz-easy">
+            <div class="quiz-item-header">
+              <span class="level-badge level-easy">Cấp 1: DỄ (Nhận biết)</span>
+            </div>
+            <div class="quiz-question">Câu 1: Các mặt bên của một hình lăng trụ bất kỳ luôn là các hình gì?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> Hình bình hành</div>
+              <div class="quiz-choice"><b>B.</b> Hình chữ nhật</div>
+              <div class="quiz-choice"><b>C.</b> Hình thoi</div>
+              <div class="quiz-choice"><b>D.</b> Hình tam giác</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Tính chất định nghĩa của hình lăng trụ: Các cạnh bên song song và bằng nhau, hai cạnh đáy tương ứng song song và bằng nhau $\implies$ mọi mặt bên đều là HÌNH BÌNH HÀNH! (Chỉ khi là lăng trụ đứng thì mới là hình chữ nhật).
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-medium">
+            <div class="quiz-item-header">
+              <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu)</span>
+            </div>
+            <div class="quiz-question">Câu 2: Để chứng minh mặt phẳng $(P)$ song song với mặt phẳng $(Q)$, ta cần chứng minh $(P)$ chứa hai đường thẳng $a, b$ thỏa mãn điều kiện nào sau đây?</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $a$ và $b$ cắt nhau và cùng song song với $(Q)$</div>
+              <div class="quiz-choice"><b>B.</b> $a$ và $b$ song song với nhau và cùng song song với $(Q)$</div>
+              <div class="quiz-choice"><b>C.</b> Chỉ cần đường thẳng $a$ song song với $(Q)$</div>
+              <div class="quiz-choice"><b>D.</b> $a$ và $b$ chéo nhau</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Điều kiện tiên quyết: Hai đường thẳng đó bắt buộc phải CẮT NHAU ($a \cap b = \{I\}$) và cả hai đường đều song song với mặt phẳng $(Q)$.
+            </div>
+          </div>
+
+          <div class="quiz-item quiz-hard">
+            <div class="quiz-item-header">
+              <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
+            </div>
+            <div class="quiz-question">Câu 3: Cho hai mặt phẳng song song $(P) \parallel (Q)$. Một mặt phẳng thứ ba $(R)$ cắt $(P)$ theo giao tuyến $a$ và cắt $(Q)$ theo giao tuyến $b$. Khi đó vị trí tương đối giữa hai giao tuyến $a$ và $b$ là:</div>
+            <div class="quiz-choices">
+              <div class="quiz-choice"><b>A.</b> $a \parallel b$</div>
+              <div class="quiz-choice"><b>B.</b> $a$ cắt $b$</div>
+              <div class="quiz-choice"><b>C.</b> $a$ và $b$ chéo nhau</div>
+              <div class="quiz-choice"><b>D.</b> $a$ vuông góc với $b$</div>
+            </div>
+            <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
+            <div class="quiz-answer">
+              <b>Đáp án đúng: A</b><br>
+              <i>Giải thích:</i> Định lý tính chất 2 mặt phẳng song song: Hai mặt phẳng song song bị cắt bởi một mặt phẳng thứ ba theo HAI GIAO TUYẾN SONG SONG NHAU ($a \parallel b$)! Định lý này dùng rất nhiều để tìm thiết diện hình lăng trụ và hình chóp cụt.
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -4736,6 +6941,20 @@
     }
 
     // TOGGLE GÓC HỒI TƯỞNG (ACCORDION KÝ ỨC LỚP 10)
+    function toggleQuiz(btn) {
+      const item = btn.closest('.quiz-item');
+      if (!item) return;
+      const ans = item.querySelector('.quiz-answer');
+      if (!ans) return;
+      if (ans.style.display === 'block') {
+        ans.style.display = 'none';
+        btn.innerHTML = '<span>💡</span> Xem đáp án & giải thích';
+      } else {
+        ans.style.display = 'block';
+        btn.innerHTML = '<span>🙈</span> Thu gọn đáp án';
+      }
+    }
+
     function toggleRecall(btn) {
       const box = btn.closest('.recall-box');
       if (!box) return;
@@ -4912,10 +7131,116 @@
       }
     }
 
-    function openModal(src) {
+    
+    // 13 TRANG SGK HÌNH HỌC KHÔNG GIAN
+    const rawHinhFiles = [
+      "2026-10-13 21_42_28-Hành trang số.png",
+      "2026-10-13 21_42_43-Hành trang số.png",
+      "2026-10-13 21_42_53-Hành trang số.png",
+      "2026-10-13 21_43_05-Hành trang số.png",
+      "2026-10-13 21_43_16-Hành trang số.png",
+      "2026-10-13 21_43_28-Hành trang số.png",
+      "2026-10-13 21_43_38-Hành trang số.png",
+      "2026-10-13 21_43_48-Hành trang số.png",
+      "2026-10-13 21_43_58-Hành trang số.png",
+      "2026-10-13 21_44_07-Hành trang số.png",
+      "2026-10-13 21_44_17-Hành trang số.png",
+      "2026-10-13 21_44_28-Hành trang số.png",
+      "2026-10-13 21_44_37-Hành trang số.png"
+    ];
+
+    const hinhPageList = [
+      { num: 1, title: 'Trang 70-71: Bài 10 - Điểm & Mặt Phẳng' },
+      { num: 2, title: 'Trang 72-73: Bài 10 - 4 Cách Xác Định MP & Nét Liền/Đứt' },
+      { num: 3, title: 'Trang 74-75: Bài 10 - Giao Tuyến & Ba Điểm Thẳng Hàng' },
+      { num: 4, title: 'Trang 76-77: Bài 10 - Hình Chóp & Hình Tứ Diện' },
+      { num: 5, title: 'Trang 77-78: Bài 10 - Luyện Tập & Bài Tập SGK' },
+      { num: 6, title: 'Trang 78-79: Bài 11 - Hai ĐT Song Song & Chéo Nhau' },
+      { num: 7, title: 'Trang 80-81: Bài 11 - Định Lý 3 Giao Tuyến' },
+      { num: 8, title: 'Trang 82-83: Bài 11 - Luyện Tập & Bài Tập SGK' },
+      { num: 9, title: 'Trang 84-85: Bài 12 - ĐT Song Song Mặt Phẳng' },
+      { num: 10, title: 'Trang 86-87: Bài 12 - Định Lý Chứng Minh ĐT // MP' },
+      { num: 11, title: 'Trang 88-89: Bài 12 - Luyện Tập & Bài Tập SGK' },
+      { num: 12, title: 'Trang 90-91: Bài 13 - Hai Mặt Phẳng Song Song' },
+      { num: 13, title: 'Trang 92-94: Bài 13 - Lăng Trụ, Hình Hộp & Bài Tập' }
+    ];
+
+    let hinhGalleryRendered = false;
+    function renderHinhGallery() {
+      const gallery = document.getElementById('hinhGallery');
+      if (!gallery || hinhGalleryRendered) return;
+      
+      const fragment = document.createDocumentFragment();
+      hinhPageList.forEach(item => {
+        const pad = String(item.num).padStart(2, '0');
+        const card = document.createElement('div');
+        card.className = 'gallery-card';
+
+        const rawName = rawHinhFiles[item.num - 1];
+        const primarySrc = encodeURI(rawName);
+        const fallbackSrc = `hinh_${pad}.png`;
+
+        const img = document.createElement('img');
+        img.className = 'gallery-thumb';
+        img.alt = item.title;
+        img.loading = 'lazy';
+        img.decoding = 'async';
+        img.src = primarySrc;
+
+        img.onerror = function() {
+          if (this.src !== fallbackSrc && !this.src.endsWith(fallbackSrc)) {
+            this.src = fallbackSrc;
+          }
+        };
+
+        const title = document.createElement('div');
+        title.className = 'gallery-title';
+        title.textContent = item.title;
+
+        card.appendChild(img);
+        card.appendChild(title);
+        card.onclick = function() {
+          openModal(primarySrc, item.title, fallbackSrc);
+        };
+        fragment.appendChild(card);
+      });
+      gallery.appendChild(fragment);
+      hinhGalleryRendered = true;
+    }
+
+    function toggleHinhGallery() {
+      const gallery = document.getElementById('hinhGallery');
+      const toggleBtn = document.getElementById('btnToggleHinhGallery');
+      const toggleText = document.getElementById('hinhGalleryToggleText');
+      const toggleIcon = document.getElementById('hinhGalleryToggleIcon');
+
+      if (!gallery) return;
+
+      if (gallery.style.display === 'none' || gallery.style.display === '') {
+        renderHinhGallery();
+        gallery.style.display = 'grid';
+        toggleText.textContent = 'Thu gọn 13 trang SGK Hình học';
+        toggleIcon.textContent = '▲';
+        toggleBtn.classList.add('active');
+      } else {
+        gallery.style.display = 'none';
+        toggleText.textContent = 'Mở xem toàn bộ 13 trang SGK Hình học';
+        toggleIcon.textContent = '📖';
+        toggleBtn.classList.remove('active');
+      }
+    }
+
+    function openModal(src, title, fallbackSrc) {
       const modal = document.getElementById('imageModal');
       const modalImg = document.getElementById('modalImg');
       modalImg.src = src;
+      if (fallbackSrc) {
+        modalImg.onerror = function() {
+          if (this.src !== fallbackSrc && !this.src.endsWith(fallbackSrc)) {
+            this.src = fallbackSrc;
+          }
+        };
+      }
       modal.classList.add('show');
     }
 
@@ -5013,4 +7338,3 @@
 
 </body>
 </html>
-
