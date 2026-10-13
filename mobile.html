@@ -514,7 +514,19 @@
     .sidebar-body {
       flex: 1;
       overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-subtle) transparent;
       padding: 12px 10px;
+    }
+
+    .sidebar-body::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .sidebar-body::-webkit-scrollbar-thumb {
+      background: var(--border-subtle);
+      border-radius: 4px;
     }
 
     .sidebar-group-title {
@@ -564,10 +576,12 @@
 
       body:not(.view-mobile) .sidebar-drawer {
         position: sticky;
-        top: 135px;
+        top: 168px;
+        align-self: flex-start;
         left: 0;
         width: 290px;
-        height: calc(100vh - 155px);
+        height: calc(100vh - 182px);
+        max-height: calc(100vh - 182px);
         border-radius: var(--radius-md);
         box-shadow: var(--box-shadow-sm);
         flex-shrink: 0;
@@ -2588,7 +2602,6 @@
           </div>
         </div>
       </div>
-      </div>
 
 
       <!-- 4. HỆ THỨC LƯỢNG GIÁC CƠ BẢN -->
@@ -3773,6 +3786,8 @@ e \frac{\pi}{2} + k2\pi$. Vậy $D = \mathbb{R} \setminus \left\{ \frac{\pi}{2} 
             $$3 - 2 \le 3 - 2\cos\left(2x + \frac{\pi}{4}\right) \le 3 + 2 \iff 1 \le y \le 5$$
             <strong>Kết luận:</strong>
             <br>• Giá trị lớn nhất: $\mathbf{\max y = 5}$ (đạt được khi $\cos\left(2x + \frac{\pi}{4}\right) = -1$).
+            <br>• Giá trị nhỏ nhất: $\mathbf{\min y = 1}$ (đạt được khi $\cos\left(2x + \frac{\pi}{4}\right) = 1$).
+          </div>
         </div>
       </div>
 
