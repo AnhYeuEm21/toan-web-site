@@ -163,7 +163,7 @@
       line-height: 1.8;
       font-size: calc(15px * var(--font-scale, 1));
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      overflow-x: clip;
       touch-action: pan-y;
       transition: background-color 0.2s ease, color 0.2s ease;
     }
@@ -183,7 +183,7 @@
     .app-topbar {
       position: sticky;
       top: 0;
-      z-index: 1000;
+      z-index: 2000;
       background: var(--topbar-bg);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -1030,15 +1030,12 @@
 
     .tip-term::after {
       content: attr(data-tooltip);
-    }
-    .tip-term[data-tip]:not([data-tooltip])::after {
-      content: attr(data-tip);
       position: absolute;
       bottom: calc(100% + 10px);
       left: 50%;
       transform: translateX(-50%) translateY(4px);
-      background: var(--bg-surface);
-      color: var(--text-primary);
+      background: #0f172a;
+      color: #f8fafc;
       border: 1.5px solid var(--gold);
       padding: 10px 14px;
       border-radius: var(--radius-md);
@@ -1046,15 +1043,18 @@
       line-height: 1.55;
       width: max-content;
       max-width: 300px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.65);
       opacity: 0;
       visibility: hidden;
       transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
-      z-index: 9999;
+      z-index: 99999;
       pointer-events: none;
       font-weight: 500;
       text-align: left;
       white-space: normal;
+    }
+    .tip-term[data-tip]:not([data-tooltip])::after {
+      content: attr(data-tip);
     }
 
     .tip-term::before {
@@ -1819,8 +1819,19 @@
     }
 
     .quiz-answer {
+      display: none;
+      margin-top: 14px;
+      padding: 14px 16px;
+      background: var(--bg-surface);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid #10b981;
       font-size: 13.5px;
       line-height: 1.7;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .quiz-answer.show {
+      display: block !important;
     }
 
     /* PRINT STYLES FOR PHAO CỨU SINH */
@@ -2767,14 +2778,10 @@ e 0$: $P = \frac{\tan\alpha + 2}{3\tan\alpha - 4} = \frac{3 + 2}{3(3) - 4} = \fr
             </div>
             <div class="quiz-question">Câu 2: Cho hai góc phụ nhau ($a + b = \frac{\pi}{2}$). Hệ thức nào sau đây luôn ĐÚNG theo quy tắc "Phụ chéo"?</div>
             <div class="quiz-choices">
-              <div class="quiz-choice"><b>A.</b> $\sin\left(\frac{\pi}{2} - x
-ight) = \cos x$</div>
-              <div class="quiz-choice"><b>B.</b> $\sin\left(\frac{\pi}{2} - x
-ight) = -\cos x$</div>
-              <div class="quiz-choice"><b>C.</b> $\cos\left(\frac{\pi}{2} - x
-ight) = -\sin x$</div>
-              <div class="quiz-choice"><b>D.</b> $\tan\left(\frac{\pi}{2} - x
-ight) = -\cot x$</div>
+              <div class="quiz-choice"><b>A.</b> $\sin\left(\frac{\pi}{2} - x\right) = \cos x$</div>
+              <div class="quiz-choice"><b>B.</b> $\sin\left(\frac{\pi}{2} - x\right) = -\cos x$</div>
+              <div class="quiz-choice"><b>C.</b> $\cos\left(\frac{\pi}{2} - x\right) = -\sin x$</div>
+              <div class="quiz-choice"><b>D.</b> $\tan\left(\frac{\pi}{2} - x\right) = -\cot x$</div>
             </div>
             <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
             <div class="quiz-answer">
@@ -2787,8 +2794,7 @@ ight) = -\cot x$</div>
             <div class="quiz-item-header">
               <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
             </div>
-            <div class="quiz-question">Câu 3: Rút gọn biểu thức $M = \sin(\pi - x) + \cos\left(\frac{\pi}{2} - x
-ight) + \sin(-x)$. Kết quả là:</div>
+            <div class="quiz-question">Câu 3: Rút gọn biểu thức $M = \sin(\pi - x) + \cos\left(\frac{\pi}{2} - x\right) + \sin(-x)$. Kết quả là:</div>
             <div class="quiz-choices">
               <div class="quiz-choice"><b>A.</b> $M = \sin x$</div>
               <div class="quiz-choice"><b>B.</b> $M = 3\sin x$</div>
@@ -2962,8 +2968,7 @@ ight) + \sin(-x)$. Kết quả là:</div>
             <div class="quiz-item-header">
               <span class="level-badge level-medium">Cấp 2: TRUNG BÌNH (Thông hiểu / 1 bước)</span>
             </div>
-            <div class="quiz-question">Câu 2: Khai triển biểu thức $\sin\left(x + \frac{\pi}{6}
-ight)$ theo công thức cộng sin:</div>
+            <div class="quiz-question">Câu 2: Khai triển biểu thức $\sin\left(x + \frac{\pi}{6}\right)$ theo công thức cộng sin:</div>
             <div class="quiz-choices">
               <div class="quiz-choice"><b>A.</b> $\frac{\sqrt{3}}{2}\sin x + \frac{1}{2}\cos x$</div>
               <div class="quiz-choice"><b>B.</b> $\frac{1}{2}\sin x + \frac{\sqrt{3}}{2}\cos x$</div>
@@ -2973,8 +2978,7 @@ ight)$ theo công thức cộng sin:</div>
             <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
             <div class="quiz-answer">
               <b>Đáp án đúng: A</b><br>
-              <i>Giải thích:</i> $\sin\left(x + \frac{\pi}{6}
-ight) = \sin x \cos\frac{\pi}{6} + \cos x \sin\frac{\pi}{6} = \sin x \cdot \frac{\sqrt{3}}{2} + \cos x \cdot \frac{1}{2} = \frac{\sqrt{3}}{2}\sin x + \frac{1}{2}\cos x$.
+              <i>Giải thích:</i> $\sin\left(x + \frac{\pi}{6}\right) = \sin x \cos\frac{\pi}{6} + \cos x \sin\frac{\pi}{6} = \sin x \cdot \frac{\sqrt{3}}{2} + \cos x \cdot \frac{1}{2} = \frac{\sqrt{3}}{2}\sin x + \frac{1}{2}\cos x$.
             </div>
           </div>
 
@@ -3373,9 +3377,7 @@ e 0 \implies P = \frac{\sin 2x}{\cos 2x} = \tan 2x$. Siêu nhanh và gọn gàng
             <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
             <div class="quiz-answer">
               <b>Đáp án đúng: A</b><br>
-              <i>Giải thích:</i> Tách góc lượng giác: $\frac{101\pi}{2} = \frac{100\pi + \pi}{2} = 50\pi + \frac{\pi}{2} = 25 \times 2\pi + \frac{\pi}{2}$. Vì quay chẵn lần $2\pi$ (25 vòng tròn) thì quay về điểm cũ $\implies \sin\left(\frac{101\pi}{2}
-ight) = \sin\left(\frac{\pi}{2}
-ight) = 1$.
+              <i>Giải thích:</i> Tách góc lượng giác: $\frac{101\pi}{2} = \frac{100\pi + \pi}{2} = 50\pi + \frac{\pi}{2} = 25 \times 2\pi + \frac{\pi}{2}$. Vì quay chẵn lần $2\pi$ (25 vòng tròn) thì quay về điểm cũ $\implies \sin\left(\frac{101\pi}{2}\right) = \sin\left(\frac{\pi}{2}\right) = 1$.
             </div>
           </div>
         </div>
@@ -3541,8 +3543,7 @@ ight) = 1$.
             <div class="quiz-item-header">
               <span class="level-badge level-hard">Cấp 3: KHÓ (Vận dụng / Bẫy phòng thi)</span>
             </div>
-            <div class="quiz-question">Câu 3: Tìm chu kỳ tuần hoàn $T$ của hàm số $y = \tan\left(\frac{x}{3} - 1
-ight)$:</div>
+            <div class="quiz-question">Câu 3: Tìm chu kỳ tuần hoàn $T$ của hàm số $y = \tan\left(\frac{x}{3} - 1\right)$:</div>
             <div class="quiz-choices">
               <div class="quiz-choice"><b>A.</b> $T = 3\pi$</div>
               <div class="quiz-choice"><b>B.</b> $T = \frac{\pi}{3}$</div>
@@ -3629,8 +3630,7 @@ ight)$:</div>
             </div>
             <div class="quiz-question">Câu 1: Tập xác định của hàm số $y = \tan x$ là:</div>
             <div class="quiz-choices">
-              <div class="quiz-choice"><b>A.</b> $D = \mathbb{R} \setminus \left\{ \frac{\pi}{2} + k\pi, k \in \mathbb{Z} 
-ight\}$</div>
+              <div class="quiz-choice"><b>A.</b> $D = \mathbb{R} \setminus \left\{ \frac{\pi}{2} + k\pi, k \in \mathbb{Z} \right\}$</div>
               <div class="quiz-choice"><b>B.</b> $D = \mathbb{R} \setminus \{ k\pi, k \in \mathbb{Z} \}$</div>
               <div class="quiz-choice"><b>C.</b> $D = \mathbb{R}$</div>
               <div class="quiz-choice"><b>D.</b> $D = [-1; 1]$</div>
@@ -3640,8 +3640,7 @@ ight\}$</div>
               <b>Đáp án đúng: A</b><br>
               <i>Giải thích:</i> $\tan x = \frac{\sin x}{\cos x}$. Mẫu phải khác 0: $\cos x 
 e 0 \iff x 
-e \frac{\pi}{2} + k\pi$. Do đó tập xác định là $D = \mathbb{R} \setminus \left\{ \frac{\pi}{2} + k\pi, k \in \mathbb{Z} 
-ight\}$.
+e \frac{\pi}{2} + k\pi$. Do đó tập xác định là $D = \mathbb{R} \setminus \left\{ \frac{\pi}{2} + k\pi, k \in \mathbb{Z} \right\}$.
             </div>
           </div>
 
@@ -3652,8 +3651,7 @@ ight\}$.
             <div class="quiz-question">Câu 2: Tập xác định của hàm số $y = \cot x$ là:</div>
             <div class="quiz-choices">
               <div class="quiz-choice"><b>A.</b> $D = \mathbb{R} \setminus \{ k\pi, k \in \mathbb{Z} \}$</div>
-              <div class="quiz-choice"><b>B.</b> $D = \mathbb{R} \setminus \left\{ \frac{\pi}{2} + k\pi, k \in \mathbb{Z} 
-ight\}$</div>
+              <div class="quiz-choice"><b>B.</b> $D = \mathbb{R} \setminus \left\{ \frac{\pi}{2} + k\pi, k \in \mathbb{Z} \right\}$</div>
               <div class="quiz-choice"><b>C.</b> $D = \mathbb{R}$</div>
               <div class="quiz-choice"><b>D.</b> $D = (0; +\infty)$</div>
             </div>
@@ -3672,11 +3670,9 @@ e k\pi$. Do đó $D = \mathbb{R} \setminus \{ k\pi, k \in \mathbb{Z} \}$.
             </div>
             <div class="quiz-question">Câu 3: Tìm tập xác định $D$ của hàm số $y = \frac{1}{\sin x - 1}$:</div>
             <div class="quiz-choices">
-              <div class="quiz-choice"><b>A.</b> $D = \mathbb{R} \setminus \left\{ \frac{\pi}{2} + k2\pi, k \in \mathbb{Z} 
-ight\}$</div>
+              <div class="quiz-choice"><b>A.</b> $D = \mathbb{R} \setminus \left\{ \frac{\pi}{2} + k2\pi, k \in \mathbb{Z} \right\}$</div>
               <div class="quiz-choice"><b>B.</b> $D = \mathbb{R} \setminus \{ k\pi, k \in \mathbb{Z} \}$</div>
-              <div class="quiz-choice"><b>C.</b> $D = \mathbb{R} \setminus \left\{ -\frac{\pi}{2} + k2\pi, k \in \mathbb{Z} 
-ight\}$</div>
+              <div class="quiz-choice"><b>C.</b> $D = \mathbb{R} \setminus \left\{ -\frac{\pi}{2} + k2\pi, k \in \mathbb{Z} \right\}$</div>
               <div class="quiz-choice"><b>D.</b> $D = \mathbb{R}$</div>
             </div>
             <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
@@ -3685,8 +3681,7 @@ ight\}$</div>
               <i>Giải thích:</i> Điều kiện xác định: mẫu khác 0 $\iff \sin x - 1 
 e 0 \iff \sin x 
 e 1$. Điểm trên cùng đường tròn lượng giác có tung độ bằng 1 là $\frac{\pi}{2}$, chu kỳ đúng 1 vòng $2\pi \implies x 
-e \frac{\pi}{2} + k2\pi$. Vậy $D = \mathbb{R} \setminus \left\{ \frac{\pi}{2} + k2\pi, k \in \mathbb{Z} 
-ight\}$.
+e \frac{\pi}{2} + k2\pi$. Vậy $D = \mathbb{R} \setminus \left\{ \frac{\pi}{2} + k2\pi, k \in \mathbb{Z} \right\}$.
             </div>
           </div>
         </div>
@@ -3992,10 +3987,8 @@ ight\}$.
             </div>
             <div class="quiz-question">Câu 2: Công thức họ nghiệm của phương trình $\cos x = \cos\alpha$ là:</div>
             <div class="quiz-choices">
-              <div class="quiz-choice"><b>A.</b> $\left[\begin{array}{l} x = \alpha + k2\pi \ x = -\alpha + k2\pi \end{array}
-ight.$ ($k \in \mathbb{Z}$)</div>
-              <div class="quiz-choice"><b>B.</b> $\left[\begin{array}{l} x = \alpha + k2\pi \ x = \pi - \alpha + k2\pi \end{array}
-ight.$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>A.</b> $\left[\begin{array}{l} x = \alpha + k2\pi \ x = -\alpha + k2\pi \end{array}\right.$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>B.</b> $\left[\begin{array}{l} x = \alpha + k2\pi \ x = \pi - \alpha + k2\pi \end{array}\right.$ ($k \in \mathbb{Z}$)</div>
               <div class="quiz-choice"><b>C.</b> $x = \alpha + k\pi$ ($k \in \mathbb{Z}$)</div>
               <div class="quiz-choice"><b>D.</b> $x = \alpha + k2\pi$ ($k \in \mathbb{Z}$)</div>
             </div>
@@ -4012,11 +4005,9 @@ ight.$ ($k \in \mathbb{Z}$)</div>
             </div>
             <div class="quiz-question">Câu 3: Giải phương trình $\sin x = \frac{1}{2}$. Họ nghiệm chuẩn xác là:</div>
             <div class="quiz-choices">
-              <div class="quiz-choice"><b>A.</b> $\left[\begin{array}{l} x = \frac{\pi}{6} + k2\pi \ x = \frac{5\pi}{6} + k2\pi \end{array}
-ight.$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>A.</b> $\left[\begin{array}{l} x = \frac{\pi}{6} + k2\pi \ x = \frac{5\pi}{6} + k2\pi \end{array}\right.$ ($k \in \mathbb{Z}$)</div>
               <div class="quiz-choice"><b>B.</b> $x = \pm\frac{\pi}{6} + k2\pi$ ($k \in \mathbb{Z}$)</div>
-              <div class="quiz-choice"><b>C.</b> $\left[\begin{array}{l} x = \frac{\pi}{6} + k\pi \ x = \frac{5\pi}{6} + k\pi \end{array}
-ight.$ ($k \in \mathbb{Z}$)</div>
+              <div class="quiz-choice"><b>C.</b> $\left[\begin{array}{l} x = \frac{\pi}{6} + k\pi \ x = \frac{5\pi}{6} + k\pi \end{array}\right.$ ($k \in \mathbb{Z}$)</div>
               <div class="quiz-choice"><b>D.</b> $x = \frac{\pi}{6} + k2\pi$ ($k \in \mathbb{Z}$)</div>
             </div>
             <button type="button" class="btn-reveal quiz-btn" onclick="toggleQuiz(this)"><span>💡</span> Xem đáp án & giải thích</button>
@@ -5308,8 +5299,7 @@ otin d \implies (A, d)$.</li>
         <div class="block-formula-title">⚡ ĐỊNH LÝ 3 ĐƯỜNG GIAO TUYẾN THẦN THÁNH</div>
         Nếu ba mặt phẳng đôi một cắt nhau theo ba giao tuyến phân biệt $d_1, d_2, d_3$, thì ba giao tuyến đó:
         <br><strong style="color: var(--gold); font-size: 16px;">HOẶC ĐÔI MỘT SONG SONG, HOẶC ĐỒNG QUY TẠI MỘT ĐIỂM!</strong>
-        <br>$$\left[\begin{array}{l} d_1 \parallel d_2 \parallel d_3 \ d_1 \cap d_2 \cap d_3 = \{I\} \end{array}
-ight.$$
+        <br>$$\left[\begin{array}{l} d_1 \parallel d_2 \parallel d_3 \ d_1 \cap d_2 \cap d_3 = \{I\} \end{array}\right.$$
       </div>
 
       <div class="block-theory">
@@ -6915,10 +6905,14 @@ ot\subset (SCD)$<br>
       if (!item) return;
       const ans = item.querySelector('.quiz-answer');
       if (!ans) return;
-      if (ans.style.display === 'block') {
+      
+      const isVisible = ans.classList.contains('show') || window.getComputedStyle(ans).display !== 'none';
+      if (isVisible) {
+        ans.classList.remove('show');
         ans.style.display = 'none';
         btn.innerHTML = '<span>💡</span> Xem đáp án & giải thích';
       } else {
+        ans.classList.add('show');
         ans.style.display = 'block';
         btn.innerHTML = '<span>🙈</span> Thu gọn đáp án';
       }
