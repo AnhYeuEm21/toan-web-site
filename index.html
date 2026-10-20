@@ -124,6 +124,93 @@ sup { top: -0.5em; }
   color: var(--text-primary);
 }
 
+/* GEOMETRY DIAGRAMS & INLINE SGK EMBEDS */
+.geo-diagram {
+  background: var(--bg-card);
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin: 20px 0;
+  text-align: center;
+  box-shadow: var(--shadow);
+  overflow-x: auto;
+}
+.geo-diagram svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+.geo-caption {
+  font-size: 0.84rem;
+  color: var(--text-secondary);
+  margin-top: 12px;
+  line-height: 1.6;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+  padding-top: 10px;
+}
+.sgk-embed {
+  margin: 22px 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+.sgk-embed-header {
+  background: linear-gradient(135deg, rgba(88,166,255,0.15), rgba(130,80,223,0.15));
+  padding: 10px 16px;
+  font-size: 0.84rem;
+  font-weight: 700;
+  color: var(--accent-blue-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+}
+.sgk-embed-header .btn-zoom {
+  background: var(--bg-hover);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--text-primary);
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.sgk-embed-header .btn-zoom:hover {
+  background: var(--accent-blue);
+  color: white;
+}
+.sgk-embed-body {
+  padding: 12px;
+  background: var(--bg-secondary);
+  text-align: center;
+}
+.sgk-embed-img {
+  max-width: 100%;
+  border-radius: var(--radius-sm);
+  cursor: zoom-in;
+  transition: transform 0.25s ease, opacity 0.25s;
+  display: block;
+  margin: 0 auto;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+}
+.sgk-embed-img:hover {
+  opacity: 0.95;
+  transform: scale(1.01);
+}
+.sgk-embed-footer {
+  padding: 8px 16px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-style: italic;
+  background: var(--bg-card);
+  border-top: 1px solid var(--border-color);
+}
+
 #progress-bar {
   position: fixed; top: 0; left: 0; height: 3px;
   background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple), var(--accent-yellow));
@@ -408,6 +495,435 @@ tr:hover td { background: var(--bg-hover); }
   border-color: var(--accent-green);
 }
 
+/* ============================================================
+   STUDIO TÙY CHỈNH HÌNH NỀN & CHỐNG CHÌM CHỮ
+   ============================================================ */
+
+/* Lớp khung ảnh nền cố định sau lưng trang web */
+.custom-bg-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -999;
+  overflow: hidden;
+  display: none;
+}
+
+.custom-bg-img {
+  position: absolute;
+  top: -12%;
+  left: -12%;
+  width: 124%;
+  height: 124%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  transform-origin: center center;
+  transition: filter 0.12s ease, transform 0.12s ease;
+  will-change: transform, filter;
+}
+
+/* Lớp phủ tối chống chìm chữ - bảo đảm độ tương phản 100% */
+.custom-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(13, 17, 23, 0.85);
+  transition: background 0.15s ease;
+}
+
+/* Khi có hình nền, chuyển body và các khối nội dung sang chế độ kính mờ (Glassmorphism) */
+body.has-custom-bg {
+  background: transparent !important;
+}
+
+body.has-custom-bg #sidebar,
+body.has-custom-bg #main-content,
+body.has-custom-bg .mobile-container {
+  background: transparent !important;
+}
+
+body.has-custom-bg .box,
+body.has-custom-bg .lesson-section,
+body.has-custom-bg .step-solver,
+body.has-custom-bg .card,
+body.has-custom-bg .sidebar,
+body.has-custom-bg .mobile-appbar,
+body.has-custom-bg .mobile-bottom-nav,
+body.has-custom-bg .table-summary,
+body.has-custom-bg .tbl-wrap,
+body.has-custom-bg .quiz-section,
+body.has-custom-bg .flashcard,
+body.has-custom-bg .geo-diagram,
+body.has-custom-bg .sgk-embed {
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  background-color: rgba(22, 27, 34, var(--card-opacity, 0.92)) !important;
+  border-color: rgba(48, 54, 61, 0.8) !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45) !important;
+}
+
+body.has-custom-bg .box-formula {
+  background-color: rgba(26, 30, 36, var(--card-opacity, 0.92)) !important;
+  border-left: 4px solid var(--accent-yellow) !important;
+}
+
+body.has-custom-bg .box-warning {
+  background-color: rgba(26, 30, 36, var(--card-opacity, 0.92)) !important;
+  border-left: 4px solid var(--accent-red) !important;
+}
+
+body.has-custom-bg .box-theory {
+  background-color: rgba(26, 30, 36, var(--card-opacity, 0.92)) !important;
+  border-left: 4px solid var(--accent-blue) !important;
+}
+
+body.has-custom-bg .box-tip {
+  background-color: rgba(26, 30, 36, var(--card-opacity, 0.92)) !important;
+  border-left: 4px solid var(--accent-green) !important;
+}
+
+/* NÚT BẤM NỔI ĐỔI HÌNH NỀN */
+.btn-floating-bg {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 990;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  background: rgba(22, 27, 34, 0.9);
+  border: 1px solid var(--accent-blue);
+  border-radius: 30px;
+  color: var(--text-primary);
+  font-family: var(--font-main);
+  font-size: 0.84rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-floating-bg:hover {
+  transform: translateY(-3px) scale(1.06);
+  background: var(--accent-blue);
+  color: #0d1117;
+  box-shadow: 0 8px 25px rgba(88, 166, 255, 0.45);
+}
+
+.btn-floating-bg.mobile-floating {
+  bottom: 74px;
+  right: 16px;
+  padding: 10px 14px;
+  font-size: 0.8rem;
+}
+
+/* MODAL TÙY CHỈNH HÌNH NỀN */
+#bg-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+#bg-modal.open {
+  display: flex;
+  opacity: 1;
+}
+
+.bg-modal-card {
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  background: #161b22;
+  border: 1px solid var(--border-bright);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.85);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: bgModalPop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bgModalPop {
+  from { transform: scale(0.92); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.bg-modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(13, 17, 23, 0.75);
+}
+
+.bg-modal-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.bg-modal-title h3 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--accent-blue-light);
+  margin: 0;
+}
+
+.bg-modal-title p {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.bg-modal-close {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.6rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+
+.bg-modal-close:hover {
+  color: var(--accent-red);
+}
+
+.bg-modal-body {
+  padding: 18px 20px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.bg-section {
+  background: rgba(13, 17, 23, 0.4);
+  border: 1px solid rgba(48, 54, 61, 0.5);
+  border-radius: 8px;
+  padding: 14px 16px;
+}
+
+.bg-sec-label {
+  display: block;
+  font-size: 0.76rem;
+  font-weight: 800;
+  color: var(--accent-yellow);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 10px;
+}
+
+.bg-upload-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-upload {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(88, 166, 255, 0.15);
+  border: 1px solid var(--accent-blue);
+  color: var(--accent-blue-light);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-upload:hover {
+  background: var(--accent-blue);
+  color: #0d1117;
+}
+
+.bg-file-name {
+  font-size: 0.76rem;
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  max-width: 250px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.preset-label {
+  font-size: 0.74rem;
+  color: var(--text-secondary);
+  margin: 12px 0 8px;
+}
+
+.preset-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(88px, 1fr));
+  gap: 8px;
+}
+
+.preset-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 6px 4px;
+  cursor: pointer;
+  color: var(--text-primary);
+  font-size: 0.74rem;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.preset-btn:hover {
+  border-color: var(--accent-blue);
+  transform: translateY(-2px);
+}
+
+.preset-thumb {
+  width: 100%;
+  height: 42px;
+  border-radius: 4px;
+  background-size: cover;
+  background-position: center;
+  display: block;
+}
+
+.slider-group {
+  margin-bottom: 12px;
+}
+
+.slider-group:last-child {
+  margin-bottom: 0;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+
+.slider-val {
+  color: var(--accent-blue-light);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.slider-group input[type="range"] {
+  width: 100%;
+  height: 6px;
+  accent-color: var(--accent-blue);
+  background: var(--border-bright);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.slider-hint {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  margin-top: 3px;
+}
+
+.bg-preview-box {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+  background: #0d1117;
+}
+
+.bg-preview-inner {
+  height: 85px;
+  border-radius: 6px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background-size: cover;
+  background-position: center;
+}
+
+.bg-preview-sample-card {
+  position: relative;
+  z-index: 2;
+  background: rgba(33, 38, 45, 0.92);
+  border: 1px solid var(--border-bright);
+  border-radius: 6px;
+  padding: 8px 14px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.5);
+}
+
+.bg-modal-footer {
+  padding: 14px 20px;
+  border-top: 1px solid var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(13, 17, 23, 0.75);
+}
+
+.btn-bg-reset {
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-bg-reset:hover {
+  border-color: var(--accent-red);
+  color: var(--accent-red);
+}
+
+.btn-bg-save {
+  background: var(--accent-blue);
+  border: none;
+  color: #0d1117;
+  padding: 9px 22px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-bg-save:hover {
+  background: var(--accent-blue-light);
+  transform: translateY(-1px);
+}
+
 </style>
 </head>
 <body>
@@ -449,8 +965,9 @@ tr:hover td { background: var(--bg-hover); }
     <div id="topbar">
       <button class="btn-icon" id="sidebar-toggle" onclick="document.getElementById('sidebar').classList.toggle('collapsed');document.getElementById('main-content').classList.toggle('expanded');">☰</button>
       <div class="topbar-title">Toán 11 &bull; Kết Nối Tri Thức &bull; Dành Cho Dân Mất Gốc</div>
-      <button class="btn-icon" onclick="document.getElementById('cheatsheet-modal').classList.add('open')">📜</button>
-      <button class="btn-icon" id="theme-toggle">☀️</button>
+      <button class="btn-icon" onclick="openBgModal()" title="Cài đặt hình nền">🎨</button>
+      <button class="btn-icon" onclick="document.getElementById('cheatsheet-modal').classList.add('open')" title="Phao công thức">📜</button>
+      <button class="btn-icon" id="theme-toggle" title="Đổi sáng / tối">☀️</button>
     </div>
 
     <!-- HERO SECTION -->
@@ -474,7 +991,7 @@ tr:hover td { background: var(--bg-hover); }
     <div class="lesson-number">0</div>
     <div class="lesson-meta">
       <h2>TẦNG 0: BẢO BỐI LỚP 10 CỨU MẠNG DÂN MẤT GỐC</h2>
-      <div class="lesson-sub">Nền tảng sống còn &bull; Bắt buộc phải thông suốt trước khi bước vào Toán 11</div>
+      <div class="lesson-sub">Nền tảng sống còn • Bắt buộc phải thông suốt trước khi bước vào Toán 11</div>
       <div class="lesson-tags">
         <span class="lesson-tag">Tam giác vuông</span>
         <span class="lesson-tag">Định lý Sin - Cosin</span>
@@ -509,9 +1026,9 @@ tr:hover td { background: var(--bg-hover); }
   <div class="box box-formula">
     <div class="box-title">📐 BÀI THƠ THẦN CHÚ LỚP 10 (ĐỪNG BAO GIỜ QUÊN)</div>
     <div class="formula-display">
-      <span style="color:var(--accent-blue-light);">Sin Đi Học</span> &bull; 
-      <span style="color:var(--accent-yellow);">Cos Khóc Cười</span> &bull; 
-      <span style="color:var(--accent-green);">Tan Đoàn Kết</span> &bull; 
+      <span style="color:var(--accent-blue-light);">Sin Đi Học</span> • 
+      <span style="color:var(--accent-yellow);">Cos Khóc Cười</span> • 
+      <span style="color:var(--accent-green);">Tan Đoàn Kết</span> • 
       <span style="color:var(--accent-orange);">Cot Kết Đoàn</span>
     </div>
     <div class="formula-label">Quy tắc vàng chuyển hóa thành phân số</div>
@@ -535,6 +1052,50 @@ tr:hover td { background: var(--bg-hover); }
     </div>
   </div>
 
+  
+<div class="geo-diagram">
+  <svg viewBox="0 0 380 200" width="100%" height="200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Tam giác vuông ABC vuông tại C -->
+    <!-- C(70, 160), B(310, 160), A(70, 40) -->
+    <polygon points="70,40 310,160 70,160" fill="rgba(88,166,255,0.12)" stroke="#58a6ff" stroke-width="2.5"/>
+    
+    <!-- Ký hiệu góc vuông tại C -->
+    <rect x="70" y="142" width="18" height="18" fill="none" stroke="#f2cc60" stroke-width="2"/>
+
+    <!-- Góc alpha tại B -->
+    <path d="M 270,160 A 40 40 0 0 0 282,146" fill="none" stroke="#f2cc60" stroke-width="2.5"/>
+    <text x="260" y="148" fill="#f2cc60" font-weight="900" font-size="16">α</text>
+
+    <!-- Cạnh đối AC (màu đỏ) -->
+    <line x1="70" y1="40" x2="70" y2="160" stroke="#ff7b72" stroke-width="4"/>
+    <text x="15" y="105" fill="#ff7b72" font-weight="800" font-size="14">ĐỐI (AC)</text>
+
+    <!-- Cạnh kề BC (màu xanh lá) -->
+    <line x1="70" y1="160" x2="310" y2="160" stroke="#7ee787" stroke-width="4"/>
+    <text x="160" y="185" fill="#7ee787" font-weight="800" font-size="14">KỀ (BC)</text>
+
+    <!-- Cạnh huyền AB (màu vàng kim) -->
+    <line x1="70" y1="40" x2="310" y2="160" stroke="#f2cc60" stroke-width="4"/>
+    <text x="195" y="85" fill="#f2cc60" font-weight="900" font-size="15">HUYỀN (AB)</text>
+
+    <!-- Các đỉnh -->
+    <circle cx="70" cy="40" r="5" fill="#f0f6fc"/>
+    <text x="65" y="28" fill="#f0f6fc" font-weight="800" font-size="14">A</text>
+    <circle cx="70" cy="160" r="5" fill="#f0f6fc"/>
+    <text x="50" y="175" fill="#f0f6fc" font-weight="800" font-size="14">C</text>
+    <circle cx="310" cy="160" r="5" fill="#f0f6fc"/>
+    <text x="320" y="165" fill="#f0f6fc" font-weight="800" font-size="14">B</text>
+  </svg>
+  <div class="geo-caption">
+    📐 <strong>TAM GIÁC VUÔNG &amp; BÀI THƠ BẤT HỦ</strong><br>
+    <span style="color:#ff7b72;">Sin Đi Học</span> = Đối / Huyền • 
+    <span style="color:#7ee787;">Cos Khóc Cười</span> = Kề / Huyền • 
+    <span style="color:#f2cc60;">Tan Đoàn Kết</span> = Đối / Kề • 
+    <span style="color:#58a6ff;">Cot Kết Đoàn</span> = Kề / Đối
+  </div>
+</div>
+
+
   <div class="box box-warning">
     <div class="box-title">⚠️ BẪY SAI NGU KINH ĐIỂN CỦA HỌC SINH MẤT GỐC</div>
     <p><strong>Sai lầm 1:</strong> Tam giác không vuông mà cũng đè $\sin = \text{đối} / \text{huyền}$ ra tính! Nhớ kĩ: 4 câu thần chú này <em>CHỈ ĐƯỢC PHÉP DÙNG</em> khi tam giác đó có góc $90^\circ$.</p>
@@ -547,7 +1108,7 @@ tr:hover td { background: var(--bg-hover); }
 
   <div class="box box-theory">
     <div class="box-title">💡 NỖI ĐAU TAM GIÁC THƯỜNG & SỰ RA ĐỜI CỦA ĐỊNH LÝ COSIN</div>
-    <p>Nếu tam giác méo mó không có góc vuông thì Pytago "phế võ công". Lúc này các nhà toán học chế ra <strong>Định lý Cosin</strong> &ndash; thực chất chính là Pytago nhưng có thêm một cái "đuôi hãm phanh" phía sau để bù trừ cho độ méo của góc!</p>
+    <p>Nếu tam giác méo mó không có góc vuông thì Pytago "phế võ công". Lúc này các nhà toán học chế ra <strong>Định lý Cosin</strong> – thực chất chính là Pytago nhưng có thêm một cái "đuôi hãm phanh" phía sau để bù trừ cho độ méo của góc!</p>
   </div>
 
   <div class="box box-formula">
@@ -601,6 +1162,50 @@ tr:hover td { background: var(--bg-hover); }
       <li><strong>Hai góc bù nhau ($\alpha$ và $180^\circ - \alpha$):</strong> $\sin(180^\circ - \alpha) = \sin\alpha$ (bằng nhau), nhưng $\cos(180^\circ - \alpha) = -\cos\alpha$ (bị đổi dấu âm!).</li>
     </ul>
   </div>
+
+
+<div class="geo-diagram">
+  <svg viewBox="0 0 380 260" width="100%" height="260" xmlns="http://www.w3.org/2000/svg">
+    <!-- Trục Oxy -->
+    <line x1="20" y1="150" x2="360" y2="150" stroke="#8b949e" stroke-width="1.8"/> <!-- Trục hoành Ox: Cos -->
+    <polygon points="360,150 348,145 348,155" fill="#8b949e"/>
+    <text x="330" y="140" fill="#f2cc60" font-weight="800" font-size="14">Ox (Cos)</text>
+
+    <line x1="190" y1="240" x2="190" y2="20" stroke="#8b949e" stroke-width="1.8"/>  <!-- Trục tung Oy: Sin -->
+    <polygon points="190,20 185,32 195,32" fill="#8b949e"/>
+    <text x="200" y="30" fill="#58a6ff" font-weight="800" font-size="14">Oy (Sin)</text>
+
+    <!-- Nửa đường tròn đơn vị bán kính R=120 -->
+    <path d="M 70,150 A 120 120 0 0 1 310,150" fill="none" stroke="#58a6ff" stroke-width="3"/>
+
+    <!-- GÓC NHỌN M1 (x > 0, cos > 0) -->
+    <!-- Góc 50 độ: x = 190 + 120*cos(50) = 190 + 77 = 267, y = 150 - 120*sin(50) = 150 - 92 = 58 -->
+    <line x1="190" y1="150" x2="267" y2="58" stroke="#7ee787" stroke-width="2.5"/>
+    <circle cx="267" cy="58" r="5" fill="#7ee787"/>
+    <text x="275" y="55" fill="#7ee787" font-weight="800" font-size="13">M₁(Góc nhọn)</text>
+    <text x="275" y="72" fill="#7ee787" font-size="11">x > 0 ⇒ cos α > 0</text>
+
+    <!-- GÓC TÙ M2 (x < 0, cos < 0) -->
+    <!-- Góc 130 độ: x = 190 - 77 = 113, y = 58 -->
+    <line x1="190" y1="150" x2="113" y2="58" stroke="#ff7b72" stroke-width="2.5"/>
+    <circle cx="113" cy="58" r="5" fill="#ff7b72"/>
+    <text x="15" y="55" fill="#ff7b72" font-weight="800" font-size="13">M₂(Góc tù)</text>
+    <text x="15" y="72" fill="#ff7b72" font-size="11">x &lt; 0 ⇒ cos α &lt; 0 !</text>
+
+    <!-- Gốc O -->
+    <circle cx="190" cy="150" r="4" fill="#f0f6fc"/>
+    <text x="195" y="168" fill="#f0f6fc" font-weight="700" font-size="14">O</text>
+    <text x="50" y="168" fill="#8b949e" font-size="13">-1</text>
+    <text x="315" y="168" fill="#8b949e" font-size="13">+1</text>
+    <text x="195" y="45" fill="#8b949e" font-size="13">+1</text>
+  </svg>
+  <div class="geo-caption">
+    🎯 <strong>HÌNH MINH HỌA: TẠI SAO COS GÓC TÙ LẠI BỊ ÂM?</strong><br>
+    • Điểm $M_1$ góc nhọn nằm bên phải trục tung $\Rightarrow$ Hoành độ $x > 0 \Rightarrow \cos\alpha > 0$.<br>
+    • Điểm $M_2$ góc tù dạt sang bên trái trục tung $\Rightarrow$ Hoành độ $x < 0 \Rightarrow \mathbf{\cos\alpha < 0}$ (bị âm lòi ra)!
+  </div>
+</div>
+
 
   <!-- PHẦN 4: VŨ KHÍ HÌNH HỌC PHẲNG DÙNG TRONG HÌNH KHÔNG GIAN -->
   <h3 class="sec-title" id="b0-hinh-hoc-phang">4. "Vũ Khí Lớp 10" Chuyên Dùng Cho Hình Không Gian Lớp 11</h3>
@@ -661,6 +1266,51 @@ tr:hover td { background: var(--bg-hover); }
 
   </div>
 
+
+<div class="geo-diagram">
+  <svg viewBox="0 0 520 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+    <!-- Hình bên trái: Đường trung bình -->
+    <rect x="5" y="5" width="250" height="170" rx="8" fill="rgba(88,166,255,0.06)" stroke="#30363d"/>
+    <text x="130" y="24" fill="#58a6ff" font-weight="800" font-size="12" text-anchor="middle">ĐƯỜNG TRUNG BÌNH MN</text>
+    <!-- Tam giác ABC: A(130, 45), B(35, 145), C(225, 145) -->
+    <!-- M(82.5, 95), N(177.5, 95) -->
+    <polygon points="130,45 35,145 225,145" fill="rgba(88,166,255,0.12)" stroke="#58a6ff" stroke-width="2"/>
+    <line x1="82.5" y1="95" x2="177.5" y2="95" stroke="#7ee787" stroke-width="3"/>
+    <circle cx="82.5" cy="95" r="4" fill="#7ee787"/>
+    <text x="65" y="98" fill="#7ee787" font-weight="bold" font-size="12">M</text>
+    <circle cx="177.5" cy="95" r="4" fill="#7ee787"/>
+    <text x="185" y="98" fill="#7ee787" font-weight="bold" font-size="12">N</text>
+    <text x="130" y="38" fill="#f0f6fc" font-size="12" font-weight="bold" text-anchor="middle">A</text>
+    <text x="25" y="152" fill="#f0f6fc" font-size="12" font-weight="bold">B</text>
+    <text x="230" y="152" fill="#f0f6fc" font-size="12" font-weight="bold">C</text>
+    <text x="130" y="165" fill="#7ee787" font-weight="800" font-size="11" text-anchor="middle">MN ∥ BC &amp; MN = ½ BC</text>
+
+    <!-- Hình bên phải: Trọng tâm G -->
+    <rect x="265" y="5" width="250" height="170" rx="8" fill="rgba(242,204,96,0.06)" stroke="#30363d"/>
+    <text x="390" y="24" fill="#f2cc60" font-weight="800" font-size="12" text-anchor="middle">TRỌNG TÂM G (TỈ LỆ ⅔)</text>
+    <!-- Tam giác ABC: A(390, 45), B(295, 145), C(485, 145) -->
+    <!-- M_BC(390, 145) -->
+    <!-- Trung tuyến AM: nối A(390, 45) -> (390, 145) -->
+    <!-- G chia 2/3: G(390, 111.6) -->
+    <polygon points="390,45 295,145 485,145" fill="rgba(242,204,96,0.12)" stroke="#f2cc60" stroke-width="2"/>
+    <line x1="390" y1="45" x2="390" y2="145" stroke="#ffa657" stroke-width="2.5" stroke-dasharray="4,4"/>
+    <circle cx="390" cy="112" r="5" fill="#f2cc60"/>
+    <text x="402" y="115" fill="#f2cc60" font-weight="900" font-size="14">G</text>
+    <circle cx="390" cy="145" r="4" fill="#ffa657"/>
+    <text x="390" y="160" fill="#ffa657" font-size="12" font-weight="bold" text-anchor="middle">M (Trung điểm)</text>
+    <text x="390" y="38" fill="#f0f6fc" font-size="12" font-weight="bold" text-anchor="middle">A</text>
+    <text x="285" y="152" fill="#f0f6fc" font-size="12" font-weight="bold">B</text>
+    <text x="490" y="152" fill="#f0f6fc" font-size="12" font-weight="bold">C</text>
+    <text x="390" y="172" fill="#f2cc60" font-weight="800" font-size="11" text-anchor="middle">AG = ⅔ AM  •  GM = ⅓ AM</text>
+  </svg>
+  <div class="geo-caption">
+    🎯 <strong>BẢO BỐI LỚP 10 ĐỂ LÀM TOÁN HÌNH 11</strong><br>
+    • <strong>Đường trung bình:</strong> Cứ nối 2 trung điểm thì song song với đáy và bằng một nửa đáy!<br>
+    • <strong>Trọng tâm G:</strong> Nằm ở vị trí 2 phần 3 trên đường trung tuyến (tính từ đỉnh xuống).
+  </div>
+</div>
+
+
   <!-- BẢNG TỔNG KẾT TẦNG 0 -->
   <h3 class="sec-title">5. Bảng So Sánh & Chốt Hạ Kiến Thức Tầng 0</h3>
   <div class="tbl-wrap">
@@ -675,7 +1325,7 @@ tr:hover td { background: var(--bg-hover); }
       <tbody>
         <tr>
           <td><strong>Sin, Cos, Tan, Cot</strong></td>
-          <td>Đi học &ndash; Khóc cười &ndash; Đoàn kết &ndash; Kết đoàn</td>
+          <td>Đi học – Khóc cười – Đoàn kết – Kết đoàn</td>
           <td>Dựng đường tròn lượng giác Bài 1, tính giá trị góc</td>
         </tr>
         <tr>
@@ -761,7 +1411,7 @@ tr:hover td { background: var(--bg-hover); }
     <div class="lesson-number">1</div>
     <div class="lesson-meta">
       <h2>BÀI 1: GIÁ TRỊ LƯỢNG GIÁC CỦA GÓC LƯỢNG GIÁC</h2>
-      <div class="lesson-sub">SGK Kết Nối Tri Thức &bull; Chương I &bull; Trang 5 &ndash; 15</div>
+      <div class="lesson-sub">SGK Kết Nối Tri Thức • Chương I • Trang 5 – 15</div>
       <div class="lesson-tags">
         <span class="lesson-tag">Góc lượng giác</span>
         <span class="lesson-tag">Đơn vị Radian</span>
@@ -801,7 +1451,7 @@ tr:hover td { background: var(--bg-hover); }
       <span style="color:var(--accent-green);">QUAY NGƯỢC CHIỀU KIM ĐỒNG HỒ = DƯƠNG (+)</span><br>
       <span style="color:var(--accent-red);margin-top:6px;display:inline-block;">QUAY CÙNG CHIỀU KIM ĐỒNG HỒ = ÂM (&minus;)</span>
     </div>
-    <div class="formula-label">Cực dễ nhớ: "Ngược kim là Dương &ndash; Thuận kim là Âm"</div>
+    <div class="formula-label">Cực dễ nhớ: "Ngược kim là Dương – Thuận kim là Âm"</div>
   </div>
 
   <div class="box box-story">
@@ -833,7 +1483,7 @@ tr:hover td { background: var(--bg-hover); }
     <p style="margin-top:6px;"><strong>Hiểu theo kiểu đi xe bus:</strong> Mày đi từ bến $Ou$ sang trạm trung chuyển $Ov$, rồi từ trạm $Ov$ đi tiếp tới bến $Ow$. Tổng quãng đường góc quét được bằng đúng mày đi thẳng từ bến đầu $Ou$ tới bến cuối $Ow$ (chỉ sai khác bội số vòng quay $k360^\circ$).</p>
     <p style="margin-top:6px;"><strong>Hệ quả tính toán (chuyên dùng làm bài tập):</strong></p>
     <div class="formula-display" style="font-size:0.95rem;">
-      sđ(Ou, Ov) = sđ(Ox, Ov) &minus; sđ(Ox, Ou) + k360&deg;  (như chèn gốc O: &vec;AB = &vec;OB &minus; &vec;OA)
+      sđ(Ou, Ov) = sđ(Ox, Ov) &minus; sđ(Ox, Ou) + k360&deg; &nbsp; (như quy tắc trừ vectơ lớp 10: \(\overrightarrow{AB} = \overrightarrow{OB} - \overrightarrow{OA}\))
     </div>
   </div>
 
@@ -886,6 +1536,53 @@ tr:hover td { background: var(--bg-hover); }
       <li>$\cot\alpha = \frac{x}{y} = \frac{\cos\alpha}{\sin\alpha}$ (với $y = \sin\alpha \ne 0 \Rightarrow \alpha \ne k\pi$).</li>
     </ul>
   </div>
+
+  
+<div class="geo-diagram">
+  <svg viewBox="0 0 380 260" width="100%" height="260" xmlns="http://www.w3.org/2000/svg">
+    <!-- Trục Oxy -->
+    <line x1="20" y1="130" x2="360" y2="130" stroke="#8b949e" stroke-width="2"/>
+    <text x="335" y="120" fill="#f2cc60" font-weight="800" font-size="14">Cos (Trục hoành)</text>
+    <line x1="190" y1="240" x2="190" y2="20" stroke="#8b949e" stroke-width="2"/>
+    <text x="200" y="32" fill="#58a6ff" font-weight="800" font-size="14">Sin (Trục tung)</text>
+
+    <!-- Đường tròn lượng giác R=100 -->
+    <circle cx="190" cy="130" r="100" fill="none" stroke="#58a6ff" stroke-width="2.5"/>
+
+    <!-- 4 GÓC PHẦN TƯ VỚI THẦN CHÚ -->
+    <!-- Góc phần tư I: 0 đến 90 độ (top right) -->
+    <rect x="205" y="35" width="140" height="75" rx="6" fill="rgba(126,231,135,0.12)" stroke="#7ee787"/>
+    <text x="275" y="55" fill="#7ee787" font-weight="900" font-size="13" text-anchor="middle">I: "NHẤT CẢ"</text>
+    <text x="275" y="73" fill="#f0f6fc" font-size="11" text-anchor="middle">Sin > 0, Cos > 0</text>
+    <text x="275" y="90" fill="#7ee787" font-size="11" font-weight="bold" text-anchor="middle">(TẤT CẢ ĐỀU DƯƠNG!)</text>
+
+    <!-- Góc phần tư II: 90 đến 180 độ (top left) -->
+    <rect x="35" y="35" width="140" height="75" rx="6" fill="rgba(88,166,255,0.12)" stroke="#58a6ff"/>
+    <text x="105" y="55" fill="#58a6ff" font-weight="900" font-size="13" text-anchor="middle">II: "NHÌ SIN"</text>
+    <text x="105" y="73" fill="#f0f6fc" font-size="11" text-anchor="middle">Sin > 0, Cos &lt; 0</text>
+    <text x="105" y="90" fill="#58a6ff" font-size="11" font-weight="bold" text-anchor="middle">(CHỈ SIN DƯƠNG!)</text>
+
+    <!-- Góc phần tư III: 180 đến 270 độ (bottom left) -->
+    <rect x="35" y="150" width="140" height="75" rx="6" fill="rgba(242,204,96,0.12)" stroke="#f2cc60"/>
+    <text x="105" y="170" fill="#f2cc60" font-weight="900" font-size="13" text-anchor="middle">III: "TAM TAN"</text>
+    <text x="105" y="188" fill="#f0f6fc" font-size="11" text-anchor="middle">Tan > 0, Cot > 0</text>
+    <text x="105" y="205" fill="#f2cc60" font-size="11" font-weight="bold" text-anchor="middle">(CHỈ TAN &amp; COT DƯƠNG)</text>
+
+    <!-- Góc phần tư IV: 270 đến 360 độ (bottom right) -->
+    <rect x="205" y="150" width="140" height="75" rx="6" fill="rgba(255,123,114,0.12)" stroke="#ff7b72"/>
+    <text x="275" y="170" fill="#ff7b72" font-weight="900" font-size="13" text-anchor="middle">IV: "TỨ COS"</text>
+    <text x="275" y="188" fill="#f0f6fc" font-size="11" text-anchor="middle">Cos > 0, Sin &lt; 0</text>
+    <text x="275" y="205" fill="#ff7b72" font-size="11" font-weight="bold" text-anchor="middle">(CHỈ COS DƯƠNG!)</text>
+
+    <!-- Gốc O -->
+    <circle cx="190" cy="130" r="4" fill="#f0f6fc"/>
+  </svg>
+  <div class="geo-caption">
+    🎯 <strong>BẢNG THẦN CHÚ VÀNG: "NHẤT CẢ – NHÌ SIN – TAM TAN – TỨ COS"</strong><br>
+    Đề thi cho góc nằm ở phần tư nào $\rightarrow$ Nhìn bảng này là biết ngay dấu (+ hay -), không bao giờ bị bẫy sai dấu!
+  </div>
+</div>
+
 
   <div class="box box-formula">
     <div class="box-title">📐 THẦN CHÚ XÉT DẤU 4 PHẦN TƯ: "NHẤT CẢ - NHÌ SIN - TAM TAN - TỨ COS"</div>
@@ -1029,7 +1726,7 @@ tr:hover td { background: var(--bg-hover); }
   <h3 class="sec-title" id="b1-goc-lien-ket">6. Góc Liên Kết Đặc Biệt (Bài Thơ Bất Hủ Của Giới Toán Học)</h3>
 
   <div class="box box-formula">
-    <div class="box-title">🔥 THẦN CHÚ: "COS ĐỐI &ndash; SIN BÙ &ndash; PHỤ CHÉO &ndash; HƠN KÉM PI TAN COT"</div>
+    <div class="box-title">🔥 THẦN CHÚ: "COS ĐỐI – SIN BÙ – PHỤ CHÉO – HƠN KÉM PI TAN COT"</div>
     <p>Câu này có nghĩa là: <em>Thằng nào được đọc tên trong câu thần chú thì giữ nguyên dấu dương bằng nhau, những thằng còn lại bị vả dấu ÂM vào mặt!</em></p>
     
     <div class="accordion-item" style="margin-top:12px;">
@@ -1067,7 +1764,7 @@ tr:hover td { background: var(--bg-hover); }
       </button>
       <div class="accordion-content">
         <div class="accordion-inner">
-          <p>Chữ "CHÉO" nghĩa là đổi vai trò cho nhau: <strong>Sin đổi thành Cos &ndash; Tan đổi thành Cot</strong>!</p>
+          <p>Chữ "CHÉO" nghĩa là đổi vai trò cho nhau: <strong>Sin đổi thành Cos – Tan đổi thành Cot</strong>!</p>
           <p style="color:var(--text-secondary);margin-top:4px;">$\sin(\frac{\pi}{2} - \alpha) = \cos\alpha$ ; $\cos(\frac{\pi}{2} - \alpha) = \sin\alpha$ ; $\tan(\frac{\pi}{2} - \alpha) = \cot\alpha$ ; $\cot(\frac{\pi}{2} - \alpha) = \tan\alpha$.</p>
           <p style="font-size:0.8rem;color:var(--accent-yellow);margin-top:4px;">Ví dụ: $\sin 60^\circ = \cos 30^\circ = \frac{\sqrt{3}}{2}$; $\tan 75^\circ = \cot 15^\circ$.</p>
         </div>
@@ -1154,14 +1851,14 @@ tr:hover td { background: var(--bg-hover); }
       <div class="quiz-icon">📝</div>
       <div>
         <div class="quiz-title">BÀI TEST ĐÁNH GIÁ ĐỘ HIỂU BÀI 1 (15 CÂU)</div>
-        <div class="quiz-sub">Gồm Trắc nghiệm 4 lựa chọn, Đúng/Sai và Tự luận điền số &bull; Đạt 12/15 là đỗ!</div>
+        <div class="quiz-sub">Gồm Trắc nghiệm 4 lựa chọn, Đúng/Sai và Tự luận điền số • Đạt 12/15 là đỗ!</div>
       </div>
       <div class="quiz-score-badge" id="b1-score">Điểm: 0/15</div>
     </div>
 
     <!-- CÂU 1 -->
     <div class="quiz-q" data-type="mc" data-ans="B">
-      <div class="quiz-q-num">Câu 1 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 1 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Góc có số đo $108^\circ$ đổi sang đơn vị radian bằng bao nhiêu?</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b1_q1" value="A"> A. $\frac{\pi}{5}$ rad</label>
@@ -1174,7 +1871,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 2 -->
     <div class="quiz-q" data-type="mc" data-ans="A">
-      <div class="quiz-q-num">Câu 2 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 2 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Một cung tròn có bán kính $R = 8\text{ cm}$ và số đo $\alpha = \frac{3\pi}{4}\text{ rad}$. Độ dài của cung tròn đó là:</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b1_q2" value="A"> A. $6\pi\text{ cm}$</label>
@@ -1187,7 +1884,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 3 -->
     <div class="quiz-q" data-type="mc" data-ans="C">
-      <div class="quiz-q-num">Câu 3 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 3 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Cho góc $\alpha$ thỏa mãn $\frac{\pi}{2} < \alpha < \pi$. Khẳng định nào sau đây là ĐÚNG?</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b1_q3" value="A"> A. $\sin\alpha < 0$</label>
@@ -1200,7 +1897,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 4 -->
     <div class="quiz-q" data-type="mc" data-ans="D">
-      <div class="quiz-q-num">Câu 4 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 4 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Biểu thức nào sau đây là ĐÚNG với mọi góc $\alpha$ làm cho biểu thức có nghĩa?</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b1_q4" value="A"> A. $\sin^2\alpha - \cos^2\alpha = 1$</label>
@@ -1213,7 +1910,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 5 -->
     <div class="quiz-q" data-type="mc" data-ans="B">
-      <div class="quiz-q-num">Câu 5 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 5 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Giá trị của $\cos(-60^\circ) + \sin 150^\circ$ bằng:</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b1_q5" value="A"> A. $0$</label>
@@ -1226,7 +1923,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 6 -->
     <div class="quiz-q" data-type="mc" data-ans="A">
-      <div class="quiz-q-num">Câu 6 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 6 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Đơn giản biểu thức $M = \cos(\frac{\pi}{2} - x) + \sin(\pi - x)$, ta được kết quả là:</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b1_q6" value="A"> A. $2\sin x$</label>
@@ -1239,7 +1936,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 7 -->
     <div class="quiz-q" data-type="mc" data-ans="C">
-      <div class="quiz-q-num">Câu 7 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 7 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Cho $\sin\alpha = \frac{5}{13}$ và $\frac{\pi}{2} < \alpha < \pi$. Giá trị của $\cos\alpha$ bằng:</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b1_q7" value="A"> A. $\frac{12}{13}$</label>
@@ -1252,7 +1949,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 8 -->
     <div class="quiz-q" data-type="mc" data-ans="D">
-      <div class="quiz-q-num">Câu 8 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 8 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Theo hệ thức Chasles, với ba tia $Ou, Ov, Ow$ bất kì, ta có $\text{sđ}(Ou, Ov) + \text{sđ}(Ov, Ow) =$</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b1_q8" value="A"> A. $\text{sđ}(Ow, Ou) + k2\pi$</label>
@@ -1265,7 +1962,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 9: ĐÚNG SAI -->
     <div class="quiz-q" data-type="tf" data-ans="T">
-      <div class="quiz-q-num">Câu 9 &bull; Câu hỏi Đúng / Sai</div>
+      <div class="quiz-q-num">Câu 9 • Câu hỏi Đúng / Sai</div>
       <div class="quiz-q-text">Mỗi góc lượng giác gốc $O$ được xác định duy nhất bởi tia đầu $Ou$, tia cuối $Ov$ và số đo của nó. Đúng hay Sai?</div>
       <div class="tf-options">
         <button class="tf-btn" onclick="selectTF(this, 'T')">Đúng</button>
@@ -1276,7 +1973,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 10: ĐÚNG SAI -->
     <div class="quiz-q" data-type="tf" data-ans="F">
-      <div class="quiz-q-num">Câu 10 &bull; Câu hỏi Đúng / Sai</div>
+      <div class="quiz-q-num">Câu 10 • Câu hỏi Đúng / Sai</div>
       <div class="quiz-q-text">Chiều quay cùng chiều quay của kim đồng hồ được quy ước là chiều DƯƠNG. Đúng hay Sai?</div>
       <div class="tf-options">
         <button class="tf-btn" onclick="selectTF(this, 'T')">Đúng</button>
@@ -1287,7 +1984,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 11: ĐÚNG SAI -->
     <div class="quiz-q" data-type="tf" data-ans="T">
-      <div class="quiz-q-num">Câu 11 &bull; Câu hỏi Đúng / Sai</div>
+      <div class="quiz-q-num">Câu 11 • Câu hỏi Đúng / Sai</div>
       <div class="quiz-q-text">Trên đường tròn lượng giác, trục hoành $Ox$ được gọi là trục cosin, trục tung $Oy$ được gọi là trục sin. Đúng hay Sai?</div>
       <div class="tf-options">
         <button class="tf-btn" onclick="selectTF(this, 'T')">Đúng</button>
@@ -1298,7 +1995,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 12: ĐÚNG SAI -->
     <div class="quiz-q" data-type="tf" data-ans="F">
-      <div class="quiz-q-num">Câu 12 &bull; Câu hỏi Đúng / Sai</div>
+      <div class="quiz-q-num">Câu 12 • Câu hỏi Đúng / Sai</div>
       <div class="quiz-q-text">Giá trị của $\tan\alpha$ luôn xác định với mọi góc $\alpha \in \mathbb{R}$. Đúng hay Sai?</div>
       <div class="tf-options">
         <button class="tf-btn" onclick="selectTF(this, 'T')">Đúng</button>
@@ -1309,7 +2006,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 13: ĐÚNG SAI -->
     <div class="quiz-q" data-type="tf" data-ans="T">
-      <div class="quiz-q-num">Câu 13 &bull; Câu hỏi Đúng / Sai</div>
+      <div class="quiz-q-num">Câu 13 • Câu hỏi Đúng / Sai</div>
       <div class="quiz-q-text">Đẳng thức $\cos(\pi - \alpha) = -\cos\alpha$ luôn đúng với mọi góc $\alpha$. Đúng hay Sai?</div>
       <div class="tf-options">
         <button class="tf-btn" onclick="selectTF(this, 'T')">Đúng</button>
@@ -1320,19 +2017,19 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 14: TỰ LUẬN -->
     <div class="quiz-q quiz-essay">
-      <div class="quiz-q-num">Câu 14 &bull; Tự luận / Điền đáp số</div>
+      <div class="quiz-q-num">Câu 14 • Tự luận / Điền đáp số</div>
       <div class="quiz-q-text">Bánh xe đạp có đường kính $680\text{ mm}$ (bán kính $R = 340\text{ mm} = 0,34\text{ m}$). Nếu bánh xe quay được $5$ vòng thì quãng đường xe đi được là bao nhiêu mét? (Lấy $\pi \approx 3,1416$, làm tròn đến 2 chữ số thập phân).</div>
       <textarea placeholder="Nhập đáp số hoặc tóm tắt cách tính của bạn vào đây..."></textarea>
       <div class="sample-answer">
         <strong>Đáp án chuẩn:</strong>
-        <br>&bull; Mỗi vòng quay bánh xe quét góc $2\pi$ rad $\Rightarrow 5$ vòng quét góc $\alpha = 5 \times 2\pi = 10\pi$ rad.
-        <br>&bull; Quãng đường đi được bằng độ dài cung lăn: $s = R \times \alpha = 0,34 \times 10\pi = 3,4\pi \approx 10,68\text{ m}$.
+        <br>• Mỗi vòng quay bánh xe quét góc $2\pi$ rad $\Rightarrow 5$ vòng quét góc $\alpha = 5 \times 2\pi = 10\pi$ rad.
+        <br>• Quãng đường đi được bằng độ dài cung lăn: $s = R \times \alpha = 0,34 \times 10\pi = 3,4\pi \approx 10,68\text{ m}$.
       </div>
     </div>
 
     <!-- CÂU 15: TỰ LUẬN -->
     <div class="quiz-q quiz-essay">
-      <div class="quiz-q-num">Câu 15 &bull; Tự luận / Giải thích</div>
+      <div class="quiz-q-num">Câu 15 • Tự luận / Giải thích</div>
       <div class="quiz-q-text">Giải thích ngắn gọn bằng ngôn ngữ đời thường: Tại sao nói $\sin^2\alpha + \cos^2\alpha = 1$ thực chất chính là định lý Pytago?</div>
       <textarea placeholder="Viết câu trả lời giải thích bằng tiếng người của bạn..."></textarea>
       <div class="sample-answer">
@@ -1404,7 +2101,7 @@ tr:hover td { background: var(--bg-hover); }
     <div class="lesson-number">2</div>
     <div class="lesson-meta">
       <h2>BÀI 2: CÔNG THỨC LƯỢNG GIÁC</h2>
-      <div class="lesson-sub">SGK Kết Nối Tri Thức &bull; Chương I &bull; Trang 16 &ndash; 21</div>
+      <div class="lesson-sub">SGK Kết Nối Tri Thức • Chương I • Trang 16 – 21</div>
       <div class="lesson-tags">
         <span class="lesson-tag">Công thức cộng</span>
         <span class="lesson-tag">Công thức nhân đôi</span>
@@ -1446,9 +2143,9 @@ tr:hover td { background: var(--bg-hover); }
     </div>
     <div class="formula-label">Thơ mẹo nhớ bất hủ:</div>
     <ul class="content-list" style="margin-top:8px;font-style:italic;">
-      <li>"Cos thì cos cos sin sin &ndash; Dấu trừ đổi cộng, dấu cộng đổi trừ." (Cos rất bướng, dấu luôn bị đảo ngược!)</li>
-      <li>"Sin thì sin cos cos sin &ndash; Dấu nào giữ nấy cho mình nhớ lâu." (Sin rất ngoan, dấu cộng vẫn là cộng, trừ vẫn là trừ!)</li>
-      <li>"Tan tổng thì lấy tổng tan &ndash; Chia một trừ tích tan tan rõ ràng."</li>
+      <li>"Cos thì cos cos sin sin – Dấu trừ đổi cộng, dấu cộng đổi trừ." (Cos rất bướng, dấu luôn bị đảo ngược!)</li>
+      <li>"Sin thì sin cos cos sin – Dấu nào giữ nấy cho mình nhớ lâu." (Sin rất ngoan, dấu cộng vẫn là cộng, trừ vẫn là trừ!)</li>
+      <li>"Tan tổng thì lấy tổng tan – Chia một trừ tích tan tan rõ ràng."</li>
     </ul>
   </div>
 
@@ -1458,8 +2155,8 @@ tr:hover td { background: var(--bg-hover); }
   <div class="box box-theory">
     <div class="box-title">💡 NGUỒN GỐC TỰ NHIÊN: LẤY B = A TRONG CÔNG THỨC CỘNG</div>
     <p>Chẳng cần học vẹt! Nếu mày thay $b = a$ vào công thức cộng, mày sẽ tự chế ra ngay công thức nhân đôi trong 3 giây:</p>
-    <p>&bull; $\sin(a + a) = \sin 2a = \sin a \cos a + \cos a \sin a = \mathbf{2\sin a \cos a}$.</p>
-    <p>&bull; $\cos(a + a) = \cos 2a = \cos a \cos a - \sin a \sin a = \mathbf{\cos^2 a - \sin^2 a}$.</p>
+    <p>• $\sin(a + a) = \sin 2a = \sin a \cos a + \cos a \sin a = \mathbf{2\sin a \cos a}$.</p>
+    <p>• $\cos(a + a) = \cos 2a = \cos a \cos a - \sin a \sin a = \mathbf{\cos^2 a - \sin^2 a}$.</p>
   </div>
 
   <div class="box box-formula">
@@ -1479,7 +2176,7 @@ tr:hover td { background: var(--bg-hover); }
       cos<sup>2</sup>a = <span class="fraction"><span class="num">1 + cos 2a</span><span class="den">2</span></span>   ;   
       sin<sup>2</sup>a = <span class="fraction"><span class="num">1 &minus; cos 2a</span><span class="den">2</span></span>
     </div>
-    <div class="formula-label">Mẹo nhớ phân biệt: Cos mang dấu CỘNG (+) &bull; Sin mang dấu TRỪ (&minus;)</div>
+    <div class="formula-label">Mẹo nhớ phân biệt: Cos mang dấu CỘNG (+) • Sin mang dấu TRỪ (&minus;)</div>
   </div>
 
   <!-- PHẦN 3: TÍCH THÀNH TỔNG & TỔNG THÀNH TÍCH -->
@@ -1505,8 +2202,8 @@ tr:hover td { background: var(--bg-hover); }
     </div>
     <div class="formula-label">Thơ mẹo nhớ kinh điển:</div>
     <ul class="content-list" style="margin-top:8px;font-style:italic;">
-      <li>"Cos cộng cos bằng hai cos cos &ndash; Cos trừ cos bằng trừ hai sin sin (chú ý có dấu trừ!)"</li>
-      <li>"Sin cộng sin bằng hai sin cos &ndash; Sin trừ sin bằng hai cos sin."</li>
+      <li>"Cos cộng cos bằng hai cos cos – Cos trừ cos bằng trừ hai sin sin (chú ý có dấu trừ!)"</li>
+      <li>"Sin cộng sin bằng hai sin cos – Sin trừ sin bằng hai cos sin."</li>
     </ul>
   </div>
 
@@ -1552,8 +2249,8 @@ tr:hover td { background: var(--bg-hover); }
       <button class="btn-reveal" onclick="toggleAnswer(this)">🧠 Bấm vào để xem cách biến đổi đẹp như tranh vẽ!</button>
       <div class="answer-content">
         <p><strong>Tư duy chọn công thức:</strong></p>
-        <p>&bull; Tử số: $\sin 2x = 2\sin x \cos x$.</p>
-        <p>&bull; Mẫu số: Thấy xuất hiện số $1 + \cos 2x$. Trong 3 bộ mặt của $\cos 2x$, ta chọn mặt nào có số $-1$ để triệt tiêu số $1$ này đi! Đó chính là $\cos 2x = 2\cos^2 x - 1$.</p>
+        <p>• Tử số: $\sin 2x = 2\sin x \cos x$.</p>
+        <p>• Mẫu số: Thấy xuất hiện số $1 + \cos 2x$. Trong 3 bộ mặt của $\cos 2x$, ta chọn mặt nào có số $-1$ để triệt tiêu số $1$ này đi! Đó chính là $\cos 2x = 2\cos^2 x - 1$.</p>
         <p>Khi đó: $1 + \cos 2x = 1 + (2\cos^2 x - 1) = 2\cos^2 x$.</p>
         <p><strong>Lắp vào biểu thức:</strong></p>
         <p>$P = \frac{2\sin x \cos x}{2\cos^2 x} = \frac{\sin x}{\cos x} = \mathbf{\tan x}$. Quá vi diệu!</p>
@@ -1567,14 +2264,14 @@ tr:hover td { background: var(--bg-hover); }
       <div class="quiz-icon">📝</div>
       <div>
         <div class="quiz-title">BÀI TEST ĐÁNH GIÁ ĐỘ HIỂU BÀI 2 (15 CÂU)</div>
-        <div class="quiz-sub">Đầy đủ công thức cộng, nhân đôi, biến đổi tích - tổng &bull; Đạt 12/15 là xuất sắc!</div>
+        <div class="quiz-sub">Đầy đủ công thức cộng, nhân đôi, biến đổi tích - tổng • Đạt 12/15 là xuất sắc!</div>
       </div>
       <div class="quiz-score-badge" id="b2-score">Điểm: 0/15</div>
     </div>
 
     <!-- CÂU 1 -->
     <div class="quiz-q" data-type="mc" data-ans="A">
-      <div class="quiz-q-num">Câu 1 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 1 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Khẳng định nào sau đây là công thức cộng ĐÚNG?</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b2_q1" value="A"> A. $\cos(a + b) = \cos a \cos b - \sin a \sin b$</label>
@@ -1587,7 +2284,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 2 -->
     <div class="quiz-q" data-type="mc" data-ans="C">
-      <div class="quiz-q-num">Câu 2 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 2 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Công thức nhân đôi nào sau đây là SAI?</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b2_q2" value="A"> A. $\sin 2a = 2\sin a \cos a$</label>
@@ -1600,7 +2297,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 3 -->
     <div class="quiz-q" data-type="mc" data-ans="B">
-      <div class="quiz-q-num">Câu 3 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 3 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Biểu thức $\sin a \cos b + \cos a \sin b$ bằng:</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b2_q3" value="A"> A. $\sin(a - b)$</label>
@@ -1613,7 +2310,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 4 -->
     <div class="quiz-q" data-type="mc" data-ans="D">
-      <div class="quiz-q-num">Câu 4 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 4 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Công thức hạ bậc của $\cos^2 a$ là:</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b2_q4" value="A"> A. $\frac{1 - \cos 2a}{2}$</label>
@@ -1626,7 +2323,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 5 -->
     <div class="quiz-q" data-type="mc" data-ans="A">
-      <div class="quiz-q-num">Câu 5 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 5 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Biến đổi $\cos 5x + \cos 3x$ thành tích ta được:</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b2_q5" value="A"> A. $2\cos 4x \cos x$</label>
@@ -1639,7 +2336,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 6 -->
     <div class="quiz-q" data-type="mc" data-ans="C">
-      <div class="quiz-q-num">Câu 6 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 6 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Biến đổi $\cos 7x - \cos 3x$ thành tích ta được:</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b2_q6" value="A"> A. $2\sin 5x \sin 2x$</label>
@@ -1652,7 +2349,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 7 -->
     <div class="quiz-q" data-type="mc" data-ans="B">
-      <div class="quiz-q-num">Câu 7 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 7 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Cho $\sin a = \frac{3}{5}$ với $0 < a < \frac{\pi}{2}$. Giá trị của $\sin 2a$ bằng:</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b2_q7" value="A"> A. $\frac{12}{25}$</label>
@@ -1665,7 +2362,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 8 -->
     <div class="quiz-q" data-type="mc" data-ans="A">
-      <div class="quiz-q-num">Câu 8 &bull; Trắc nghiệm 4 lựa chọn</div>
+      <div class="quiz-q-num">Câu 8 • Trắc nghiệm 4 lựa chọn</div>
       <div class="quiz-q-text">Giá trị của biểu thức $P = \cos 75^\circ \cos 15^\circ$ bằng:</div>
       <div class="quiz-options">
         <label class="quiz-option"><input type="radio" name="b2_q8" value="A"> A. $\frac{1}{4}$</label>
@@ -1678,7 +2375,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 9: ĐÚNG SAI -->
     <div class="quiz-q" data-type="tf" data-ans="F">
-      <div class="quiz-q-num">Câu 9 &bull; Câu hỏi Đúng / Sai</div>
+      <div class="quiz-q-num">Câu 9 • Câu hỏi Đúng / Sai</div>
       <div class="quiz-q-text">Đẳng thức $\sin(a + b) = \sin a + \sin b$ đúng với mọi số thực $a, b$. Đúng hay Sai?</div>
       <div class="tf-options">
         <button class="tf-btn" onclick="selectTF(this, 'T')">Đúng</button>
@@ -1689,7 +2386,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 10: ĐÚNG SAI -->
     <div class="quiz-q" data-type="tf" data-ans="T">
-      <div class="quiz-q-num">Câu 10 &bull; Câu hỏi Đúng / Sai</div>
+      <div class="quiz-q-num">Câu 10 • Câu hỏi Đúng / Sai</div>
       <div class="quiz-q-text">Đẳng thức $\cos 2a = \cos^2 a - \sin^2 a$ luôn đúng với mọi góc $a$. Đúng hay Sai?</div>
       <div class="tf-options">
         <button class="tf-btn" onclick="selectTF(this, 'T')">Đúng</button>
@@ -1700,7 +2397,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 11: ĐÚNG SAI -->
     <div class="quiz-q" data-type="tf" data-ans="T">
-      <div class="quiz-q-num">Câu 11 &bull; Câu hỏi Đúng / Sai</div>
+      <div class="quiz-q-num">Câu 11 • Câu hỏi Đúng / Sai</div>
       <div class="quiz-q-text">Đẳng thức $\sin x + \cos x = \sqrt{2}\sin(x + \frac{\pi}{4})$ đúng với mọi số thực $x$. Đúng hay Sai?</div>
       <div class="tf-options">
         <button class="tf-btn" onclick="selectTF(this, 'T')">Đúng</button>
@@ -1711,7 +2408,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 12: ĐÚNG SAI -->
     <div class="quiz-q" data-type="tf" data-ans="F">
-      <div class="quiz-q-num">Câu 12 &bull; Câu hỏi Đúng / Sai</div>
+      <div class="quiz-q-num">Câu 12 • Câu hỏi Đúng / Sai</div>
       <div class="quiz-q-text">Biểu thức $\sin a \sin b = \frac{1}{2}[\cos(a - b) + \cos(a + b)]$. Đúng hay Sai?</div>
       <div class="tf-options">
         <button class="tf-btn" onclick="selectTF(this, 'T')">Đúng</button>
@@ -1722,7 +2419,7 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 13: ĐÚNG SAI -->
     <div class="quiz-q" data-type="tf" data-ans="T">
-      <div class="quiz-q-num">Câu 13 &bull; Câu hỏi Đúng / Sai</div>
+      <div class="quiz-q-num">Câu 13 • Câu hỏi Đúng / Sai</div>
       <div class="quiz-q-text">Nếu $\cos 2a = 0$ thì $\sin^2 a = \frac{1}{2}$. Đúng hay Sai?</div>
       <div class="tf-options">
         <button class="tf-btn" onclick="selectTF(this, 'T')">Đúng</button>
@@ -1733,20 +2430,20 @@ tr:hover td { background: var(--bg-hover); }
 
     <!-- CÂU 14: TỰ LUẬN -->
     <div class="quiz-q quiz-essay">
-      <div class="quiz-q-num">Câu 14 &bull; Tự luận / Tính toán</div>
+      <div class="quiz-q-num">Câu 14 • Tự luận / Tính toán</div>
       <div class="quiz-q-text">Rút gọn biểu thức $T = \frac{\sin 4x + \sin 2x}{\cos 4x + \cos 2x}$. Nêu rõ công thức bạn sử dụng và kết quả cuối cùng.</div>
       <textarea placeholder="Trình bày các bước biến đổi của bạn..."></textarea>
       <div class="sample-answer">
         <strong>Đáp án chuẩn:</strong>
-        <br>&bull; Tử số: $\sin 4x + \sin 2x = 2\sin(\frac{4x+2x}{2})\cos(\frac{4x-2x}{2}) = 2\sin 3x \cos x$.
-        <br>&bull; Mẫu số: $\cos 4x + \cos 2x = 2\cos(\frac{4x+2x}{2})\cos(\frac{4x-2x}{2}) = 2\cos 3x \cos x$.
-        <br>&bull; Chia cả tử và mẫu cho $2\cos x$, ta được: $T = \frac{2\sin 3x \cos x}{2\cos 3x \cos x} = \frac{\sin 3x}{\cos 3x} = \mathbf{\tan 3x}$.
+        <br>• Tử số: $\sin 4x + \sin 2x = 2\sin(\frac{4x+2x}{2})\cos(\frac{4x-2x}{2}) = 2\sin 3x \cos x$.
+        <br>• Mẫu số: $\cos 4x + \cos 2x = 2\cos(\frac{4x+2x}{2})\cos(\frac{4x-2x}{2}) = 2\cos 3x \cos x$.
+        <br>• Chia cả tử và mẫu cho $2\cos x$, ta được: $T = \frac{2\sin 3x \cos x}{2\cos 3x \cos x} = \frac{\sin 3x}{\cos 3x} = \mathbf{\tan 3x}$.
       </div>
     </div>
 
     <!-- CÂU 15: TỰ LUẬN -->
     <div class="quiz-q quiz-essay">
-      <div class="quiz-q-num">Câu 15 &bull; Tự luận / Ứng dụng</div>
+      <div class="quiz-q-num">Câu 15 • Tự luận / Ứng dụng</div>
       <div class="quiz-q-text">Giải thích tại sao trong kỹ thuật âm thanh điện thoại, khi phát ra hai nốt nhạc $f_1$ và $f_2$, âm thanh kết hợp lại tạo thành hiện tượng "phách" (biến thiên biên độ) dựa vào công thức lượng giác nào?</div>
       <textarea placeholder="Giải thích dựa trên công thức lượng giác lớp 11..."></textarea>
       <div class="sample-answer">
@@ -2967,8 +3664,7 @@ tr:hover td { background: var(--bg-hover); }
 
 
       <!-- BÀI 10 -->
-      
-<section class="lesson-section" id="bai-10">
+      <section class="lesson-section" id="bai-10">
   <div class="lesson-header">
     <div class="lesson-number">10</div>
     <div class="lesson-meta">
@@ -2996,34 +3692,135 @@ tr:hover td { background: var(--bg-hover); }
 
   <div class="box box-theory">
     <div class="box-title">💡 DỊCH SANG TIẾNG NGƯỜI: MẶT PHẲNG KHÔNG PHẢI LÀ CÁI MẶT BÀN!</div>
-    <p>Nhiều đứa mất gốc nhìn hình vẽ trong vở (vẽ hình bình hành có chữ $P$ ở góc) lại ngây thơ nghĩ: <em>"Mặt phẳng là cái hình bình hành có 4 góc cạnh giới hạn"</em>. <strong>SAI HOÀN TOÀN!</strong></p>
-    <p style="margin-top:6px;">Hiểu đúng bản chất:</p>
+    <p>Nhiều đứa mất gốc nhìn hình vẽ trong vở (vẽ hình bình hành có chữ $(P)$ ở góc) lại ngây thơ nghĩ: <em>"Mặt phẳng là cái hình bình hành có 4 góc cạnh giới hạn"</em>. <strong>SAI HOÀN TOÀN!</strong></p>
+    <p style="margin-top:6px;">Hiểu đúng bản chất của dân học Toán:</p>
     <ul class="content-list">
       <li><strong>Mặt phẳng:</strong> Giống như <strong>mặt nước hồ phẳng lặng trải dài vô tận</strong> về bốn phương tám hướng không có bờ bến, và <strong>hoàn toàn không có bề dày</strong> (độ dày bằng 0).</li>
-      <li>Cái hình bình hành ta vẽ trong vở chỉ là <em>một góc biểu diễn tượng trưng</em> mà thôi. Đừng bao giờ nghĩ nó bị chặn lại ở mép hình!</li>
-      <li>Kí hiệu mặt phẳng: Đặt tên bằng chữ in hoa hoặc chữ Hy Lạp trong ngoặc đơn: mặt phẳng $(P)$, $(Q)$, mặt phẳng $(\alpha)$, $(\beta)$, hoặc $(ABC)$ (mặt phẳng đi qua 3 điểm $A, B, C$).</li>
+      <li>Cái hình bình hành ta vẽ trong vở chỉ là <em>một góc biểu diễn tượng trưng</em> để mắt người hình dung mà thôi. Đừng bao giờ nghĩ nó bị chặn lại ở mép hình!</li>
+      <li><strong>Kí hiệu mặt phẳng:</strong> Đặt tên bằng chữ in hoa hoặc chữ Hy Lạp trong ngoặc đơn: mặt phẳng $(P)$, $(Q)$, mặt phẳng $(\alpha)$, $(\beta)$, hoặc $(ABC)$ (mặt phẳng đi qua 3 điểm $A, B, C$).</li>
     </ul>
   </div>
+
+  <div class="box box-story">
+    <div class="box-title">🥩 VÍ DỤ TRỰC QUAN ĐỜI THƯỜNG: CON RUỒI ĐẬU VÀ CON RUỒI BAY</div>
+    <p>&bull; Một con ruồi đậu dính bẹp trên mặt kính cửa sổ $\Rightarrow$ Con ruồi thuộc mặt phẳng kính: $A \in (P)$.</p>
+    <p>&bull; Một con ruồi khác đang bay lượn lờ giữa phòng khách $\Rightarrow$ Con ruồi không thuộc mặt phẳng kính: $B \notin (P)$.</p>
+    <p>&bull; Một sợi dây chỉ căng dán sát trên mặt kính $\Rightarrow$ Toàn bộ sợi dây nằm trọn trong mặt phẳng: $d \subset (P)$.</p>
+  </div>
+
+<div class="geo-diagram">
+  <svg viewBox="0 0 460 210" width="100%" height="210" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="pGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#7ee787" stop-opacity="0.08"/>
+      </linearGradient>
+    </defs>
+    <!-- Mặt phẳng (P) 3D -->
+    <polygon points="70,45 420,45 350,185 0,185" fill="url(#pGrad)" stroke="#58a6ff" stroke-width="2.5"/>
+    <text x="35" y="170" fill="#58a6ff" font-weight="900" font-size="20">(P)</text>
+    
+    <!-- Đường thẳng d nằm trên (P) -->
+    <line x1="90" y1="145" x2="330" y2="75" stroke="#7ee787" stroke-width="3"/>
+    <text x="338" y="75" fill="#7ee787" font-weight="800" font-size="15">d ⊂ (P)</text>
+    
+    <!-- Điểm A nằm trên d và (P) -->
+    <circle cx="170" cy="122" r="6" fill="#7ee787"/>
+    <circle cx="170" cy="122" r="10" fill="none" stroke="#7ee787" stroke-width="1.5" opacity="0.6"/>
+    <text x="165" y="148" fill="#f0f6fc" font-weight="800" font-size="14">A ∈ d, A ∈ (P)</text>
+    
+    <!-- Điểm B nằm ngoài (P) lơ lửng trên không -->
+    <line x1="270" y1="20" x2="270" y2="120" stroke="#ff7b72" stroke-width="2" stroke-dasharray="5,4"/>
+    <ellipse cx="270" cy="120" rx="14" ry="6" fill="rgba(255,123,114,0.2)" stroke="#ff7b72" stroke-width="1"/>
+    <circle cx="270" cy="120" r="3" fill="#ff7b72"/>
+    <circle cx="270" cy="20" r="7" fill="#ff7b72"/>
+    <text x="285" y="25" fill="#ff7b72" font-weight="800" font-size="15">B ∉ (P)</text>
+    <text x="285" y="45" fill="#ffa657" font-size="12">(Lơ lửng bên ngoài mặt phẳng)</text>
+  </svg>
+  <div class="geo-caption">
+    🔷 <strong>HÌNH 1: VỊ TRÍ ĐIỂM VÀ ĐƯỜNG THẲNG ĐỐI VỚI MẶT PHẲNG</strong><br>
+    <span style="color:#7ee787;">● Điểm A</span> nằm bẹp trên mặt phẳng: $A \in (P)$ &bull; 
+    <span style="color:#ff7b72;">● Điểm B</span> bay lơ lửng trên không: $B 
+otin (P)$ &bull; 
+    <span style="color:#7ee787;">— Đường d</span> dính trọn trên mặt phẳng: $d \subset (P)$
+  </div>
+</div>
 
   <div class="box box-warning">
     <div class="box-title">⚠️ QUY TẮC VẼ HÌNH KHÔNG GIAN BẮT BUỘC (VẼ SAI LÀ ĂN 0 ĐIỂM)</div>
     <ul class="content-list">
-      <li><strong>Nét nhìn thấy:</strong> Phải vẽ bằng <strong>NÉT LIỀN (____)</strong>.</li>
-      <li><strong>Nét bị che khuất (nằm khuất bên trong hoặc phía sau):</strong> BẮT BUỘC phải vẽ bằng <strong>NÉT ĐỨT (- - - -)</strong>.</li>
-      <li>Hai đường thẳng song song ngoài đời $\Rightarrow$ Vào hình vẽ BẮT BUỘC phải vẽ <strong>SONG SONG</strong>.</li>
-      <li>Tỉ số đoạn thẳng trên cùng một đường thẳng được giữ nguyên (ví dụ trung điểm thì vào hình vẽ vẫn phải lấy đúng chính giữa).</li>
-      <li>Nhưng <strong>góc vuông ngoài đời vào hình không gian KHÔNG CẦN VUÔNG</strong>! Tam giác vuông, tam giác đều, tam giác cân vào hình biểu diễn đều được vẽ thành tam giác thường, chỉ cần đánh dấu góc vuông vào là xong!</li>
+      <li><strong>Nét nhìn thấy bên ngoài:</strong> Phải vẽ bằng <strong>NÉT LIỀN (————)</strong>.</li>
+      <li><strong>Nét bị che khuất (nằm khuất bên trong hoặc phía sau đáy):</strong> BẮT BUỘC phải vẽ bằng <strong>NÉT ĐỨT (- - - -)</strong>. Quên vẽ nét đứt là giáo viên gạch bài trừ sạch điểm!</li>
+      <li><strong>Hai đường thẳng song song ngoài đời</strong> $\Rightarrow$ Vào hình vẽ BẮT BUỘC phải vẽ <strong>SONG SONG</strong>.</li>
+      <li>Tỉ số đoạn thẳng trên cùng một đường thẳng được giữ nguyên (ví dụ $M$ là trung điểm thì vào hình vẽ vẫn phải lấy đúng chính giữa đoạn thẳng).</li>
+      <li>Nhưng <strong>góc vuông ngoài đời vào hình không gian KHÔNG CẦN VUÔNG</strong>! Tam giác vuông, tam giác đều, tam giác cân vào hình biểu diễn đều được vẽ thành tam giác thường, chỉ cần đánh dấu kí hiệu góc vuông vào là xong!</li>
     </ul>
   </div>
 
-  <!-- PHẦN 2: CÁC TÍNH CHẤT THỪA NHẬN VÀ XÁC ĐỊNH MẶT PHẲNG -->
+<div class="sgk-embed">
+  <div class="sgk-embed-header">
+    <span>📖 Trang 70 - 71 SGK (Sách Kết Nối Tri Thức)</span>
+    <button class="btn-zoom" onclick="openSgkModal('hinh_01.png')">🔍 Phóng To Xem Chi Tiết</button>
+  </div>
+  <div class="sgk-embed-body">
+    <img src="hinh_01.png" alt="Trang 70 - 71 SGK" class="sgk-embed-img" onclick="openSgkModal('hinh_01.png')">
+  </div>
+  <div class="sgk-embed-footer">
+    💡 <strong>Góc đối chiếu SGK:</strong> Khái niệm mặt phẳng, điểm thuộc và không thuộc mặt phẳng trong đời sống thực tế.
+  </div>
+</div>
+
+
+  <!-- PHẦN 2: BA CÁCH XÁC ĐỊNH MẶT PHẲNG -->
   <h3 class="sec-title" id="h10-tinh-chat">2. Ba Cách Xác Định Mặt Phẳng (Kê Bàn Không Bị Bập Bênh)</h3>
 
   <div class="box box-theory">
     <div class="box-title">💡 VÍ DỤ ĐỜI THƯỜNG: TẠI SAO GHẾ 3 CHÂN KHÔNG BAO GIỜ BẬP BÊNH?</div>
-    <p>Mày đi uống trà chanh thấy ghế 4 chân hay bị kênh, phải lót bìa các-tông dưới chân? Nhưng cái kiềng 3 chân đun bếp hay cái giá đỡ máy ảnh 3 chân đặt đâu cũng đứng vững như bàn thạch!</p>
-    <p style="margin-top:6px;">Lý do toán học: <strong>Qua 3 điểm không thẳng hàng, luôn luôn xác định DUY NHẤT một mặt phẳng!</strong></p>
+    <p>Mày đi uống trà chanh thấy ghế 4 chân hay bị kênh, phải lót miếng bìa các-tông dưới chân? Nhưng cái kiềng 3 chân đun bếp hay cái giá đỡ máy ảnh (tripod) 3 chân đặt trên bờ đá gập ghềnh cỡ nào cũng đứng vững như bàn thạch!</p>
+    <p style="margin-top:6px;">Lý do toán học siêu đẳng: <strong>Qua 3 điểm không thẳng hàng, luôn luôn xác định DUY NHẤT một mặt phẳng!</strong> Ba đầu chân kiềng luôn luôn cùng nằm trên một mặt phẳng tiếp xúc mặt đất, nên không bao giờ bị khập khiễng!</p>
   </div>
+
+<div class="geo-diagram">
+  <svg viewBox="0 0 540 170" width="100%" height="170" xmlns="http://www.w3.org/2000/svg">
+    <!-- Cách 1: Qua 3 điểm -->
+    <rect x="5" y="5" width="170" height="158" rx="8" fill="rgba(88,166,255,0.06)" stroke="#30363d" stroke-width="1.5"/>
+    <text x="90" y="26" fill="#58a6ff" font-weight="800" font-size="12" text-anchor="middle">CÁCH 1: QUA 3 ĐIỂM</text>
+    <polygon points="25,55 155,55 135,125 15,125" fill="rgba(88,166,255,0.15)" stroke="#58a6ff" stroke-width="1.5"/>
+    <circle cx="45" cy="100" r="4.5" fill="#f2cc60"/>
+    <text x="35" y="100" fill="#f2cc60" font-size="12" font-weight="bold">A</text>
+    <circle cx="90" cy="70" r="4.5" fill="#f2cc60"/>
+    <text x="90" y="65" fill="#f2cc60" font-size="12" font-weight="bold">B</text>
+    <circle cx="125" cy="105" r="4.5" fill="#f2cc60"/>
+    <text x="133" y="110" fill="#f2cc60" font-size="12" font-weight="bold">C</text>
+    <text x="90" y="146" fill="#f0f6fc" font-size="12" font-weight="700" text-anchor="middle">Mặt phẳng (ABC)</text>
+
+    <!-- Cách 2: 1 điểm + 1 đường thẳng -->
+    <rect x="185" y="5" width="170" height="158" rx="8" fill="rgba(242,204,96,0.06)" stroke="#30363d" stroke-width="1.5"/>
+    <text x="270" y="26" fill="#f2cc60" font-weight="800" font-size="12" text-anchor="middle">CÁCH 2: 1 ĐIỂM + 1 ĐƯỜNG</text>
+    <polygon points="205,55 335,55 315,125 195,125" fill="rgba(242,204,96,0.15)" stroke="#f2cc60" stroke-width="1.5"/>
+    <line x1="210" y1="110" x2="300" y2="75" stroke="#7ee787" stroke-width="2.5"/>
+    <text x="306" y="78" fill="#7ee787" font-size="12" font-weight="bold">d</text>
+    <circle cx="245" cy="70" r="4.5" fill="#ff7b72"/>
+    <text x="245" y="62" fill="#ff7b72" font-size="12" font-weight="bold">A ∉ d</text>
+    <text x="270" y="146" fill="#f0f6fc" font-size="12" font-weight="700" text-anchor="middle">Mặt phẳng (A, d)</text>
+
+    <!-- Cách 3: 2 đường thẳng cắt nhau -->
+    <rect x="365" y="5" width="170" height="158" rx="8" fill="rgba(126,231,135,0.06)" stroke="#30363d" stroke-width="1.5"/>
+    <text x="450" y="26" fill="#7ee787" font-weight="800" font-size="12" text-anchor="middle">CÁCH 3: 2 ĐƯỜNG CẮT NHAU</text>
+    <polygon points="385,55 515,55 495,125 375,125" fill="rgba(126,231,135,0.15)" stroke="#7ee787" stroke-width="1.5"/>
+    <line x1="390" y1="115" x2="485" y2="65" stroke="#58a6ff" stroke-width="2.5"/>
+    <text x="492" y="68" fill="#58a6ff" font-size="12" font-weight="bold">a</text>
+    <line x1="400" y1="70" x2="480" y2="110" stroke="#ffa657" stroke-width="2.5"/>
+    <text x="486" y="118" fill="#ffa657" font-size="12" font-weight="bold">b</text>
+    <circle cx="438" cy="90" r="4.5" fill="#f2cc60"/>
+    <text x="438" y="106" fill="#f2cc60" font-size="12" font-weight="bold">O</text>
+    <text x="450" y="146" fill="#f0f6fc" font-size="12" font-weight="700" text-anchor="middle">Mặt phẳng (a, b)</text>
+  </svg>
+  <div class="geo-caption">
+    🔷 <strong>HÌNH 2: BA CÁCH KHÓA CHẶT MỘT MẶT PHẲNG DUY NHẤT</strong><br>
+    Giống như kiềng 3 chân: Cứ có 3 điểm không thẳng hàng, hoặc 1 điểm + 1 đường, hoặc 2 đường cắt nhau là xác định duy nhất 1 mặt phẳng!
+  </div>
+</div>
 
   <div class="box box-formula">
     <div class="box-title">📐 BA CÁCH TẠO RA MỘT MẶT PHẲNG DUY NHẤT TRONG KHÔNG GIAN</div>
@@ -3046,24 +3843,156 @@ tr:hover td { background: var(--bg-hover); }
   <!-- PHẦN 3: HÌNH CHÓP VÀ TỨ DIỆN -->
   <h3 class="sec-title" id="h10-chop-tu-dien">3. Hình Chóp & Hình Tứ Diện (Nhân Vật Chính Của Mọi Đề Thi)</h3>
 
+  <div class="box box-story">
+    <div class="box-title">🥩 VÍ DỤ TRỰC QUAN ĐỜI THƯỜNG: KIM TỰ THÁP VÀ BÁNH Ú</div>
+    <p>&bull; <strong>Kim tự tháp Ai Cập:</strong> Đáy là một cái sân hình vuông rộng lớn, từ 4 góc sân có 4 cạnh bên chụm lại tại một đỉnh nhọn hoắt chĩa lên trời. Đó chính là <strong>HÌNH CHÓP TỨ GIÁC $S.ABCD$</strong>!</p>
+    <p style="margin-top:6px;">&bull; <strong>Bánh ú tam giác / Gói kẹo tam giác:</strong> Có đúng 4 mặt đều là hình tam giác úp vào nhau. Đó chính là <strong>HÌNH TỨ DIỆN $ABCD$</strong> (Tứ = 4, diện = mặt)!</p>
+  </div>
+
+<div class="geo-diagram">
+  <svg viewBox="0 0 380 270" width="100%" height="270" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="tetraGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="#7ee787" stop-opacity="0.06"/>
+      </linearGradient>
+    </defs>
+    <!-- Mặt trước ABD -->
+    <polygon points="190,30 60,215 180,245" fill="url(#tetraGrad)"/>
+    <!-- Mặt ACD -->
+    <polygon points="190,30 180,245 320,190" fill="url(#tetraGrad)"/>
+    
+    <!-- Cạnh khuất phía sau BC (Nét đứt màu đỏ) -->
+    <line x1="60" y1="215" x2="320" y2="190" stroke="#ff7b72" stroke-width="2.5" stroke-dasharray="6,5"/>
+    
+    <!-- Các cạnh nhìn thấy bên ngoài (Nét liền xanh) -->
+    <line x1="190" y1="30" x2="60" y2="215" stroke="#58a6ff" stroke-width="2.5"/>
+    <line x1="190" y1="30" x2="320" y2="190" stroke="#58a6ff" stroke-width="2.5"/>
+    <line x1="190" y1="30" x2="180" y2="245" stroke="#58a6ff" stroke-width="2.5"/>
+    <line x1="60" y1="215" x2="180" y2="245" stroke="#58a6ff" stroke-width="2.5"/>
+    <line x1="180" y1="245" x2="320" y2="190" stroke="#58a6ff" stroke-width="2.5"/>
+
+    <!-- Đỉnh và nhãn chữ to rõ -->
+    <circle cx="190" cy="30" r="5.5" fill="#f2cc60"/>
+    <text x="190" y="18" fill="#f2cc60" font-weight="800" font-size="16" text-anchor="middle">A (Đỉnh)</text>
+
+    <circle cx="60" cy="215" r="5" fill="#58a6ff"/>
+    <text x="40" y="222" fill="#f0f6fc" font-weight="800" font-size="15">B</text>
+
+    <circle cx="180" cy="245" r="5" fill="#58a6ff"/>
+    <text x="180" y="265" fill="#f0f6fc" font-weight="800" font-size="15" text-anchor="middle">D (Đáy trước)</text>
+
+    <circle cx="320" cy="190" r="5" fill="#58a6ff"/>
+    <text x="332" y="196" fill="#f0f6fc" font-weight="800" font-size="15">C</text>
+  </svg>
+  <div class="geo-caption">
+    🔷 <strong>HÌNH 3: HÌNH TỨ DIỆN ABCD (CHÓP TAM GIÁC)</strong><br>
+    <span style="color:#ff7b72;font-weight:700;">🔴 Nét đứt (cạnh BC):</span> Nằm khuất phía sau đáy nên <strong>BẮT BUỘC VẼ NÉT ĐỨT</strong>.<br>
+    <span style="color:#58a6ff;font-weight:700;">🔵 Nét liền (5 cạnh còn lại):</span> Nhìn thấy bên ngoài. Tứ diện có đúng <strong>4 mặt tam giác, 4 đỉnh và 6 cạnh</strong>.
+  </div>
+</div>
+
+
+<div class="sgk-embed">
+  <div class="sgk-embed-header">
+    <span>📖 Trang 72 - 73 SGK (Sách Kết Nối Tri Thức)</span>
+    <button class="btn-zoom" onclick="openSgkModal('hinh_02.png')">🔍 Phóng To Xem Chi Tiết</button>
+  </div>
+  <div class="sgk-embed-body">
+    <img src="hinh_02.png" alt="Trang 72 - 73 SGK" class="sgk-embed-img" onclick="openSgkModal('hinh_02.png')">
+  </div>
+  <div class="sgk-embed-footer">
+    💡 <strong>Góc đối chiếu SGK:</strong> Hình biểu diễn hình chóp tam giác (tứ diện), hình chóp tứ giác trong SGK Kết Nối Tri Thức.
+  </div>
+</div>
+
+
   <div class="box box-theory">
-    <div class="box-title">💡 PHÂN BIỆT HÌNH CHÓP VÀ HÌNH TỨ DIỆN</div>
+    <div class="box-title">💡 MỔ XẺ CHI TIẾT TỪNG BỘ PHẬN</div>
     <ul class="content-list">
       <li><strong>Hình chóp $S.A_1 A_2 ... A_n$:</strong>
         <br>&bull; Đỉnh là điểm $S$ nằm lơ lửng trên cao.
-        <br>&bull; Đáy là một đa giác nằm dưới sàn: đáy tam giác (chóp tam giác), đáy tứ giác (chóp tứ giác $S.ABCD$).
+        <br>&bull; Đáy là đa giác nằm dưới sàn: đáy tam giác (chóp tam giác), đáy tứ giác (chóp tứ giác $S.ABCD$).
         <br>&bull; Các mặt bên là các hình tam giác có chung đỉnh $S$.
       </li>
       <li><strong>Hình tứ diện $ABCD$ (Chóp tam giác):</strong>
-        <br>&bull; "Tứ" là 4, "diện" là mặt. Khối đa diện có đúng <strong>4 mặt đều là các hình tam giác</strong>.
-        <br>&bull; Điểm đặc biệt: Bất kì đỉnh nào cũng có thể đóng vai trò là ĐỈNH, và mặt đối diện đóng vai trò là ĐÁY!
-        <br>&bull; Hai cạnh không có điểm chung gọi là <strong>hai cạnh đối diện</strong> (ví dụ: $AB$ đối diện $CD$, $AC$ đối diện $BD$, $AD$ đối diện $BC$).
+        <br>&bull; Có đúng <strong>4 mặt đều là tam giác, 4 đỉnh và 6 cạnh</strong>.
+        <br>&bull; Bất kì đỉnh nào cũng có thể coi là ĐỈNH, và mặt đối diện coi là ĐÁY!
+        <br>&bull; <strong>Cặp cạnh đối diện:</strong> Hai cạnh không có điểm chung nào (ví dụ $AB$ đối diện $CD$, $AC$ đối diện $BD$, $AD$ đối diện $BC$). Đây là câu hỏi thi cực hay lừa!
       </li>
     </ul>
   </div>
 
   <!-- PHẦN 4: HAI KỸ NĂNG VÀNG THI GIỮA KÌ -->
   <h3 class="sec-title" id="h10-ky-nang-vang">4. Hai Kỹ Năng Sống Còn: Tìm Giao Tuyến & Tìm Giao Điểm</h3>
+
+  <div class="box box-story">
+    <div class="box-title">🥩 VÍ DỤ TRỰC QUAN ĐỜI THƯỜNG: GIAO TUYẾN LÀ CÁI GÌ?</div>
+    <p>Mày nhìn vào <strong>góc tường phòng học</strong>: Bức tường phía trước và bức tường bên hông va vào nhau tạo thành một cái gờ chỉ thẳng đứng từ sàn nhà lên trần nhà. Cái gờ chỉ chung đó trong toán học gọi là <strong>GIAO TUYẾN</strong>!</p>
+    <p style="margin-top:6px;">Cứ hai mặt phẳng cắt nhau là sinh ra một giao tuyến duy nhất (giống như nếp gấp ở gáy cuốn vở mở ra).</p>
+  </div>
+
+<div class="geo-diagram">
+  <svg viewBox="0 0 420 310" width="100%" height="310" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="pyrGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#f2cc60" stop-opacity="0.05"/>
+      </linearGradient>
+    </defs>
+    <!-- Đáy hình bình hành ABCD -->
+    <!-- A(100, 150), D(320, 150), B(40, 250), C(260, 250) -->
+    <polygon points="40,250 260,250 320,150 100,150" fill="rgba(88,166,255,0.06)" />
+
+    <!-- CẠNH KHUẤT PHÍA SAU (NÉT ĐỨT MÀU ĐỎ/CAM) -->
+    <line x1="100" y1="150" x2="320" y2="150" stroke="#ff7b72" stroke-width="2" stroke-dasharray="6,4"/> <!-- AD -->
+    <line x1="200" y1="25" x2="100" y2="150" stroke="#ff7b72" stroke-width="2" stroke-dasharray="6,4"/>  <!-- SA -->
+    <line x1="100" y1="150" x2="260" y2="250" stroke="#8b949e" stroke-width="1.8" stroke-dasharray="5,4"/> <!-- AC -->
+    <line x1="40" y1="250" x2="320" y2="150" stroke="#8b949e" stroke-width="1.8" stroke-dasharray="5,4"/>  <!-- BD -->
+
+    <!-- TÂM ĐÁY O (GIAO ĐIỂM AC VÀ BD) -->
+    <!-- AC và BD cắt nhau tại O(180, 200) -->
+    <!-- GIAO TUYẾN SO MÀU VÀNG KIM RỰC RỠ -->
+    <line x1="200" y1="25" x2="180" y2="200" stroke="#f2cc60" stroke-width="3.5" stroke-dasharray="6,3"/>
+
+    <!-- CÁC CẠNH NHÌN THẤY (NÉT LIỀN) -->
+    <line x1="40" y1="250" x2="260" y2="250" stroke="#58a6ff" stroke-width="2.5"/> <!-- BC -->
+    <line x1="40" y1="250" x2="100" y2="150" stroke="#58a6ff" stroke-width="2"/>   <!-- AB -->
+    <line x1="260" y1="250" x2="320" y2="150" stroke="#58a6ff" stroke-width="2.5"/> <!-- CD -->
+    <line x1="200" y1="25" x2="40" y2="250" stroke="#58a6ff" stroke-width="2.5"/>  <!-- SB -->
+    <line x1="200" y1="25" x2="260" y2="250" stroke="#58a6ff" stroke-width="2.5"/> <!-- SC -->
+    <line x1="200" y1="25" x2="320" y2="150" stroke="#58a6ff" stroke-width="2.5"/> <!-- SD -->
+
+    <!-- Đỉnh S và các điểm -->
+    <circle cx="200" cy="25" r="6" fill="#f2cc60"/>
+    <text x="200" y="14" fill="#f2cc60" font-weight="900" font-size="16" text-anchor="middle">S (Đỉnh Chóp)</text>
+
+    <circle cx="100" cy="150" r="4.5" fill="#ff7b72"/>
+    <text x="82" y="148" fill="#ff7b72" font-weight="700" font-size="14">A</text>
+
+    <circle cx="320" cy="150" r="4.5" fill="#58a6ff"/>
+    <text x="330" y="152" fill="#f0f6fc" font-weight="700" font-size="14">D</text>
+
+    <circle cx="40" cy="250" r="4.5" fill="#58a6ff"/>
+    <text x="22" y="255" fill="#f0f6fc" font-weight="700" font-size="14">B</text>
+
+    <circle cx="260" cy="250" r="4.5" fill="#58a6ff"/>
+    <text x="270" y="255" fill="#f0f6fc" font-weight="700" font-size="14">C</text>
+
+    <circle cx="180" cy="200" r="5" fill="#f2cc60"/>
+    <text x="195" y="208" fill="#f2cc60" font-weight="900" font-size="14">O (Tâm Đáy)</text>
+    
+    <!-- Nhãn giao tuyến SO -->
+    <rect x="205" y="105" width="165" height="30" rx="6" fill="#21262d" stroke="#f2cc60" stroke-width="1.5"/>
+    <text x="287" y="125" fill="#f2cc60" font-weight="800" font-size="12" text-anchor="middle">Giao tuyến SO = (SAC) ∩ (SBD)</text>
+  </svg>
+  <div class="geo-caption">
+    🔷 <strong>HÌNH 4: KỸ NĂNG TÌM GIAO TUYẾN KINH ĐIỂN CỦA HÌNH CHÓP S.ABCD</strong><br>
+    &bull; Điểm chung thứ nhất: <strong>Đỉnh S</strong> chung.<br>
+    &bull; Điểm chung thứ hai: Dưới đáy có $AC \cap BD = O \Rightarrow$ <strong>Tâm O</strong> là điểm chung thứ hai.<br>
+    &bull; Nối 2 điểm chung lại: <strong style="color:#f2cc60;">Đoạn thẳng SO màu vàng</strong> chính là giao tuyến cần tìm!
+  </div>
+</div>
 
   <div class="step-solver">
     <div class="step-solver-header">🎯 KỸ NĂNG 1: TÌM GIAO TUYẾN CỦA HAI MẶT PHẲNG (P) VÀ (Q)</div>
@@ -3075,28 +4004,76 @@ tr:hover td { background: var(--bg-hover); }
       <div class="step" style="margin-top:10px;">
         <div class="step-num">1</div>
         <div class="step-content">
-          <strong>Điểm chung thứ nhất:</strong> Thường là điểm dễ nhìn thấy ngay trên tên gọi của 2 mặt phẳng (ví dụ: tìm giao tuyến của $(SAC)$ và $(SBD)$ thì điểm chung thứ nhất chính là đỉnh $S$).
+          <strong>Điểm chung thứ nhất:</strong> Thường nhìn thấy ngay trên tên gọi của 2 mặt phẳng (ví dụ: tìm giao tuyến của $(SAC)$ và $(SBD)$ thì điểm chung thứ nhất chính là đỉnh $S$).
         </div>
       </div>
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-content">
-          <strong>Điểm chung thứ hai:</strong> Tìm trong mặt phẳng $(P)$ một đường thẳng $a$, trong mặt phẳng $(Q)$ một đường thẳng $b$ sao cho $a$ và $b$ <em>CÙNG NẰM TRONG MỘT MẶT PHẲNG THỨ BA</em> (thường là mặt đáy). Cho $a$ cắt $b$ tại điểm $I$. Điểm $I$ chính là điểm chung thứ hai!
+          <strong>Điểm chung thứ hai:</strong> Tìm trong mặt phẳng $(P)$ một đường thẳng $a$, trong mặt phẳng $(Q)$ một đường thẳng $b$ sao cho $a$ và $b$ <em>CÙNG NẰM TRONG MẶT ĐÁY</em>. Cho $a$ cắt $b$ tại điểm $O$. Điểm $O$ chính là điểm chung thứ hai! (Trong hình trên: $AC \cap BD = O$).
         </div>
       </div>
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-content">
-          <strong>Kết luận:</strong> Nối 2 điểm chung lại: đường thẳng $SI$ chính là giao tuyến cần tìm!
+          <strong>Kết luận:</strong> Nối 2 điểm chung lại: <strong style="color:var(--accent-yellow);">Đường thẳng SO</strong> chính là giao tuyến cần tìm!
         </div>
       </div>
     </div>
   </div>
 
+<div class="geo-diagram">
+  <svg viewBox="0 0 440 240" width="100%" height="240" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="pGradAux" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="#8250df" stop-opacity="0.08"/>
+      </linearGradient>
+      <linearGradient id="qGradAux" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#f2cc60" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="#ff7b72" stop-opacity="0.05"/>
+      </linearGradient>
+    </defs>
+    <!-- Mặt phẳng chính (alpha) nằm ngang -->
+    <polygon points="60,90 400,90 340,210 0,210" fill="url(#pGradAux)" stroke="#58a6ff" stroke-width="2.5"/>
+    <text x="25" y="200" fill="#58a6ff" font-weight="900" font-size="18">(α)</text>
+
+    <!-- Mặt phẳng phụ (beta) chứa d cắt (alpha) theo giao tuyến a -->
+    <!-- Giao tuyến a = (beta) ∩ (alpha) nằm trên (alpha) -->
+    <line x1="80" y1="170" x2="280" y2="110" stroke="#7ee787" stroke-width="3"/>
+    <text x="290" y="115" fill="#7ee787" font-weight="800" font-size="14">Giao tuyến a</text>
+
+    <!-- Đường thẳng d đâm xuyên: phần trên thấy nét liền, phần khuất nét đứt, phần dưới thấy nét liền -->
+    <!-- Nút đâm: M(180, 140) -->
+    <line x1="120" y1="20" x2="180" y2="140" stroke="#ffa657" stroke-width="3"/> <!-- Phần trên -->
+    <text x="105" y="35" fill="#ffa657" font-weight="900" font-size="15">d</text>
+
+    <!-- Giao điểm M -->
+    <circle cx="180" cy="140" r="6" fill="#f2cc60"/>
+    <circle cx="180" cy="140" r="11" fill="none" stroke="#f2cc60" stroke-width="2" opacity="0.7"/>
+    <text x="195" y="148" fill="#f2cc60" font-weight="900" font-size="16">M = d ∩ (α)</text>
+
+    <!-- Phần xuyên thủng bên dưới: 1 đoạn đứt rồi liền -->
+    <line x1="180" y1="140" x2="195" y2="170" stroke="#ff7b72" stroke-width="2.5" stroke-dasharray="4,4"/>
+    <line x1="195" y1="170" x2="220" y2="220" stroke="#ffa657" stroke-width="2.5"/>
+
+    <!-- Khung 3 bước -->
+    <rect x="230" y="15" width="200" height="65" rx="6" fill="#21262d" stroke="#f2cc60" stroke-width="1.5"/>
+    <text x="330" y="32" fill="#f2cc60" font-weight="800" font-size="11" text-anchor="middle">3 BƯỚC TÌM GIAO ĐIỂM d ∩ (α):</text>
+    <text x="240" y="48" fill="#f0f6fc" font-size="10">1. Chọn mặt phụ (β) chứa d</text>
+    <text x="240" y="62" fill="#7ee787" font-size="10">2. Tìm giao tuyến a = (β) ∩ (α)</text>
+    <text x="240" y="75" fill="#ffa657" font-size="10">3. Trong (β), cho d cắt a tại M!</text>
+  </svg>
+  <div class="geo-caption">
+    🔷 <strong>HÌNH MINH HỌA: KỸ NĂNG TÌM GIAO ĐIỂM M CỦA ĐƯỜNG THẲNG d VÀ MẶT PHẲNG (α)</strong><br>
+    Đừng bao giờ kéo dài đường thẳng $d$ lung tung! Bắt buộc phải mượn mặt phẳng phụ $(\beta)$ cắt $(\alpha)$ theo giao tuyến $a$, rồi cho $d$ cắt $a$ tại điểm $M$.
+  </div>
+</div>
+
   <div class="step-solver">
     <div class="step-solver-header">🎯 KỸ NĂNG 2: TÌM GIAO ĐIỂM CỦA ĐƯỜNG THẲNG d VỚI MẶT PHẲNG (&alpha;)</div>
     <div class="step-solver-body">
-      <p>Nhiều đứa cứ lấy bút kéo dài đường thẳng $d$ lung tung rồi cho cắt bừa một đường trong mặt phẳng $(\alpha)$. <strong>SAI NGU!</strong> Trong không gian, hai đường muốn cắt nhau thì BẮT BUỘC chúng phải cùng nằm trong một mặt phẳng!</p>
+      <p>Nhiều đứa mất gốc cứ lấy bút kéo dài đường thẳng $d$ lung tung rồi cho cắt bừa một đường trong mặt phẳng $(\alpha)$. <strong>SAI NGU!</strong> Trong không gian, hai đường muốn cắt nhau thì BẮT BUỘC chúng phải cùng nằm trong một mặt phẳng!</p>
       <p><strong>Quy trình 3 bước chuẩn SGK:</strong></p>
       <div class="step">
         <div class="step-num">1</div>
@@ -3119,8 +4096,20 @@ tr:hover td { background: var(--bg-hover); }
     </div>
   </div>
 
-  <!-- PHẦN 5: TRẮC NGHIỆM ĐÁNH GIÁ BÀI 10 -->
-  <div class="quiz-section" id="b10-quiz">
+<div class="sgk-embed">
+  <div class="sgk-embed-header">
+    <span>📖 Trang 74 - 75 SGK (Sách Kết Nối Tri Thức)</span>
+    <button class="btn-zoom" onclick="openSgkModal('hinh_03.png')">🔍 Phóng To Xem Chi Tiết</button>
+  </div>
+  <div class="sgk-embed-body">
+    <img src="hinh_03.png" alt="Trang 74 - 75 SGK" class="sgk-embed-img" onclick="openSgkModal('hinh_03.png')">
+  </div>
+  <div class="sgk-embed-footer">
+    💡 <strong>Góc đối chiếu SGK:</strong> Hình minh họa phương pháp tìm giao tuyến, giao điểm và cắt thiết diện trong SGK.
+  </div>
+</div>
+
+<div class="quiz-section" id="b10-quiz">
     <div class="quiz-header">
       <div class="quiz-icon">📝</div>
       <div>
@@ -3320,7 +4309,6 @@ tr:hover td { background: var(--bg-hover); }
     <button class="quiz-submit-btn" onclick="gradeQuiz('b10')">🏆 Chấm Điểm Bài 10 & Xem Phân Tích Chi Tiết</button>
   </div>
 </section>
-
 <div style="margin:24px 0 10px;">
   <h4 class="sub-title">🎴 Flashcard Lật Thẻ Ôn Nhanh Hình Không Gian Bài 10 - 11</h4>
   <div class="flashcard-deck">
@@ -3373,8 +4361,7 @@ tr:hover td { background: var(--bg-hover); }
 
 
       <!-- BÀI 11 -->
-      
-<section class="lesson-section" id="bai-11">
+      <section class="lesson-section" id="bai-11">
   <div class="lesson-header">
     <div class="lesson-number">11</div>
     <div class="lesson-meta">
@@ -3399,28 +4386,103 @@ tr:hover td { background: var(--bg-hover); }
   <h3 class="sec-title" id="h11-vi-tri-tuong-doi">1. Bốn Vị Trí Tương Đối Của Hai Đường Thẳng (Mổ Xẻ Tận Gốc)</h3>
 
   <div class="box box-theory">
-    <div class="box-title">💡 DỊCH SANG TIẾNG NGƯỜI: "CHÉO NHAU" LÀ GÌ?</div>
-    <p>Hồi cấp 2 trong mặt phẳng, hai đường thẳng chỉ có 3 cửa: Cắt nhau, Song song hoặc Trùng nhau. Nhưng lên lớp 11 trong không gian 3 chiều, có một trường hợp quái vật xuất hiện: <strong>HAI ĐƯỜNG THẲNG CHÉO NHAU</strong>!</p>
+    <div class="box-title">💡 DỊCH SANG TIẾNG NGƯỜI: "CHÉO NHAU" LÀ CÁI QUÁI GÌ?</div>
+    <p>Hồi cấp 2 chỉ học hình phẳng 2D, hai đường thẳng chỉ có 3 cửa: Cắt nhau, Song song hoặc Trùng nhau. Nhưng lên lớp 11 trong không gian 3D, có một trường hợp quái vật xuất hiện làm điên đảo học sinh: <strong>HAI ĐƯỜNG THẲNG CHÉO NHAU</strong>!</p>
     <ul class="content-list">
       <li><strong>Trường hợp 1: CÙNG NẰM TRONG MỘT MẶT PHẲNG (Đồng phẳng):</strong>
         <br>&bull; <em>Cắt nhau:</em> Có đúng 1 điểm chung duy nhất.
         <br>&bull; <em>Song song:</em> Cùng nằm trong 1 mặt phẳng và KHÔNG CÓ ĐIỂM CHUNG NÀO.
-        <br>&bull; <em>Trùng nhau:</em> Có vô số điểm chung.
+        <br>&bull; <em>Trùng nhau:</em> Có vô số điểm chung (đè khít lên nhau).
       </li>
       <li><strong>Trường hợp 2: KHÔNG CÙNG NẰM TRONG BẤT KÌ MẶT PHẲNG NÀO:</strong>
-        <br>&bull; <strong>HAI ĐƯỜNG THẲNG CHÉO NHAU!</strong> Chúng không cắt nhau, cũng không song song với nhau.
+        <br>&bull; <strong>HAI ĐƯỜNG THẲNG CHÉO NHAU!</strong> Chúng không bao giờ cắt nhau, nhưng cũng KHÔNG HỀ song song với nhau!
       </li>
     </ul>
   </div>
 
   <div class="box box-story">
-    <div class="box-title">✈️ VÍ DỤ ĐỜI THƯỜNG: MÁY BAY VÀ TÀU HỎA</div>
-    <p>Hãy nhìn một chiếc máy bay đang bay trên bầu trời theo hướng Bắc &ndash; Nam ở độ cao $10.000\text{ m}$, và một đoàn tàu hỏa chạy trên mặt đất theo hướng Đông &ndash; Tây.</p>
-    <p style="margin-top:6px;">Quỹ đạo bay của máy bay và đường ray tàu hỏa <strong>hoàn toàn không cắt nhau</strong> (không bao giờ đâm vào nhau), nhưng chúng cũng <strong>không hề song song</strong>! Đó chính là hình ảnh chân thực nhất của <strong>HAI ĐƯỜNG THẲNG CHÉO NHAU</strong> trong không gian!</p>
+    <div class="box-title">✈️ VÍ DỤ TRỰC QUAN ĐỜI THƯỜNG: CẦU VƯỢT VÀ ĐƯỜNG CAO TỐC</div>
+    <p>Hãy tưởng tượng một cây cầu vượt cạn: Ô tô trên cầu đang chạy theo hướng Đông &ndash; Tây. Bên dưới gầm cầu, một chiếc xe khách đang chạy trên đường cao tốc theo hướng Bắc &ndash; Nam.</p>
+    <p style="margin-top:6px;">Hai chiếc xe <strong>không bao giờ đâm vào nhau</strong> (hoàn toàn không có điểm chung), nhưng chúng cũng <strong>không hề song song</strong>! Đó chính là hình ảnh chân thực nhất của <strong>HAI ĐƯỜNG THẲNG CHÉO NHAU</strong> (mỗi thằng sống ở một tầng trời khác nhau)!</p>
   </div>
+
+<div class="geo-diagram">
+  <svg viewBox="0 0 540 180" width="100%" height="180" xmlns="http://www.w3.org/2000/svg">
+    <!-- Vị trí 1: Cắt nhau -->
+    <rect x="5" y="5" width="125" height="170" rx="8" fill="rgba(88,166,255,0.06)" stroke="#30363d"/>
+    <text x="67" y="24" fill="#58a6ff" font-weight="800" font-size="11" text-anchor="middle">1. CẮT NHAU</text>
+    <polygon points="15,45 120,45 105,120 5,120" fill="rgba(88,166,255,0.12)" stroke="#58a6ff" stroke-width="1"/>
+    <line x1="20" y1="105" x2="105" y2="55" stroke="#7ee787" stroke-width="2"/>
+    <line x1="30" y1="60" x2="95" y2="105" stroke="#ffa657" stroke-width="2"/>
+    <circle cx="62" cy="80" r="4" fill="#f2cc60"/>
+    <text x="62" y="96" fill="#f2cc60" font-size="10" font-weight="bold">M</text>
+    <text x="67" y="145" fill="#f0f6fc" font-size="11" text-anchor="middle">Có đúng 1 điểm chung</text>
+    <text x="67" y="160" fill="#7ee787" font-size="10" text-anchor="middle">a ∩ b = {M}</text>
+
+    <!-- Vị trí 2: Song song -->
+    <rect x="138" y="5" width="125" height="170" rx="8" fill="rgba(126,231,135,0.06)" stroke="#30363d"/>
+    <text x="200" y="24" fill="#7ee787" font-weight="800" font-size="11" text-anchor="middle">2. SONG SONG</text>
+    <polygon points="148,45 253,45 238,120 138,120" fill="rgba(126,231,135,0.12)" stroke="#7ee787" stroke-width="1"/>
+    <line x1="150" y1="75" x2="235" y2="75" stroke="#58a6ff" stroke-width="2"/>
+    <text x="240" y="78" fill="#58a6ff" font-size="10" font-weight="bold">a</text>
+    <line x1="155" y1="95" x2="240" y2="95" stroke="#ffa657" stroke-width="2"/>
+    <text x="245" y="98" fill="#ffa657" font-size="10" font-weight="bold">b</text>
+    <text x="200" y="145" fill="#f0f6fc" font-size="11" text-anchor="middle">Cùng nằm trong 1 mp</text>
+    <text x="200" y="160" fill="#7ee787" font-size="10" text-anchor="middle">a ∥ b, a ∩ b = ∅</text>
+
+    <!-- Vị trí 3: Trùng nhau -->
+    <rect x="271" y="5" width="125" height="170" rx="8" fill="rgba(242,204,96,0.06)" stroke="#30363d"/>
+    <text x="333" y="24" fill="#f2cc60" font-weight="800" font-size="11" text-anchor="middle">3. TRÙNG NHAU</text>
+    <polygon points="281,45 386,45 371,120 271,120" fill="rgba(242,204,96,0.12)" stroke="#f2cc60" stroke-width="1"/>
+    <line x1="285" y1="85" x2="375" y2="85" stroke="#f2cc60" stroke-width="3.5"/>
+    <text x="382" y="88" fill="#f2cc60" font-size="10" font-weight="bold">a ≡ b</text>
+    <text x="333" y="145" fill="#f0f6fc" font-size="11" text-anchor="middle">Có vô số điểm chung</text>
+    <text x="333" y="160" fill="#7ee787" font-size="10" text-anchor="middle">Đè khít lên nhau</text>
+
+    <!-- Vị trí 4: CHÉO NHAU (ĐẶC SẢN LỚP 11) -->
+    <rect x="404" y="5" width="131" height="170" rx="8" fill="rgba(255,123,114,0.08)" stroke="#ff7b72" stroke-width="1.8"/>
+    <text x="469" y="24" fill="#ff7b72" font-weight="900" font-size="11" text-anchor="middle">4. CHÉO NHAU 🔥</text>
+    <polygon points="414,55 524,55 504,120 404,120" fill="rgba(255,123,114,0.15)" stroke="#ff7b72" stroke-width="1"/>
+    <line x1="415" y1="95" x2="495" y2="70" stroke="#7ee787" stroke-width="2.5"/>
+    <text x="500" y="73" fill="#7ee787" font-size="10" font-weight="bold">a ⊂ (P)</text>
+    
+    <!-- Đường b đâm xuyên qua mp tại điểm I không thuộc a -->
+    <line x1="465" y1="35" x2="465" y2="88" stroke="#58a6ff" stroke-width="2.5"/>
+    <circle cx="465" cy="88" r="3.5" fill="#f2cc60"/>
+    <line x1="465" y1="88" x2="465" y2="105" stroke="#58a6ff" stroke-width="2" stroke-dasharray="3,3"/>
+    <line x1="465" y1="105" x2="465" y2="128" stroke="#58a6ff" stroke-width="2.5"/>
+    <text x="472" y="42" fill="#58a6ff" font-size="10" font-weight="bold">b ⊄ (P)</text>
+    <text x="469" y="145" fill="#ff7b72" font-size="11" font-weight="700" text-anchor="middle">KHÔNG CẮT &amp; KHÔNG // </text>
+    <text x="469" y="160" fill="#ffa657" font-size="10" text-anchor="middle">(Ở 2 tầng trời khác nhau)</text>
+  </svg>
+  <div class="geo-caption">
+    🔷 <strong>HÌNH 5: BỐN VỊ TRÍ TƯƠNG ĐỐI GIỮA HAI ĐƯỜNG THẲNG TRONG KHÔNG GIAN</strong><br>
+    Đặc biệt lưu ý <strong>ô số 4 (CHÉO NHAU)</strong>: Hai đường thẳng không cùng nằm trong bất kì mặt phẳng nào (như máy bay trên trời và xe chạy dưới mặt đất).
+  </div>
+</div>
+
+
+<div class="sgk-embed">
+  <div class="sgk-embed-header">
+    <span>📖 Trang 78 - 79 SGK (Sách Kết Nối Tri Thức)</span>
+    <button class="btn-zoom" onclick="openSgkModal('hinh_05.png')">🔍 Phóng To Xem Chi Tiết</button>
+  </div>
+  <div class="sgk-embed-body">
+    <img src="hinh_05.png" alt="Trang 78 - 79 SGK" class="sgk-embed-img" onclick="openSgkModal('hinh_05.png')">
+  </div>
+  <div class="sgk-embed-footer">
+    💡 <strong>Góc đối chiếu SGK:</strong> Hình ảnh SGK: Hai đường thẳng chéo nhau và hai đường thẳng song song trong không gian.
+  </div>
+</div>
+
 
   <!-- PHẦN 2: TÍNH CHẤT VÀ ĐỊNH LÝ GIAO TUYẾN SONG SONG -->
   <h3 class="sec-title" id="h11-dinh-ly-giao-tuyen">2. Định Lý Giao Tuyến Song Song (Vũ Khí Lấy Điểm 9 Giữa Kì)</h3>
+
+  <div class="box box-story">
+    <div class="box-title">🥩 VÍ DỤ TRỰC QUAN ĐỜI THƯỜNG: MÁI LỀU VÀ QUYỂN LỊCH CHỮ A</div>
+    <p>Mày nhìn chiếc lịch để bàn chữ A: Mặt trước và mặt sau có hai mép đáy song song nằm trên mặt bàn. Khi hai mặt này khép lại ở đỉnh, nếp gấp trên cùng (giao tuyến) bắt buộc phải <strong>SONG SONG VỚI CẢ HAI MÉP ĐÁY</strong>!</p>
+  </div>
 
   <div class="box box-formula">
     <div class="box-title">📐 ĐỊNH LÝ 1: TÍNH CHẤT BẮC CẦU CỦA ĐƯỜNG THẲNG SONG SONG</div>
@@ -3437,13 +4499,68 @@ tr:hover td { background: var(--bg-hover); }
         &bull; Mặt phẳng (&alpha;) chứa đường thẳng a<br>
         &bull; Mặt phẳng (&beta;) chứa đường thẳng b<br>
         &bull; Mà a &parallel; b<br>
-        &bull; (&alpha;) c&abreve;t (&beta;) theo giao tuyến d
+        &bull; (&alpha;) cắt (&beta;) theo giao tuyến d
       </span>
       &nbsp;&nbsp;&rArr;&nbsp;&nbsp;
       <strong style="color:var(--accent-green);font-size:1.15rem;">Giao tuyến d &parallel; a &parallel; b</strong>
     </div>
     <div class="formula-label">Thần chú nhớ: "Hai mặt phẳng chứa hai đường song song thì giao tuyến của chúng PHẢI SONG SONG với hai đường đó!"</div>
   </div>
+
+<div class="geo-diagram">
+  <svg viewBox="0 0 440 280" width="100%" height="280" xmlns="http://www.w3.org/2000/svg">
+    <!-- Hình chóp S.ABCD đáy AB // CD -->
+    <!-- Đáy: A(90, 130), D(330, 130), B(40, 230), C(280, 230) -->
+    <line x1="90" y1="130" x2="330" y2="130" stroke="#ff7b72" stroke-width="2" stroke-dasharray="6,4"/> <!-- AD nét đứt -->
+    <line x1="210" y1="60" x2="90" y2="130" stroke="#ff7b72" stroke-width="2" stroke-dasharray="6,4"/>  <!-- SA nét đứt -->
+
+    <!-- Cạnh nhìn thấy -->
+    <line x1="40" y1="230" x2="280" y2="230" stroke="#58a6ff" stroke-width="2.5"/> <!-- BC -->
+    <line x1="40" y1="230" x2="90" y2="130" stroke="#58a6ff" stroke-width="2"/>   <!-- AB -->
+    <line x1="280" y1="230" x2="330" y2="130" stroke="#58a6ff" stroke-width="2.5"/> <!-- CD -->
+    <line x1="210" y1="60" x2="40" y2="230" stroke="#58a6ff" stroke-width="2.5"/>  <!-- SB -->
+    <line x1="210" y1="60" x2="280" y2="230" stroke="#58a6ff" stroke-width="2.5"/> <!-- SC -->
+    <line x1="210" y1="60" x2="330" y2="130" stroke="#58a6ff" stroke-width="2.5"/> <!-- SD -->
+
+    <!-- GIAO TUYẾN Sx ĐI QUA S VÀ SONG SONG AB, CD -->
+    <line x1="50" y1="60" x2="370" y2="60" stroke="#7ee787" stroke-width="3"/>
+    <!-- Mũi tên 2 chiều -->
+    <polygon points="50,60 62,55 62,65" fill="#7ee787"/>
+    <polygon points="370,60 358,55 358,65" fill="#7ee787"/>
+    <text x="380" y="65" fill="#7ee787" font-weight="900" font-size="14">d (Giao tuyến Sx)</text>
+
+    <!-- Đỉnh S -->
+    <circle cx="210" cy="60" r="6" fill="#f2cc60"/>
+    <text x="210" y="48" fill="#f2cc60" font-weight="800" font-size="15" text-anchor="middle">S</text>
+
+    <text x="35" y="248" fill="#f0f6fc" font-weight="700" font-size="14">B</text>
+    <text x="288" y="248" fill="#f0f6fc" font-weight="700" font-size="14">C</text>
+    <text x="75" y="128" fill="#ff7b72" font-weight="700" font-size="14">A</text>
+    <text x="340" y="132" fill="#f0f6fc" font-weight="700" font-size="14">D</text>
+
+    <text x="160" y="250" fill="#58a6ff" font-size="12" text-anchor="middle">Đáy AB ∥ CD</text>
+  </svg>
+  <div class="geo-caption">
+    🔷 <strong>HÌNH 6: ĐỊNH LÝ GIAO TUYẾN SONG SONG</strong><br>
+    Hai mặt phẳng $(SAB)$ và $(SCD)$ có điểm chung $S$ và lần lượt chứa $AB \parallel CD$<br>
+    $\Rightarrow$ Giao tuyến của chúng là <strong style="color:#7ee787;">đường thẳng d đi qua đỉnh S và song song với AB và CD!</strong>
+  </div>
+</div>
+
+
+<div class="sgk-embed">
+  <div class="sgk-embed-header">
+    <span>📖 Trang 80 - 81 SGK (Sách Kết Nối Tri Thức)</span>
+    <button class="btn-zoom" onclick="openSgkModal('hinh_06.png')">🔍 Phóng To Xem Chi Tiết</button>
+  </div>
+  <div class="sgk-embed-body">
+    <img src="hinh_06.png" alt="Trang 80 - 81 SGK" class="sgk-embed-img" onclick="openSgkModal('hinh_06.png')">
+  </div>
+  <div class="sgk-embed-footer">
+    💡 <strong>Góc đối chiếu SGK:</strong> Định lý 3 giao tuyến và phương pháp chứng minh hai đường thẳng song song trong SGK.
+  </div>
+</div>
+
 
   <!-- PHẦN 3: DẠNG TOÁN THỰC CHIẾN KINH ĐIỂN -->
   <h3 class="sec-title" id="h11-thuc-chien">3. Dạng Toán Kinh Điển: Tìm Giao Tuyến Đi Qua Đỉnh & Song Song Đáy</h3>
@@ -3460,32 +4577,29 @@ tr:hover td { background: var(--bg-hover); }
           <p>&bull; Nhìn vào tên hai mặt phẳng $(SAB)$ và $(SCD)$: Điểm chung thứ nhất là <strong>đỉnh $S$</strong>.</p>
           <p>&bull; Trong mặt phẳng $(SAB)$ có chứa đường thẳng $AB$.</p>
           <p>&bull; Trong mặt phẳng $(SCD)$ có chứa đường thẳng $CD$.</p>
-          <p>&bull; Đáy $ABCD$ là hình bình hành nên <strong>$AB \parallel CD$</strong>!</p>
+          <p>&bull; Vì đáy $ABCD$ là hình bình hành nên <strong>$AB \parallel CD$</strong>!</p>
         </div>
       </div>
 
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-content">
-          <strong>Bước 2: Ốp định lý giao tuyến song song</strong>
-          <p>Hai mặt phẳng $(SAB)$ và $(SCD)$ có điểm chung $S$ và lần lượt chứa hai đường thẳng song song $AB \parallel CD$.</p>
-          <p>Theo định lý giao tuyến song song: <strong>Giao tuyến của chúng là đường thẳng $Sx$ đi qua điểm $S$ và song song với cả $AB$ và $CD$!</strong></p>
+          <strong>Bước 2: Ốp ngay Định lý giao tuyến song song</strong>
+          <p>Hai mặt phẳng $(SAB)$ và $(SCD)$ lần lượt chứa hai đường thẳng song song $AB$ và $CD$.</p>
+          <p>Suy ra giao tuyến của chúng bắt buộc phải là <strong>đường thẳng $d$ đi qua điểm chung $S$ và song song với $AB$ và $CD$</strong> ($d \parallel AB \parallel CD$).</p>
         </div>
       </div>
 
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-content">
-          <strong>Bước 3: Trình bày bài thi chuẩn mực không bị trừ một phần tư điểm</strong>
-          <p>Ta có: $S \in (SAB) \cap (SCD)$.</p>
-          <p>$\begin{cases} AB \subset (SAB) \\ CD \subset (SCD) \\ AB \parallel CD \end{cases} \Rightarrow (SAB) \cap (SCD) = Sx$ với $Sx \parallel AB \parallel CD$. Xong bài mẫu mực 10 điểm!</p>
+          <strong>Bước 3: Vẽ hình & Kết luận ăn trọn điểm</strong>
+          <p>Từ đỉnh $S$, lấy thước kẻ một đường thẳng $Sx$ nằm ngang song song với cạnh $AB$. Đường thẳng $Sx$ đó chính là giao tuyến cần tìm! (Xem Hình 6 ở trên).</p>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- PHẦN 4: TRẮC NGHIỆM ĐÁNH GIÁ BÀI 11 -->
-  <div class="quiz-section" id="b11-quiz">
+<div class="quiz-section" id="b11-quiz">
     <div class="quiz-header">
       <div class="quiz-icon">📝</div>
       <div>
@@ -3687,10 +4801,8 @@ tr:hover td { background: var(--bg-hover); }
   </div>
 </section>
 
-
       <!-- BÀI 12 -->
-      
-<section class="lesson-section" id="bai-12">
+      <section class="lesson-section" id="bai-12">
   <div class="lesson-header">
     <div class="lesson-number">12</div>
     <div class="lesson-meta">
@@ -3698,7 +4810,7 @@ tr:hover td { background: var(--bg-hover); }
       <div class="lesson-sub">SGK Kết Nối Tri Thức &bull; Chương IV &bull; Trang 84 &ndash; 88</div>
       <div class="lesson-tags">
         <span class="lesson-tag">Vị trí tương đối đường & mặt</span>
-        <span class="lesson-tag">Phương pháp chứng minh d &parallel; (&alpha;)</span>
+        <span class="lesson-tag">Phương pháp chứng minh d // (α)</span>
         <span class="lesson-tag">Định lý giao tuyến liên quan</span>
         <span class="lesson-tag">Thiết diện song song</span>
       </div>
@@ -3710,102 +4822,261 @@ tr:hover td { background: var(--bg-hover); }
     <button class="sgk-btn" onclick="openSgkModal('hinh_09.png')">📖 Xem SGK Trang 86-88</button>
   </div>
 
-  <!-- PHẦN 1: VỊ TRÍ TƯƠNG ĐỐI -->
-  <h3 class="sec-title" id="h12-vi-tri-tuong-doi">1. Vị Trí Tương Đối Giữa Đường Thẳng Và Mặt Phẳng</h3>
+  
+<div class="sgk-embed">
+  <div class="sgk-embed-header">
+    <span>📖 Trang 84 - 85 SGK (Sách Kết Nối Tri Thức)</span>
+    <button class="btn-zoom" onclick="openSgkModal('hinh_08.png')">🔍 Phóng To Xem Chi Tiết</button>
+  </div>
+  <div class="sgk-embed-body">
+    <img src="hinh_08.png" alt="Trang 84 - 85 SGK" class="sgk-embed-img" onclick="openSgkModal('hinh_08.png')">
+  </div>
+  <div class="sgk-embed-footer">
+    💡 <strong>Góc đối chiếu SGK:</strong> Khái niệm & Điều kiện để đường thẳng song song với mặt phẳng trong SGK Kết Nối Tri Thức.
+  </div>
+</div>
 
-  <div class="box box-theory">
-    <div class="box-title">💡 BA TRẠNG THÁI QUAN HỆ GIỮA ĐƯỜNG VÀ MẶT</div>
-    <ul class="content-list">
-      <li><strong>1. Đường thẳng nằm trong mặt phẳng ($d \subset (\alpha)$):</strong>
-        <br>&bull; Đường thẳng bám chặt trên mặt phẳng $\Rightarrow$ Có <strong>VÔ SỐ ĐIỂM CHUNG</strong>.
-      </li>
-      <li><strong>2. Đường thẳng cắt mặt phẳng ($d \cap (\alpha) = \{M\}$):</strong>
-        <br>&bull; Đường thẳng đâm xuyên qua mặt phẳng $\Rightarrow$ Có <strong>ĐÚNG 1 ĐIỂM CHUNG DUY NHẤT</strong>.
-      </li>
-      <li><strong>3. Đường thẳng song song với mặt phẳng ($d \parallel (\alpha)$):</strong>
-        <br>&bull; Đường thẳng bay lơ lửng bên trên hoặc bên dưới mặt phẳng $\Rightarrow$ <strong>HOÀN TOÀN KHÔNG CÓ ĐIỂM CHUNG NÀO</strong>!
-      </li>
+
+  <!-- PHẦN 1: VỊ TRÍ TƯƠNG ĐỐI -->
+  <h3 class="sec-title" id="h12-vi-tri-tuong-doi">1. Vị Trí Tương Đối Giữa Đường Thẳng Và Mặt Phẳng (Dịch Sang Tiếng Người)</h3>
+
+  <div class="box box-tip">
+    <div class="box-title">💡 VÍ DỤ TRỰC QUAN ĐỜI THƯỜNG: CÂY BÚT, ĐŨA ĂN VÀ DÂY ĐIỆN</div>
+    <p>Để hiểu mối quan hệ giữa một đường thẳng $d$ và một mặt phẳng $(\alpha)$ (ví dụ mặt bàn học của bạn), chỉ có đúng 3 kịch bản xảy ra trong vũ trụ này:</p>
+    <ul class="content-list" style="margin-top:8px;">
+      <li><strong>1. Nằm bẹp dí trên mặt bàn ($d \subset (\alpha)$):</strong> Bạn đặt cây bút chì nằm dài trên mặt bàn. Tất cả mọi điểm trên cây bút đều chạm vào mặt bàn $\Rightarrow$ Có <strong>VÔ SỐ ĐIỂM CHUNG</strong>.</li>
+      <li><strong>2. Đâm xuyên qua mặt bàn ($d \cap (\alpha) = \{M\}$):</strong> Bạn cầm chiếc đũa cắm thẳng đứng vào tô cơm, hoặc một mũi tên bắn thủng tấm bia. Cây đũa xuyên qua mặt phẳng đúng tại 1 cái lỗ $M$ $\Rightarrow$ Có <strong>ĐÚNG 1 ĐIỂM CHUNG DUY NHẤT</strong>.</li>
+      <li><strong>3. Bay lơ lửng song song ($d \parallel (\alpha)$):</strong> Cánh quạt trần quay trên đầu bạn, hoặc dây điện cao thế giăng ngang qua cánh đồng lúa phẳng lỳ. Dù bạn có kéo dài cánh quạt hay dây điện ra vô tận hai phía, nó cũng <strong>vĩnh viễn không bao giờ chạm tới sàn nhà/mặt ruộng</strong> $\Rightarrow$ Có <strong>0 ĐIỂM CHUNG</strong> ($d \cap (\alpha) = \emptyset$).</li>
     </ul>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table-summary">
+      <thead>
+        <tr>
+          <th>Vị trí tương đối</th>
+          <th>Kí hiệu toán học</th>
+          <th>Số điểm chung</th>
+          <th>Hình ảnh đời thực</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Đường thẳng nằm trong mặt</strong></td>
+          <td>$d \subset (\alpha)$</td>
+          <td><strong style="color:var(--accent-blue-light);">Vô số</strong></td>
+          <td>Cây bút đặt nằm dài trên mặt bàn</td>
+        </tr>
+        <tr>
+          <td><strong>Đường thẳng cắt mặt phẳng</strong></td>
+          <td>$d \cap (\alpha) = \{M\}$</td>
+          <td><strong style="color:var(--accent-yellow);">Đúng 1 điểm</strong></td>
+          <td>Chiếc đũa cắm vào bát cơm, mũi tên cắm vào bia</td>
+        </tr>
+        <tr>
+          <td><strong>Đường thẳng song song mặt</strong></td>
+          <td>$d \parallel (\alpha)$</td>
+          <td><strong style="color:var(--accent-green);">0 điểm chung</strong></td>
+          <td>Dây điện cao thế giăng trên đồng ruộng, quạt trần quay trên sàn</td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 
   <!-- PHẦN 2: PHƯƠNG PHÁP VÀNG CHỨNG MINH ĐƯỜNG SONG SONG MẶT -->
   <h3 class="sec-title" id="h12-phuong-phap-chung-minh">2. Phương Pháp Vàng Chứng Minh Đường Song Song Mặt (SGK Trang 85)</h3>
 
+  <div class="box box-theory">
+    <div class="box-title">💡 DỊCH SANG TIẾNG NGƯỜI: TUYỆT KỸ "BẮC CẦU SONG SONG"</div>
+    <p>Muốn chứng minh thanh gỗ $d$ đang bay lơ lửng song song với sàn nhà $(\alpha)$, đừng bao giờ tìm cách đo khoảng cách từ thanh gỗ xuống sàn (trong không gian không ai làm thế!).</p>
+    <p style="margin-top:6px;"><strong>Chiêu thức chuẩn:</strong> Bạn chỉ cần cúi xuống nhìn trên sàn nhà $(\alpha)$, tìm lấy MỘT ĐƯỜNG KẺ $d'$ (vạch chỉ gạch, mép thảm, cạnh đáy hình...). Nếu bạn chứng minh được <strong>thanh gỗ $d$ song song với vạch kẻ $d'$</strong> đó, và bản thân thanh gỗ không rơi bẹp dí xuống sàn ($d \not\subset (\alpha)$), thì 100% <strong>thanh gỗ $d$ song song với toàn bộ sàn nhà $(\alpha)$!</strong></p>
+  </div>
+
+  
+<div class="geo-diagram">
+  <svg viewBox="0 0 440 210" width="100%" height="210" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="pGrad12" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.2"/>
+        <stop offset="100%" stop-color="#8250df" stop-opacity="0.08"/>
+      </linearGradient>
+    </defs>
+    <!-- Mặt phẳng (alpha) -->
+    <polygon points="60,65 380,65 320,185 0,185" fill="url(#pGrad12)" stroke="#58a6ff" stroke-width="2.5"/>
+    <text x="25" y="175" fill="#58a6ff" font-weight="900" font-size="18">(α)</text>
+
+    <!-- Đường thẳng d' nằm trong (alpha) -->
+    <line x1="80" y1="135" x2="280" y2="95" stroke="#7ee787" stroke-width="3"/>
+    <text x="290" y="98" fill="#7ee787" font-weight="800" font-size="14">d' ⊂ (α)</text>
+
+    <!-- Đường thẳng d bay lơ lửng bên trên song song d' -->
+    <line x1="100" y1="45" x2="300" y2="5" stroke="#f2cc60" stroke-width="3.5"/>
+    <text x="310" y="10" fill="#f2cc60" font-weight="900" font-size="15">d ⊄ (α)</text>
+    
+    <!-- Ký hiệu song song mũi tên kép -->
+    <line x1="180" y1="115" x2="200" y2="25" stroke="#ffa657" stroke-width="1.5" stroke-dasharray="4,4"/>
+    <text x="205" y="45" fill="#ffa657" font-weight="700" font-size="12">d ∥ d'</text>
+
+    <!-- Kết luận to rõ -->
+    <rect x="250" y="130" width="170" height="38" rx="6" fill="#21262d" stroke="#7ee787" stroke-width="2"/>
+    <text x="335" y="154" fill="#7ee787" font-weight="900" font-size="15" text-anchor="middle">⇒ d ∥ (α) (XONG!)</text>
+  </svg>
+  <div class="geo-caption">
+    🔷 <strong>HÌNH 7: CÁCH DUY NHẤT CHỨNG MINH ĐƯỜNG SONG SONG MẶT</strong><br>
+    Chỉ cần chứng minh: $d \not\subset (\alpha)$ và $d$ song song với một đường $d' \subset (\alpha)$ là suy ra ngay $d \parallel (\alpha)$!
+  </div>
+</div>
+
+
   <div class="box box-formula">
-    <div class="box-title">🔥 ĐỊNH LÝ 1: CÁCH DUY NHẤT ĐỂ CHỨNG MINH d &parallel; (&alpha;) TRONG BÀI THI</div>
+    <div class="box-title">🔥 ĐỊNH LÝ 1: CÔNG THỨC 3 DÒNG ĂN TRỌN ĐIỂM CHỨNG MINH d // (α)</div>
     <div class="formula-display">
-      <span style="display:inline-block;vertical-align:middle;text-align:left;">
-        &bull; Đường thẳng d KHÔNG NẰM TRONG (&alpha;)<br>
-        &bull; Tìm được một đường thẳng d' NẰM TRONG (&alpha;)<br>
-        &bull; Sao cho d &parallel; d'
-      </span>
-      &nbsp;&nbsp;&rArr;&nbsp;&nbsp;
-      <strong style="color:var(--accent-green);font-size:1.15rem;">d &parallel; (&alpha;)</strong>
+      \begin{cases} d \not\subset (\alpha) \\ d' \subset (\alpha) \\ d \parallel d' \end{cases} \quad \Longrightarrow \quad \mathbf{d \parallel (\alpha)}
     </div>
-    <div class="formula-label">Thần chú nhớ: "Muốn song song với mặt &ndash; Chỉ cần song song với một đường nằm trong mặt là xong!"</div>
+    <div class="formula-label">Thần chú nhớ: "Không nằm trong mặt + Song song với một đường trong mặt = Song song với cả mặt phẳng!"</div>
   </div>
 
   <div class="box box-warning">
-    <div class="box-title">⚠️ BẪY MẤT ĐIỂM OAN UỔNG CỦA HỌC SINH</div>
-    <p>Rất nhiều đứa chứng minh $d \parallel d'$ xong kết luận luôn $d \parallel (\alpha)$. Thầy cô sẽ gạch ngay và trừ 0,5 điểm!</p>
-    <p style="margin-top:6px;"><strong>LÝ DO:</strong> Mày quên mất điều kiện sống còn: <strong>$d$ KHÔNG ĐƯỢC NẰM TRONG $(\alpha)$</strong> ($d \not\subset (\alpha)$). Nếu lỡ $d$ nằm trọn trong $(\alpha)$ thì làm sao song song được nữa! Phải ghi đủ 3 dòng thì mới được trọn vẹn điểm tối đa.</p>
+    <div class="box-title">⚠️ BẪY MẤT ĐIỂM TỬ THẦN CỦA HỌC SINH MẤT GỐC</div>
+    <p>90% học sinh mất điểm ở câu này vì chỉ ghi: <em>"Vì $d \parallel d'$ nên $d \parallel (\alpha)$"</em>. Thầy cô chấm thi sẽ gạch đi và trừ ngay 0,5 điểm!</p>
+    <p style="margin-top:6px;"><strong>LÝ DO:</strong> Bạn quên mất dòng điều kiện sống còn: <strong>$d \not\subset (\alpha)$</strong>. Nếu rủi thay $d$ nằm ngay trên mặt $(\alpha)$ thì nó đâu thể song song với $(\alpha)$ được! Vì thế, đi thi bắt buộc phải chép đủ 3 dòng như trong khung công thức ở trên!</p>
   </div>
 
   <!-- PHẦN 3: ĐỊNH LÝ GIAO TUYẾN LIÊN QUAN -->
-  <h3 class="sec-title" id="h12-dinh-ly-giao-tuyen">3. Định Lý Giao Tuyến Của Mặt Phẳng Chứa Đường Song Song</h3>
+  <h3 class="sec-title" id="h12-dinh-ly-giao-tuyen">3. Định Lý Giao Tuyến Của Mặt Phẳng Chứa Đường Song Song (SGK Trang 86)</h3>
+
+  
+<div class="sgk-embed">
+  <div class="sgk-embed-header">
+    <span>📖 Trang 86 - 88 SGK (Sách Kết Nối Tri Thức)</span>
+    <button class="btn-zoom" onclick="openSgkModal('hinh_09.png')">🔍 Phóng To Xem Chi Tiết</button>
+  </div>
+  <div class="sgk-embed-body">
+    <img src="hinh_09.png" alt="Trang 86 - 88 SGK" class="sgk-embed-img" onclick="openSgkModal('hinh_09.png')">
+  </div>
+  <div class="sgk-embed-footer">
+    💡 <strong>Góc đối chiếu SGK:</strong> Định lý giao tuyến song song và bài toán ứng dụng thiết diện cắt hình chóp.
+  </div>
+</div>
+
 
   <div class="box box-formula">
-    <div class="box-title">📐 ĐỊNH LÝ 2: TẠO RA GIAO TUYẾN SONG SONG (SGK Trang 86)</div>
+    <div class="box-title">📐 ĐỊNH LÝ 2: TỰ ĐỘNG SINH RA GIAO TUYẾN SONG SONG</div>
     <div class="formula-display">
-      Nếu d &parallel; (&alpha;)  và  mặt phẳng (&beta;) chứa d cắt (&alpha;) theo giao tuyến d'   &rArr;   <strong style="color:var(--accent-yellow);">d' &parallel; d</strong>
+      \begin{cases} d \parallel (\alpha) \\ d \subset (\beta) \\ (\alpha) \cap (\beta) = d' \end{cases} \quad \Longrightarrow \quad \mathbf{d' \parallel d}
     </div>
-    <div class="formula-label">Ứng dụng: Chuyên dùng để vẽ giao tuyến và tìm thiết diện khi cắt hình chóp bằng một mặt phẳng!</div>
+    <div class="formula-label">Ý nghĩa đời thực: Một cánh cửa sổ xoay quanh mép bản lề $d$ song song với mặt đất. Khi cánh cửa mở ra chạm vào một mặt phẳng khác thì mép tiếp xúc $d'$ luôn luôn song song với mép bản lề $d$!</div>
+  </div>
+
+  <div class="box box-theory">
+    <div class="box-title">💡 ỨNG DỤNG BÁ ĐẠO TRONG BÀI THI: CẮT THIẾT DIỆN</div>
+    <p>Khi gặp bài toán: <em>"Dựng mặt phẳng $(\beta)$ qua điểm $M$ và song song với đường thẳng $d$"</em>:</p>
+    <p>&bull; Bạn chỉ cần qua điểm $M$, <strong>kẻ một đường thẳng song song với $d$</strong>! Đó chính là giao tuyến của mặt phẳng $(\beta)$ với mặt phẳng chứa $M$. Kẻ xong là bài toán thiết diện hiện ra ngay trước mắt!</p>
   </div>
 
   <!-- PHẦN 4: THỰC CHIẾN BÀI 12 -->
-  <h3 class="sec-title" id="h12-thuc-chien">4. Thực Chiến Giải Bài Tập Mẫu Bài 12 (Step-by-Step)</h3>
+  <h3 class="sec-title" id="h12-thuc-chien">4. Thực Chiến Giải Bài Tập Mẫu Bài 12 (Cầm Tay Chỉ Việc)</h3>
+
+  
+<div class="geo-diagram">
+  <svg viewBox="0 0 440 310" width="100%" height="310" xmlns="http://www.w3.org/2000/svg">
+    <!-- Hình chóp S.ABCD đáy bình hành tâm O, M trung điểm SA -->
+    <line x1="100" y1="140" x2="330" y2="140" stroke="#ff7b72" stroke-width="2" stroke-dasharray="6,4"/> <!-- AD -->
+    <line x1="210" y1="30" x2="100" y2="140" stroke="#ff7b72" stroke-width="2" stroke-dasharray="6,4"/>  <!-- SA -->
+    <line x1="100" y1="140" x2="270" y2="245" stroke="#8b949e" stroke-width="1.8" stroke-dasharray="5,4"/> <!-- AC -->
+    <line x1="40" y1="245" x2="330" y2="140" stroke="#8b949e" stroke-width="1.8" stroke-dasharray="5,4"/>  <!-- BD -->
+
+    <!-- Cạnh nhìn thấy -->
+    <line x1="40" y1="245" x2="270" y2="245" stroke="#58a6ff" stroke-width="2.5"/> <!-- BC -->
+    <line x1="40" y1="245" x2="100" y2="140" stroke="#58a6ff" stroke-width="2"/>   <!-- AB -->
+    <line x1="270" y1="245" x2="330" y2="140" stroke="#58a6ff" stroke-width="2.5"/> <!-- CD -->
+    <line x1="210" y1="30" x2="40" y2="245" stroke="#58a6ff" stroke-width="2.5"/>  <!-- SB -->
+    <line x1="210" y1="30" x2="270" y2="245" stroke="#7ee787" stroke-width="3.5"/> <!-- SC (MÀU XANH LÁ) -->
+    <line x1="210" y1="30" x2="330" y2="140" stroke="#58a6ff" stroke-width="2.5"/> <!-- SD -->
+
+    <!-- M TRUNG ĐIỂM SA: M((210+100)/2, (30+140)/2) = (155, 85) -->
+    <!-- O TRUNG ĐIỂM AC: O((100+270)/2, (140+245)/2) = (185, 192.5) -->
+    <!-- ĐOẠN OM LÀ ĐƯỜNG TRUNG BÌNH CỦA TAM GIÁC SAC -->
+    <line x1="155" y1="85" x2="185" y2="192.5" stroke="#7ee787" stroke-width="3.5" stroke-dasharray="6,3"/>
+
+    <!-- Điểm S, A, B, C, D, O, M -->
+    <circle cx="210" cy="30" r="5.5" fill="#f2cc60"/>
+    <text x="210" y="18" fill="#f2cc60" font-weight="900" font-size="15" text-anchor="middle">S</text>
+
+    <circle cx="100" cy="140" r="4.5" fill="#ff7b72"/>
+    <text x="82" y="142" fill="#ff7b72" font-weight="700" font-size="14">A</text>
+
+    <circle cx="155" cy="85" r="5" fill="#7ee787"/>
+    <text x="125" y="85" fill="#7ee787" font-weight="800" font-size="13">M (Trung điểm SA)</text>
+
+    <circle cx="185" cy="192.5" r="5" fill="#7ee787"/>
+    <text x="198" y="198" fill="#7ee787" font-weight="800" font-size="13">O (Tâm đáy AC)</text>
+
+    <circle cx="40" cy="245" r="4.5" fill="#58a6ff"/>
+    <text x="24" y="250" fill="#f0f6fc" font-weight="700" font-size="14">B</text>
+
+    <circle cx="270" cy="245" r="4.5" fill="#7ee787"/>
+    <text x="282" y="250" fill="#7ee787" font-weight="800" font-size="14">C</text>
+
+    <circle cx="330" cy="140" r="4.5" fill="#58a6ff"/>
+    <text x="342" y="144" fill="#f0f6fc" font-weight="700" font-size="14">D</text>
+
+    <!-- Khung giải thích -->
+    <rect x="235" y="90" width="180" height="48" rx="6" fill="#21262d" stroke="#7ee787" stroke-width="1.5"/>
+    <text x="325" y="110" fill="#7ee787" font-weight="800" font-size="12" text-anchor="middle">OM là đ.trung bình ΔSAC</text>
+    <text x="325" y="128" fill="#f2cc60" font-weight="800" font-size="13" text-anchor="middle">⇒ OM ∥ SC ⊂ (SCD)</text>
+  </svg>
+  <div class="geo-caption">
+    🔷 <strong>HÌNH 8: MINH HỌA BÀI TẬP MẪU CHỨNG MINH OM ∥ (SCD)</strong><br>
+    Trong $\triangle SAC$, $OM$ nối 2 trung điểm nên $OM \parallel SC$. Mà $SC \subset (SCD) \Rightarrow \mathbf{OM \parallel (SCD)}$! Nhìn hình phát thấy ngay!
+  </div>
+</div>
+
 
   <div class="step-solver">
     <div class="step-solver-header">🎯 BÀI TẬP: CHỨNG MINH ĐƯỜNG THẲNG SONG SONG VỚI MẶT PHẲNG QUA TRUNG ĐIỂM</div>
     <div class="step-solver-body">
-      <p><strong>Đề bài:</strong> Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $M$ là trung điểm của cạnh bên $SA$. Chứng minh rằng đường thẳng $OM \parallel (SCD)$ (với $O$ là giao điểm của $AC$ và $BD$).</p>
+      <p><strong>Đề bài:</strong> Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành tâm $O$. Gọi $M$ là trung điểm của cạnh bên $SA$. Chứng minh rằng đường thẳng $OM \parallel (SCD)$.</p>
       
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-content">
-          <strong>Bước 1: Soi đường thẳng nằm trong $(SCD)$ mà $OM$ có cơ hội song song</strong>
-          <p>Mặt phẳng $(SCD)$ có 3 cạnh là $SC, CD, SD$. Nhìn vào $OM$: điểm $M$ nằm trên $SA$, điểm $O$ nằm trên $AC$. Vậy $OM$ nằm trong tam giác $SAC$!</p>
-          <p>Trong tam giác $SAC$, cạnh đối diện với $SA$ chính là cạnh <strong>$SC$</strong> (thuộc mặt phẳng $(SCD)$)!</p>
+          <strong>Bước 1: Soi mặt phẳng $(SCD)$ và chọn "đối tượng ghép đôi"</strong>
+          <p>&bull; Mặt phẳng $(SCD)$ gồm có các cạnh: $SC$, $CD$, $SD$.</p>
+          <p>&bull; Ta cần chứng minh đường thẳng $OM$ song song với một trong ba cạnh này. Nhìn vào điểm $M$ (nằm trên $SA$) và điểm $O$ (nằm trên $AC$), ta thấy ngay $OM$ nằm trọn vẹn trong tam giác $SAC$!</p>
+          <p>&bull; Trong tam giác $SAC$, cạnh đối diện với $SA$ chính là cạnh <strong>$SC$</strong> (thuộc mặt phẳng $(SCD)$)! Đây chính là đối tượng cần ghép đôi!</p>
         </div>
       </div>
 
       <div class="step">
         <div class="step-num">2</div>
         <div class="step-content">
-          <strong>Bước 2: Dùng bảo bối lớp 10 (Đường trung bình) chứng minh $OM \parallel SC$</strong>
-          <p>&bull; $M$ là trung điểm của $SA$ (đề bài cho).</p>
-          <p>&bull; $ABCD$ là hình bình hành nên hai đường chéo $AC$ và $BD$ cắt nhau tại trung điểm của mỗi đường $\Rightarrow O$ là trung điểm của $AC$!</p>
-          <p>&bull; Trong tam giác $SAC$, có $M$ là trung điểm $SA$ và $O$ là trung điểm $AC \Rightarrow OM$ là <strong>đường trung bình của tam giác $SAC$</strong>!</p>
-          <p>&bull; Suy ra: <strong>$OM \parallel SC$</strong>.</p>
+          <strong>Bước 2: Dùng bảo bối Lớp 10 (Đường trung bình) chứng minh $OM \parallel SC$</strong>
+          <p>&bull; Điểm $M$ là trung điểm của cạnh $SA$ (giả thiết đề bài cho).</p>
+          <p>&bull; Vì đáy $ABCD$ là hình bình hành nên hai đường chéo $AC$ và $BD$ cắt nhau tại trung điểm của mỗi đường $\Rightarrow O$ là trung điểm của đoạn thẳng $AC$!</p>
+          <p>&bull; Xét tam giác $SAC$: Điểm $M$ là trung điểm $SA$, điểm $O$ là trung điểm $AC \Rightarrow OM$ là <strong>đường trung bình của tam giác $SAC$</strong>!</p>
+          <p>&bull; Tính chất đường trung bình: <strong>$OM \parallel SC$</strong> và $OM = \frac{1}{2} SC$.</p>
         </div>
       </div>
 
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-content">
-          <strong>Bước 3: Trình bày kết luận 3 dòng chuẩn chỉnh</strong>
-          <p>Ta có:</p>
-          <p>&bull; $OM \parallel SC$ (chứng minh trên).</p>
-          <p>&bull; $SC \subset (SCD)$.</p>
-          <p>&bull; $OM \not\subset (SCD)$ (vì $O$ và $M$ không nằm trên $(SCD)$).</p>
-          <p>$\Rightarrow \mathbf{OM \parallel (SCD)}$ (điều phải chứng minh!). Đẹp không tì vết!</p>
+          <strong>Bước 3: Trình bày bài thi chuẩn 3 dòng ăn trọn điểm</strong>
+          <p>Trình bày vào bài kiểm tra như sau:</p>
+          <div style="background:var(--bg-code);padding:10px 14px;border-radius:6px;margin:6px 0;font-family:Consolas,monospace;">
+            Ta có:<br>
+            • $OM \parallel SC$ (vì $OM$ là đường trung bình của tam giác $SAC$)<br>
+            • $SC \subset (SCD)$<br>
+            • $OM \not\subset (SCD)$ (vì $O \notin (SCD)$)<br>
+            Vậy: $\mathbf{OM \parallel (SCD)}$ (điều phải chứng minh).
+          </div>
+          <p><em>Lời phê của giám khảo: Trình bày chặt chẽ, đầy đủ căn cứ, đạt điểm tối đa 10/10!</em></p>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- PHẦN 5: TRẮC NGHIỆM ĐÁNH GIÁ BÀI 12 -->
-  <div class="quiz-section" id="b12-quiz">
+<div class="quiz-section" id="b12-quiz">
     <div class="quiz-header">
       <div class="quiz-icon">📝</div>
       <div>
@@ -4005,7 +5276,6 @@ tr:hover td { background: var(--bg-hover); }
     <button class="quiz-submit-btn" onclick="gradeQuiz('b12')">🏆 Chấm Điểm Bài 12 & Xem Phân Tích Chi Tiết</button>
   </div>
 </section>
-
 <div style="margin:24px 0 10px;">
   <h4 class="sub-title">🎴 Flashcard Lật Thẻ Ôn Nhanh Hình Không Gian Bài 12 - 13</h4>
   <div class="flashcard-deck">
@@ -4058,16 +5328,15 @@ tr:hover td { background: var(--bg-hover); }
 
 
       <!-- BÀI 13 -->
-      
-<section class="lesson-section" id="bai-13">
+      <section class="lesson-section" id="bai-13">
   <div class="lesson-header">
     <div class="lesson-number">13</div>
     <div class="lesson-meta">
       <h2>BÀI 13: HAI MẶT PHẲNG SONG SONG</h2>
       <div class="lesson-sub">SGK Kết Nối Tri Thức &bull; Chương IV &bull; Trang 89 &ndash; 95</div>
       <div class="lesson-tags">
-        <span class="lesson-tag">Hai mặt phẳng song song</span>
-        <span class="lesson-tag">Phương pháp chứng minh (P) &parallel; (Q)</span>
+        <span class="lesson-tag">Hai mặt song song (P) // (Q)</span>
+        <span class="lesson-tag">Điều kiện 2 đường cắt nhau</span>
         <span class="lesson-tag">Định lý Thales không gian</span>
         <span class="lesson-tag">Hình lăng trụ & Hình hộp</span>
       </div>
@@ -4081,86 +5350,381 @@ tr:hover td { background: var(--bg-hover); }
     <button class="sgk-btn" onclick="openSgkModal('hinh_13.png')">📖 Xem SGK Trang 95</button>
   </div>
 
+  
+<div class="sgk-embed">
+  <div class="sgk-embed-header">
+    <span>📖 Trang 89 - 90 SGK (Sách Kết Nối Tri Thức)</span>
+    <button class="btn-zoom" onclick="openSgkModal('hinh_10.png')">🔍 Phóng To Xem Chi Tiết</button>
+  </div>
+  <div class="sgk-embed-body">
+    <img src="hinh_10.png" alt="Trang 89 - 90 SGK" class="sgk-embed-img" onclick="openSgkModal('hinh_10.png')">
+  </div>
+  <div class="sgk-embed-footer">
+    💡 <strong>Góc đối chiếu SGK:</strong> Định nghĩa hai mặt phẳng song song và dấu hiệu nhận biết qua 2 đường cắt nhau.
+  </div>
+</div>
+
+
   <!-- PHẦN 1: ĐỊNH NGHĨA HAI MẶT PHẲNG SONG SONG -->
-  <h3 class="sec-title" id="h13-dinh-nghia">1. Định Nghĩa Hai Mặt Phẳng Song Song (Hai Tấm Gương Song Hành)</h3>
+  <h3 class="sec-title" id="h13-dinh-nghia">1. Định Nghĩa Hai Mặt Phẳng Song Song (Dịch Sang Tiếng Người)</h3>
 
   <div class="box box-theory">
-    <div class="box-title">💡 DỊCH SANG TIẾNG NGƯỜI: SÀN NHÀ VÀ TRẦN NHÀ</div>
-    <p>Hai mặt phẳng được gọi là song song với nhau nếu chúng <strong>KHÔNG CÓ ĐIỂM CHUNG NÀO</strong>! Kí hiệu: $(P) \parallel (Q)$.</p>
-    <p style="margin-top:6px;">Hình ảnh ngoài đời: Sàn nhà và trần nhà của căn phòng, hai bề mặt của bức tường đôi, hay hai mặt của tấm ván ép phẳng lỳ.</p>
+    <div class="box-title">💡 VÍ DỤ TRỰC QUAN ĐỜI THƯỜNG: HAI TẦNG CỦA TÒA NHÀ CHUNG CƯ</div>
+    <p>Hai mặt phẳng được gọi là song song với nhau nếu chúng <strong>KHÔNG CÓ BẤT KỲ ĐIỂM CHUNG NÀO</strong>! Kí hiệu: $(P) \parallel (Q)$.</p>
+    <p style="margin-top:6px;"><strong>Hình ảnh ngoài đời:</strong></p>
+    <ul class="content-list">
+      <li><strong>Mặt sàn tầng 5 và mặt sàn tầng 6 của tòa chung cư:</strong> Hai mặt sàn này nằm song hành với nhau. Dù các kỹ sư có mở rộng diện tích sàn ra vô tận sang hai bên thì tầng 5 và tầng 6 vĩnh viễn không bao giờ chạm vào nhau!</li>
+      <li><strong>Mặt trần nhà và mặt sàn phòng khách:</strong> Luôn cách nhau một khoảng chiều cao phòng, không giao nhau.</li>
+      <li><strong>Hai mặt phẳng của một cuốn sổ tay đóng gập:</strong> Mặt bìa trước và mặt bìa sau khi đặt ngay ngắn trên bàn.</li>
+    </ul>
   </div>
 
   <!-- PHẦN 2: PHƯƠNG PHÁP VÀNG CHỨNG MINH 2 MẶT SONG SONG -->
   <h3 class="sec-title" id="h13-phuong-phap-chung-minh">2. Phương Pháp Vàng Chứng Minh Hai Mặt Song Song (SGK Trang 90)</h3>
 
+  <div class="box box-tip">
+    <div class="box-title">💡 DỊCH SANG TIẾNG NGƯỜI: TUYỆT KỸ "CHIẾC KIỀNG HAI CHÂN"</div>
+    <p>Làm sao để biết sàn tầng 2 song song với sàn tầng 1? Không ai đo toàn bộ diện tích sàn cả!</p>
+    <p style="margin-top:6px;">Các kỹ sư xây dựng chỉ cần kiểm tra: Trong sàn tầng 2, có <strong>HAI THANH DẦM BÊ TÔNG $a$ và $b$ BẮT CHÉO NHAU (CẮT NHAU)</strong>. Nếu thanh dầm $a$ song song với mặt sàn tầng 1 ($a \parallel (Q)$), VÀ thanh dầm $b$ cũng song song với mặt sàn tầng 1 ($b \parallel (Q)$), thì <strong>toàn bộ sàn tầng 2 chắc chắn 100% song song với sàn tầng 1!</strong></p>
+  </div>
+
+  
+<div class="geo-diagram">
+  <svg viewBox="0 0 460 250" width="100%" height="250" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="pGrad13Top" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#8250df" stop-opacity="0.08"/>
+      </linearGradient>
+      <linearGradient id="pGrad13Bot" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#7ee787" stop-opacity="0.25"/>
+        <stop offset="100%" stop-color="#238636" stop-opacity="0.08"/>
+      </linearGradient>
+    </defs>
+    <!-- Mặt phẳng (P) ở trên -->
+    <polygon points="60,20 400,20 340,110 0,110" fill="url(#pGrad13Top)" stroke="#58a6ff" stroke-width="2.5"/>
+    <text x="25" y="100" fill="#58a6ff" font-weight="900" font-size="18">(P)</text>
+    <!-- Hai đường thẳng a và b cắt nhau trong (P) -->
+    <line x1="70" y1="85" x2="270" y2="40" stroke="#58a6ff" stroke-width="2.5"/>
+    <text x="278" y="42" fill="#58a6ff" font-size="13" font-weight="bold">a</text>
+    <line x1="90" y1="40" x2="230" y2="90" stroke="#ffa657" stroke-width="2.5"/>
+    <text x="236" y="96" fill="#ffa657" font-size="13" font-weight="bold">b</text>
+    <circle cx="165" cy="65" r="4.5" fill="#f2cc60"/>
+    <text x="165" y="55" fill="#f2cc60" font-size="12" font-weight="bold">M</text>
+
+    <!-- Mặt phẳng (Q) ở dưới -->
+    <polygon points="60,140 400,140 340,230 0,230" fill="url(#pGrad13Bot)" stroke="#7ee787" stroke-width="2.5"/>
+    <text x="25" y="220" fill="#7ee787" font-weight="900" font-size="18">(Q)</text>
+    <!-- Hai đường a' và b' tương ứng trong (Q) -->
+    <line x1="70" y1="205" x2="270" y2="160" stroke="#58a6ff" stroke-width="2.5" stroke-dasharray="5,4"/>
+    <text x="278" y="162" fill="#58a6ff" font-size="13" font-weight="bold">a' ⊂ (Q)</text>
+    <line x1="90" y1="160" x2="230" y2="210" stroke="#ffa657" stroke-width="2.5" stroke-dasharray="5,4"/>
+    <text x="236" y="216" fill="#ffa657" font-size="13" font-weight="bold">b' ⊂ (Q)</text>
+
+    <!-- Dấu mũi tên song song giữa 2 tầng -->
+    <line x1="365" y1="65" x2="365" y2="185" stroke="#f2cc60" stroke-width="2" stroke-dasharray="4,4"/>
+    <polygon points="365,65 360,77 370,77" fill="#f2cc60"/>
+    <polygon points="365,185 360,173 370,173" fill="#f2cc60"/>
+    <text x="375" y="130" fill="#f2cc60" font-weight="800" font-size="14">(P) ∥ (Q)</text>
+  </svg>
+  <div class="geo-caption">
+    🔷 <strong>HÌNH 9: PHƯƠNG PHÁP CHỨNG MINH HAI MẶT PHẲNG SONG SONG</strong><br>
+    Mặt phẳng $(P)$ chứa <strong>hai đường thẳng cắt nhau a và b</strong> cùng song song với $(Q) \Rightarrow \mathbf{(P) \parallel (Q)}$.<br>
+    <span style="color:#ff7b72;">⚠️ Lưu ý:</span> Bắt buộc $a$ và $b$ phải <strong>CẮT NHAU</strong> thì mới khóa chặt được 2 mặt phẳng song song!
+  </div>
+</div>
+
+
   <div class="box box-formula">
-    <div class="box-title">🔥 ĐỊNH LÝ 1: CÁCH DUY NHẤT ĐỂ CHỨNG MINH (P) &parallel; (Q) TRONG ĐỀ THI</div>
+    <div class="box-title">🔥 ĐỊNH LÝ 1: CÔNG THỨC CHỨNG MINH (P) // (Q) CHUẨN THI</div>
     <div class="formula-display">
-      <span style="display:inline-block;vertical-align:middle;text-align:left;">
-        &bull; Mặt phẳng (P) chứa hai đường thẳng a và b<br>
-        &bull; a và b CẮT NHAU tại một điểm<br>
-        &bull; a &parallel; (Q)<br>
-        &bull; b &parallel; (Q)
-      </span>
-      &nbsp;&nbsp;&rArr;&nbsp;&nbsp;
-      <strong style="color:var(--accent-green);font-size:1.15rem;">(P) &parallel; (Q)</strong>
+      \begin{cases} a \subset (P), \; b \subset (P) \\ a \cap b = \{I\} \quad \text{(BẮT BUỘC CẮT NHAU!)} \\ a \parallel (Q) \\ b \parallel (Q) \end{cases} \quad \Longrightarrow \quad \mathbf{(P) \parallel (Q)}
     </div>
     <div class="formula-label">Thần chú sống còn: "TÌM 2 ĐƯỜNG CẮT NHAU NẰM TRONG MẶT NÀY &ndash; CÙNG SONG SONG VỚI MẶT KIA!"</div>
   </div>
 
   <div class="box box-warning">
-    <div class="box-title">⚠️ BẪY TỬ THẦN: QUÊN TỪ "CẮT NHAU"</div>
-    <p>Nhiều học sinh vội vàng tìm được $a \parallel (Q)$ và $b \parallel (Q)$, nhưng $a$ và $b$ lại là <strong>HAI ĐƯỜNG THẲNG SONG SONG VỚI NHAU</strong>! Lúc đó mặt phẳng $(P)$ có thể vẫn CẮT $(Q)$!</p>
-    <p style="margin-top:6px;">BẮT BUỘC hai đường thẳng $a$ và $b$ phải <strong>CẮT NHAU</strong> (tạo thành một chiếc kiềng 2 chân vững chãi trong mặt phẳng) thì mới khóa chặt được quan hệ song song!</p>
+    <div class="box-title">⚠️ BẪY TỬ THẦN TRONG BÀI THI: QUÊN MẤT TỪ "CẮT NHAU"</div>
+    <p>Rất nhiều học sinh tìm được đường $a \parallel (Q)$ và đường $b \parallel (Q)$, mừng rỡ kết luận luôn $(P) \parallel (Q)$ và bị 0 điểm câu đó!</p>
+    <p style="margin-top:6px;"><strong>TẠI SAO PHẢI CẮT NHAU?</strong> Nếu $a$ và $b$ là <strong>hai đường song song với nhau</strong>, thì mặt phẳng $(P)$ hoàn toàn có thể "xoay quanh chiếc trục song song đó" và đâm xuyên cắt mặt phẳng $(Q)$ theo một góc xiên! Chỉ khi $a$ và $b$ <strong>CẮT NHAU</strong> thì chúng mới tạo thành một mặt phẳng cố định không bị xoay, khóa chặt quan hệ song song!</p>
   </div>
 
   <!-- PHẦN 3: CÁC TÍNH CHẤT KINH ĐIỂN CỦA HAI MẶT SONG SONG -->
-  <h3 class="sec-title" id="h13-tinh-chat">3. Các Tính Chất Kinh Điển (Dùng Làm Bài Toán Tính Toán)</h3>
+  <h3 class="sec-title" id="h13-tinh-chat">3. Các Tính Chất Kinh Điển & Định Lý Thales Trong Không Gian (SGK Trang 91 - 92)</h3>
+
+  
+<div class="sgk-embed">
+  <div class="sgk-embed-header">
+    <span>📖 Trang 91 - 92 SGK (Sách Kết Nối Tri Thức)</span>
+    <button class="btn-zoom" onclick="openSgkModal('hinh_11.png')">🔍 Phóng To Xem Chi Tiết</button>
+  </div>
+  <div class="sgk-embed-body">
+    <img src="hinh_11.png" alt="Trang 91 - 92 SGK" class="sgk-embed-img" onclick="openSgkModal('hinh_11.png')">
+  </div>
+  <div class="sgk-embed-footer">
+    💡 <strong>Góc đối chiếu SGK:</strong> Các tính chất của hai mặt phẳng song song và Định lý Thales không gian.
+  </div>
+</div>
+
 
   <div class="box box-formula">
-    <div class="box-title">📐 BỘ BA TÍNH CHẤT BẤT BIẾN (SGK Trang 91)</div>
+    <div class="box-title">📐 BỘ BA TÍNH CHẤT BẤT BIẾN (DÙNG ĐỂ TÍNH TOÁN VÀ DỰNG HÌNH)</div>
     <ul class="content-list">
-      <li><strong>Tính chất 1 (Duy nhất):</strong> Qua một điểm nằm ngoài một mặt phẳng, có một và chỉ một mặt phẳng song song với mặt phẳng đã cho.</li>
-      <li><strong>Tính chất 2 (Cắt tạo giao tuyến song song):</strong> Nếu hai mặt phẳng song song bị cắt bởi một mặt phẳng thứ ba thì <strong>hai giao tuyến tạo thành song song với nhau</strong>!
-        <br><div class="formula-display" style="font-size:0.95rem;">(P) &parallel; (Q)  và  (R) c&abreve;t (P), (Q) theo giao tuyến a, b   &rArr;   a &parallel; b</div>
+      <li><strong>Tính chất 1 (Duy nhất):</strong> Qua một điểm nằm ngoài một mặt phẳng, có <strong>MỘT VÀ CHỈ MỘT</strong> mặt phẳng song song với mặt phẳng đã cho. (Giống như tiên đề Euclid trong mặt phẳng!).</li>
+      <li><strong>Tính chất 2 (Cắt tạo giao tuyến song song):</strong> Nếu hai mặt phẳng song song bị cắt bởi một mặt phẳng thứ ba thì <strong>hai giao tuyến tạo thành luôn luôn song song với nhau</strong>!
+        <br><em>Ví dụ đời thường:</em> Bức tường đứng cắt mặt sàn và cắt mặt trần tạo ra 2 đường chân tường trên và dưới song song với nhau.
       </li>
-      <li><strong>Tính chất 3 (Đoạn chắn bằng nhau):</strong> Hai đoạn thẳng song song bị chắn giữa hai mặt phẳng song song thì <strong>bằng nhau</strong> ($AB = CD$).</li>
+      <li><strong>Tính chất 3 (Đoạn chắn bằng nhau):</strong> Hai đoạn thẳng song song bị chắn giữa hai mặt phẳng song song thì <strong>dài bằng nhau</strong> ($AB = CD$).
+        <br><em>Ví dụ đời thường:</em> Các cột nhà thẳng đứng nối giữa sàn tầng 1 và sàn tầng 2 đều có chiều cao bằng nhau!
+      </li>
     </ul>
+  </div>
+
+  
+<div class="geo-diagram">
+  <svg viewBox="0 0 460 270" width="100%" height="270" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="tGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.18"/>
+        <stop offset="100%" stop-color="#8250df" stop-opacity="0.05"/>
+      </linearGradient>
+    </defs>
+    <!-- 3 mặt phẳng song song: (P), (Q), (R) -->
+    <!-- (P) Tầng 1 -->
+    <polygon points="50,25 390,25 340,85 0,85" fill="url(#tGrad)" stroke="#58a6ff" stroke-width="2"/>
+    <text x="20" y="75" fill="#58a6ff" font-weight="800" font-size="15">(P)</text>
+
+    <!-- (Q) Tầng 2 -->
+    <polygon points="50,105 390,105 340,165 0,165" fill="url(#tGrad)" stroke="#58a6ff" stroke-width="2"/>
+    <text x="20" y="155" fill="#58a6ff" font-weight="800" font-size="15">(Q)</text>
+
+    <!-- (R) Tầng 3 -->
+    <polygon points="50,185 390,185 340,245 0,245" fill="url(#tGrad)" stroke="#58a6ff" stroke-width="2"/>
+    <text x="20" y="235" fill="#58a6ff" font-weight="800" font-size="15">(R)</text>
+
+    <!-- Cát tuyến d cắt (P), (Q), (R) tại A, B, C -->
+    <line x1="120" y1="10" x2="150" y2="255" stroke="#7ee787" stroke-width="3"/>
+    <circle cx="126" cy="55" r="4.5" fill="#f2cc60"/>
+    <text x="110" y="58" fill="#f2cc60" font-weight="800" font-size="13">A</text>
+    <circle cx="137" cy="135" r="4.5" fill="#f2cc60"/>
+    <text x="120" y="138" fill="#f2cc60" font-weight="800" font-size="13">B</text>
+    <circle cx="147" cy="215" r="4.5" fill="#f2cc60"/>
+    <text x="130" y="218" fill="#f2cc60" font-weight="800" font-size="13">C</text>
+
+    <!-- Cát tuyến d' cắt (P), (Q), (R) tại A', B', C' -->
+    <line x1="280" y1="10" x2="240" y2="255" stroke="#ffa657" stroke-width="3"/>
+    <circle cx="273" cy="55" r="4.5" fill="#f2cc60"/>
+    <text x="284" y="58" fill="#f2cc60" font-weight="800" font-size="13">A'</text>
+    <circle cx="260" cy="135" r="4.5" fill="#f2cc60"/>
+    <text x="272" y="138" fill="#f2cc60" font-weight="800" font-size="13">B'</text>
+    <circle cx="247" cy="215" r="4.5" fill="#f2cc60"/>
+    <text x="258" y="218" fill="#f2cc60" font-weight="800" font-size="13">C'</text>
+
+    <!-- Bảng công thức Thales -->
+    <rect x="305" y="85" width="145" height="75" rx="6" fill="#21262d" stroke="#7ee787" stroke-width="1.5"/>
+    <text x="377" y="105" fill="#7ee787" font-weight="800" font-size="11" text-anchor="middle">ĐỊNH LÝ THALES KHÔNG GIAN:</text>
+    <text x="377" y="128" fill="#f2cc60" font-weight="900" font-size="14" text-anchor="middle">AB / BC = A'B' / B'C'</text>
+    <text x="377" y="148" fill="#58a6ff" font-weight="700" font-size="11" text-anchor="middle">AB / AC = A'B' / A'C'</text>
+  </svg>
+  <div class="geo-caption">
+    🔷 <strong>HÌNH MINH HỌA: ĐỊNH LÝ THALES TRONG KHÔNG GIAN</strong><br>
+    Ba mặt phẳng đôi một song song chắn trên hai cát tuyến bất kì những đoạn thẳng <strong>tỉ lệ tương ứng bằng nhau</strong>!
+  </div>
+</div>
+
+
+  <div class="box box-formula">
+    <div class="box-title">🌟 ĐỊNH LÝ THALES TRONG KHÔNG GIAN (SGK Trang 92)</div>
+    <div class="formula-display">
+      \frac{AB}{BC} = \frac{A'B'}{B'C'} \quad \text{và} \quad \frac{AB}{AC} = \frac{A'B'}{A'C'}
+    </div>
+    <div class="formula-label">Quy tắc vàng: "Ba mặt phẳng song song chắn trên hai cát tuyến bất kì những đoạn thẳng có độ dài tỉ lệ tương ứng bằng nhau!"</div>
   </div>
 
   <!-- PHẦN 4: HÌNH LĂNG TRỤ VÀ HÌNH HỘP -->
-  <h3 class="sec-title" id="h13-lang-tru-hop">4. Hình Lăng Trụ & Hình Hộp (Toàn Bộ Định Nghĩa & Tính Chất)</h3>
+  <h3 class="sec-title" id="h13-lang-tru-hop">4. Hình Lăng Trụ & Hình Hộp (Toàn Bộ Định Nghĩa & Tính Chất Từ Gốc)</h3>
+
+  
+<div class="sgk-embed">
+  <div class="sgk-embed-header">
+    <span>📖 Trang 93 - 94 SGK (Sách Kết Nối Tri Thức)</span>
+    <button class="btn-zoom" onclick="openSgkModal('hinh_12.png')">🔍 Phóng To Xem Chi Tiết</button>
+  </div>
+  <div class="sgk-embed-body">
+    <img src="hinh_12.png" alt="Trang 93 - 94 SGK" class="sgk-embed-img" onclick="openSgkModal('hinh_12.png')">
+  </div>
+  <div class="sgk-embed-footer">
+    💡 <strong>Góc đối chiếu SGK:</strong> Định nghĩa và hình ảnh trực quan hình lăng trụ tam giác, tứ giác và hình hộp.
+  </div>
+</div>
+
 
   <div class="box box-theory">
-    <div class="box-title">💡 DỊCH SANG TIẾNG NGƯỜI: LĂNG TRỤ VÀ HÌNH HỘP LÀ GÌ?</div>
-    <ul class="content-list">
-      <li><strong>HÌNH LĂNG TRỤ $A_1 A_2 ... A_n . A'_1 A'_2 ... A'_n$:</strong>
-        <br>&bull; Có <strong>hai mặt đáy song song và bằng nhau</strong> (ví dụ lăng trụ tam giác thì hai đáy là hai tam giác bằng nhau).
-        <br>&bull; Các mặt bên <strong>LUÔN LUÔN LÀ CÁC HÌNH BÌNH HÀNH</strong>.
-        <br>&bull; Các cạnh bên <strong>SONG SONG VÀ BẰNG NHAU</strong> ($AA' = BB' = CC'$ và $AA' \parallel BB' \parallel CC'$).
-      </li>
-      <li><strong>HÌNH HỘP $ABCD.A'B'C'D'$:</strong>
-        <br>&bull; Là hình lăng trụ có <strong>mặt đáy là hình bình hành</strong>!
-        <br>&bull; Đặc điểm thần thánh: <strong>CẢ 6 MẶT ĐỀU LÀ HÌNH BÌNH HÀNH!</strong>
-        <br>&bull; Hai mặt đối diện song song và bằng nhau.
-        <br>&bull; Bốn đường chéo ($AC', BD', CA', DB'$) <strong>CẮT NHAU TẠI TRUNG ĐIỂM MỖI ĐƯỜNG</strong> (điểm này gọi là tâm của hình hộp!).
-      </li>
-    </ul>
+    <div class="box-title">💡 DỊCH SANG TIẾNG NGƯỜI: LĂNG TRỤ VÀ HÌNH HỘP LÀ GÌ NGOÀI ĐỜI?</div>
+    <p>Đừng học vẹt công thức! Hãy liên tưởng đến các đồ vật quen thuộc xung quanh bạn:</p>
   </div>
 
+  <div class="cards-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:16px 0;">
+    <div class="card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:16px;">
+      <h4 style="color:var(--accent-blue-light);margin-bottom:8px;">⛺ HÌNH LĂNG TRỤ (Prism)</h4>
+      <p><strong>Hình ảnh đời thực:</strong> Chiếc lều cắm trại tam giác, hay thanh kẹo sô-cô-la Toblerone nổi tiếng của Thụy Sĩ!</p>
+      <ul style="margin-top:8px;padding-left:18px;font-size:0.9rem;color:var(--text-secondary);line-height:1.6;">
+        <li>Có <strong>hai mặt đáy song song và bằng nhau hoàn toàn</strong> ($ABC = A'B'C'$).</li>
+        <li>Các mặt bên <strong>TẤT CẢ ĐỀU LÀ HÌNH BÌNH HÀNH</strong>.</li>
+        <li>Các cạnh bên <strong>SONG SONG VÀ BẰNG NHAU</strong> ($AA' = BB' = CC'$).</li>
+      </ul>
+    </div>
+    <div class="card" style="background:var(--bg-card);border:1px solid var(--border-color);border-radius:8px;padding:16px;">
+      <h4 style="color:var(--accent-yellow);margin-bottom:8px;">📦 HÌNH HỘP (Parallelepiped)</h4>
+      <p><strong>Hình ảnh đời thực:</strong> Hộp sữa tươi, hộp diêm, viên gạch xây nhà, thùng carton đóng hàng Shopee!</p>
+      <ul style="margin-top:8px;padding-left:18px;font-size:0.9rem;color:var(--text-secondary);line-height:1.6;">
+        <li>Là hình lăng trụ có <strong>mặt đáy là hình bình hành</strong>!</li>
+        <li>Đặc điểm độc nhất vô nhị: <strong>CẢ 6 MẶT ĐỀU LÀ HÌNH BÌNH HÀNH!</strong></li>
+        <li>Hai mặt đối diện luôn song song và bằng nhau.</li>
+        <li><strong>Bốn đường chéo cắt nhau tại trung điểm của mỗi đường</strong> (điểm này gọi là Tâm đối xứng $O$ của hình hộp!).</li>
+      </ul>
+    </div>
+  </div>
+
+  
+<div class="geo-diagram">
+  <svg viewBox="0 0 400 310" width="100%" height="310" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="prismFace" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#58a6ff" stop-opacity="0.12"/>
+        <stop offset="100%" stop-color="#7ee787" stop-opacity="0.05"/>
+      </linearGradient>
+    </defs>
+    <!-- ĐÁY TRÊN A'B'C': A'(130, 40), B'(50, 95), C'(230, 95) -->
+    <!-- ĐÁY DƯỚI ABC: A(130, 190), B(50, 245), C(230, 245) -->
+    <polygon points="130,40 50,95 230,95" fill="rgba(88,166,255,0.2)" stroke="#58a6ff" stroke-width="2.5"/>
+    <polygon points="50,95 230,95 230,245 50,245" fill="url(#prismFace)"/>
+
+    <!-- CẠNH KHUẤT PHÍA SAU (NÉT ĐỨT) -->
+    <line x1="130" y1="190" x2="230" y2="245" stroke="#ff7b72" stroke-width="2" stroke-dasharray="6,4"/> <!-- AC đáy dưới -->
+    <line x1="130" y1="190" x2="50" y2="245" stroke="#ff7b72" stroke-width="2" stroke-dasharray="6,4"/>  <!-- AB đáy dưới -->
+    <line x1="130" y1="40" x2="130" y2="190" stroke="#ff7b72" stroke-width="2.5" stroke-dasharray="6,4"/> <!-- Cạnh bên AA' -->
+
+    <!-- CẠNH NHÌN THẤY (NÉT LIỀN) -->
+    <line x1="50" y1="245" x2="230" y2="245" stroke="#58a6ff" stroke-width="2.5"/> <!-- BC đáy dưới -->
+    <line x1="50" y1="95" x2="50" y2="245" stroke="#58a6ff" stroke-width="2.5"/>   <!-- Cạnh bên BB' -->
+    <line x1="230" y1="95" x2="230" y2="245" stroke="#58a6ff" stroke-width="2.5"/> <!-- Cạnh bên CC' -->
+
+    <!-- Đỉnh đáy trên -->
+    <circle cx="130" cy="40" r="4.5" fill="#f2cc60"/>
+    <text x="130" y="28" fill="#f2cc60" font-weight="800" font-size="14" text-anchor="middle">A'</text>
+    <circle cx="50" cy="95" r="4.5" fill="#f2cc60"/>
+    <text x="32" y="98" fill="#f2cc60" font-weight="800" font-size="14">B'</text>
+    <circle cx="230" cy="95" r="4.5" fill="#f2cc60"/>
+    <text x="242" y="98" fill="#f2cc60" font-weight="800" font-size="14">C'</text>
+
+    <!-- Đỉnh đáy dưới -->
+    <circle cx="130" cy="190" r="4.5" fill="#ff7b72"/>
+    <text x="112" y="195" fill="#ff7b72" font-weight="800" font-size="14">A</text>
+    <circle cx="50" cy="245" r="4.5" fill="#58a6ff"/>
+    <text x="32" y="252" fill="#f0f6fc" font-weight="800" font-size="14">B</text>
+    <circle cx="230" cy="245" r="4.5" fill="#58a6ff"/>
+    <text x="242" y="252" fill="#f0f6fc" font-weight="800" font-size="14">C</text>
+
+    <!-- Chú thích cạnh bên và mặt bên -->
+    <rect x="250" y="140" width="140" height="58" rx="6" fill="#21262d" stroke="#58a6ff" stroke-width="1.5"/>
+    <text x="320" y="160" fill="#58a6ff" font-weight="700" font-size="11" text-anchor="middle">AA' ∥ BB' ∥ CC'</text>
+    <text x="320" y="175" fill="#7ee787" font-weight="700" font-size="11" text-anchor="middle">AA' = BB' = CC'</text>
+    <text x="320" y="190" fill="#f2cc60" font-weight="700" font-size="10" text-anchor="middle">Mặt bên là HÌNH BÌNH HÀNH</text>
+  </svg>
+  <div class="geo-caption">
+    🔷 <strong>HÌNH 10: HÌNH LĂNG TRỤ TAM GIÁC ABC.A'B'C'</strong><br>
+    &bull; Hai đáy $(ABC)$ và $(A'B'C')$ song song và bằng nhau.<br>
+    &bull; Các cạnh bên $AA', BB', CC'$ <strong>song song và bằng nhau</strong>.<br>
+    &bull; Các mặt bên $ABB'A', BCC'B', ACC'A'$ <strong>luôn là hình bình hành</strong>!
+  </div>
+</div>
+
+
+  
+<div class="geo-diagram">
+  <svg viewBox="0 0 420 300" width="100%" height="300" xmlns="http://www.w3.org/2000/svg">
+    <!-- HÌNH HỘP ABCD.A'B'C'D' (6 MẶT ĐỀU LÀ HÌNH BÌNH HÀNH) -->
+    <!-- ĐÁY DƯỚI: A(90, 170), D(270, 170), B(40, 260), C(220, 260) -->
+    <!-- ĐÁY TRÊN: A'(90, 60), D'(270, 60), B'(40, 150), C'(220, 150) -->
+    <polygon points="90,60 270,60 220,150 40,150" fill="rgba(88,166,255,0.18)" stroke="#58a6ff" stroke-width="2.5"/>
+
+    <!-- CẠNH KHUẤT PHÍA SAU (NÉT ĐỨT MÀU ĐỎ) -->
+    <line x1="90" y1="170" x2="270" y2="170" stroke="#ff7b72" stroke-width="2" stroke-dasharray="6,4"/> <!-- AD -->
+    <line x1="90" y1="170" x2="40" y2="260" stroke="#ff7b72" stroke-width="2" stroke-dasharray="6,4"/>   <!-- AB -->
+    <line x1="90" y1="60" x2="90" y2="170" stroke="#ff7b72" stroke-width="2.5" stroke-dasharray="6,4"/> <!-- AA' -->
+
+    <!-- 4 ĐƯỜNG CHÉO HÌNH HỘP CẮT NHAU TẠI TÂM O (VẼ ĐỨT MÀU VÀNG) -->
+    <!-- AC': A(90, 170) -> C'(220, 150); A'C: A'(90, 60) -> C(220, 260) -> Tâm O(155, 160) -->
+    <line x1="90" y1="60" x2="220" y2="260" stroke="#f2cc60" stroke-width="2" stroke-dasharray="4,4"/> <!-- A'C -->
+    <line x1="270" y1="60" x2="40" y2="260" stroke="#f2cc60" stroke-width="2" stroke-dasharray="4,4"/> <!-- D'B -->
+    <circle cx="155" cy="160" r="5" fill="#f2cc60"/>
+    <text x="168" y="165" fill="#f2cc60" font-weight="900" font-size="14">O (Tâm hình hộp)</text>
+
+    <!-- CÁC CẠNH NHÌN THẤY -->
+    <line x1="40" y1="260" x2="220" y2="260" stroke="#58a6ff" stroke-width="2.5"/> <!-- BC -->
+    <line x1="220" y1="260" x2="270" y2="170" stroke="#58a6ff" stroke-width="2.5"/> <!-- CD -->
+    <line x1="40" y1="150" x2="40" y2="260" stroke="#58a6ff" stroke-width="2.5"/>   <!-- BB' -->
+    <line x1="220" y1="150" x2="220" y2="260" stroke="#58a6ff" stroke-width="2.5"/> <!-- CC' -->
+    <line x1="270" y1="60" x2="270" y2="170" stroke="#58a6ff" stroke-width="2.5"/> <!-- DD' -->
+
+    <!-- Đỉnh đáy trên -->
+    <circle cx="90" cy="60" r="4.5" fill="#58a6ff"/>
+    <text x="75" y="55" fill="#58a6ff" font-weight="800" font-size="13">A'</text>
+    <circle cx="40" cy="150" r="4.5" fill="#58a6ff"/>
+    <text x="24" y="152" fill="#58a6ff" font-weight="800" font-size="13">B'</text>
+    <circle cx="220" cy="150" r="4.5" fill="#58a6ff"/>
+    <text x="232" y="152" fill="#58a6ff" font-weight="800" font-size="13">C'</text>
+    <circle cx="270" cy="60" r="4.5" fill="#58a6ff"/>
+    <text x="282" y="58" fill="#58a6ff" font-weight="800" font-size="13">D'</text>
+
+    <!-- Đỉnh đáy dưới -->
+    <circle cx="90" cy="170" r="4.5" fill="#ff7b72"/>
+    <text x="74" y="174" fill="#ff7b72" font-weight="800" font-size="13">A</text>
+    <circle cx="40" cy="260" r="4.5" fill="#f0f6fc"/>
+    <text x="24" y="265" fill="#f0f6fc" font-weight="800" font-size="13">B</text>
+    <circle cx="220" cy="260" r="4.5" fill="#f0f6fc"/>
+    <text x="232" y="265" fill="#f0f6fc" font-weight="800" font-size="13">C</text>
+    <circle cx="270" cy="170" r="4.5" fill="#f0f6fc"/>
+    <text x="282" y="174" fill="#f0f6fc" font-weight="800" font-size="13">D</text>
+  </svg>
+  <div class="geo-caption">
+    🔷 <strong>HÌNH 11: HÌNH HỘP ABCD.A'B'C'D' (THÙNG CARTON, HỘP PHẤN)</strong><br>
+    &bull; <strong>Cả 6 mặt đều là hình bình hành</strong>.<br>
+    &bull; Bốn đường chéo $AC', BD', CA', DB'$ cắt nhau tại <strong>trung điểm O của mỗi đường</strong> (tâm đối xứng của hình hộp).
+  </div>
+</div>
+
+
+  
+<div class="sgk-embed">
+  <div class="sgk-embed-header">
+    <span>📖 Trang 95 SGK (Sách Kết Nối Tri Thức)</span>
+    <button class="btn-zoom" onclick="openSgkModal('hinh_13.png')">🔍 Phóng To Xem Chi Tiết</button>
+  </div>
+  <div class="sgk-embed-body">
+    <img src="hinh_13.png" alt="Trang 95 SGK" class="sgk-embed-img" onclick="openSgkModal('hinh_13.png')">
+  </div>
+  <div class="sgk-embed-footer">
+    💡 <strong>Góc đối chiếu SGK:</strong> Hệ thống bài tập ôn tập cuối chương IV Hình học không gian 11.
+  </div>
+</div>
+
+
   <!-- PHẦN 5: THỰC CHIẾN BÀI 13 -->
-  <h3 class="sec-title" id="h13-thuc-chien">5. Thực Chiến Giải Bài Tập Mẫu Bài 13 (Step-by-Step)</h3>
+  <h3 class="sec-title" id="h13-thuc-chien">5. Thực Chiến Giải Bài Tập Mẫu Bài 13 (Cầm Tay Chỉ Việc)</h3>
 
   <div class="step-solver">
-    <div class="step-solver-header">🎯 BÀI TẬP: CHỨNG MINH HAI MẶT PHẲNG SONG SONG</div>
+    <div class="step-solver-header">🎯 BÀI TẬP: CHỨNG MINH HAI MẶT PHẲNG SONG SONG BẰNG ĐƯỜNG TRUNG BÌNH</div>
     <div class="step-solver-body">
       <p><strong>Đề bài:</strong> Cho hình chóp $S.ABCD$ có đáy $ABCD$ là hình bình hành. Gọi $M, N, P$ lần lượt là trung điểm của các cạnh bên $SA, SB, SC$. Chứng minh rằng mặt phẳng $(MNP) \parallel (ABCD)$.</p>
       
       <div class="step">
         <div class="step-num">1</div>
         <div class="step-content">
-          <strong>Bước 1: Tìm 2 đường thẳng cắt nhau trong $(MNP)$</strong>
-          <p>Mặt phẳng $(MNP)$ chứa các đường thẳng $MN, NP, MP$. Rõ ràng $MN$ và $NP$ cắt nhau tại điểm $N$!</p>
+          <strong>Bước 1: Tìm 2 đường thẳng cắt nhau trong mặt phẳng $(MNP)$</strong>
+          <p>&bull; Mặt phẳng $(MNP)$ chứa các đường thẳng $MN, NP, MP$.</p>
+          <p>&bull; Chọn ra hai đường thẳng: <strong>$MN$ và $NP$</strong>. Rõ ràng hai đường này <strong>CẮT NHAU tại điểm chung $N$</strong> (thỏa mãn điều kiện kiềng hai chân!).</p>
         </div>
       </div>
 
@@ -4168,9 +5732,12 @@ tr:hover td { background: var(--bg-hover); }
         <div class="step-num">2</div>
         <div class="step-content">
           <strong>Bước 2: Chứng minh từng đường song song với mặt phẳng đáy $(ABCD)$</strong>
-          <p>&bull; Trong tam giác $SAB$: $M, N$ là trung điểm $SA, SB \Rightarrow MN$ là đường trung bình $\Rightarrow MN \parallel AB$.</p>
+          <p>&bull; <em>Chứng minh $MN \parallel (ABCD)$:</em></p>
+          <p>Xét tam giác $SAB$: Có $M$ là trung điểm $SA$, $N$ là trung điểm $SB \Rightarrow MN$ là đường trung bình của tam giác $SAB \Rightarrow MN \parallel AB$.</p>
           <p>Mà $AB \subset (ABCD)$ và $MN \not\subset (ABCD) \Rightarrow \mathbf{MN \parallel (ABCD)}$.</p>
-          <p>&bull; Trong tam giác $SBC$: $N, P$ là trung điểm $SB, SC \Rightarrow NP$ là đường trung bình $\Rightarrow NP \parallel BC$.</p>
+          
+          <p style="margin-top:8px;">&bull; <em>Chứng minh $NP \parallel (ABCD)$:</em></p>
+          <p>Xét tam giác $SBC$: Có $N$ là trung điểm $SB$, $P$ là trung điểm $SC \Rightarrow NP$ là đường trung bình của tam giác $SBC \Rightarrow NP \parallel BC$.</p>
           <p>Mà $BC \subset (ABCD)$ và $NP \not\subset (ABCD) \Rightarrow \mathbf{NP \parallel (ABCD)}$.</p>
         </div>
       </div>
@@ -4178,17 +5745,21 @@ tr:hover td { background: var(--bg-hover); }
       <div class="step">
         <div class="step-num">3</div>
         <div class="step-content">
-          <strong>Bước 3: Tổng hợp điều kiện để kết luận $(MNP) \parallel (ABCD)$</strong>
-          <p>Trong mặt phẳng $(MNP)$, có hai đường thẳng $MN$ và $NP$ cắt nhau tại $N$.</p>
-          <p>Cả $MN$ và $NP$ đều song song với mặt phẳng $(ABCD)$.</p>
-          <p>Theo định lý nhận biết: <strong>$(MNP) \parallel (ABCD)$</strong>. Xong bài chuẩn chỉnh!</p>
+          <strong>Bước 3: Tổng hợp 4 điều kiện để kết luận $(MNP) \parallel (ABCD)$</strong>
+          <p>Trong mặt phẳng $(MNP)$ ta có:</p>
+          <div style="background:var(--bg-code);padding:10px 14px;border-radius:6px;margin:6px 0;font-family:Consolas,monospace;">
+            • $MN \subset (MNP)$ và $NP \subset (MNP)$<br>
+            • $MN \cap NP = \{N\}$ (hai đường cắt nhau)<br>
+            • $MN \parallel (ABCD)$<br>
+            • $NP \parallel (ABCD)$<br>
+            Vậy theo định lý nhận biết hai mặt phẳng song song: $\mathbf{(MNP) \parallel (ABCD)}$ (đpcm).
+          </div>
+          <p><em>Lời giải đẹp hoàn hảo, không thể bắt bẻ được bất kì chi tiết nào!</em></p>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- PHẦN 6: TRẮC NGHIỆM ĐÁNH GIÁ BÀI 13 -->
-  <div class="quiz-section" id="b13-quiz">
+<div class="quiz-section" id="b13-quiz">
     <div class="quiz-header">
       <div class="quiz-icon">📝</div>
       <div>
@@ -4389,7 +5960,6 @@ tr:hover td { background: var(--bg-hover); }
     <button class="quiz-submit-btn" onclick="gradeQuiz('b13')">🏆 Chấm Điểm Bài 13 & Xem Phân Tích Chi Tiết</button>
   </div>
 </section>
-
     </div>
   </main>
 </div>
@@ -4443,6 +6013,151 @@ tr:hover td { background: var(--bg-hover); }
     </div>
   </div>
 </div>
+
+<!-- STUDIO TÙY CHỈNH HÌNH NỀN & NÚT BẤM NỔI -->
+
+<!-- LỚP HÌNH NỀN CỐ ĐỊNH PHÍA SAU -->
+<div id="custom-bg-wrap" class="custom-bg-wrap">
+  <div id="custom-bg-img" class="custom-bg-img"></div>
+  <div id="custom-bg-overlay" class="custom-bg-overlay"></div>
+</div>
+
+<!-- MODAL STUDIO TÙY CHỈNH HÌNH NỀN -->
+<div id="bg-modal" onclick="if(event.target===this)closeBgModal()">
+  <div class="bg-modal-card">
+    <div class="bg-modal-header">
+      <div class="bg-modal-title">
+        <span style="font-size:1.35rem;">🎨</span>
+        <div>
+          <h3>STUDIO TÙY CHỈNH HÌNH NỀN</h3>
+          <p>Tải ảnh riêng, chỉnh mờ, zoom crop & chống chìm chữ</p>
+        </div>
+      </div>
+      <button class="bg-modal-close" onclick="closeBgModal()">&times;</button>
+    </div>
+
+    <div class="bg-modal-body">
+      <!-- MỤC 1: CHỌN NGUỒN ẢNH -->
+      <div class="bg-section">
+        <label class="bg-sec-label">1. CHỌN ẢNH NỀN BẠN THÍCH</label>
+        <div class="bg-upload-row">
+          <label class="btn-upload" for="bg-file-input">
+            📁 Tải ảnh từ máy / điện thoại
+            <input type="file" id="bg-file-input" accept="image/*" style="display:none;" onchange="handleBgUpload(event)">
+          </label>
+          <span id="bg-file-name" class="bg-file-name">Chưa chọn ảnh riêng</span>
+        </div>
+
+        <div class="preset-label">Hoặc chọn nhanh ảnh nền đẹp chuẩn nét:</div>
+        <div class="preset-grid">
+          <button type="button" class="preset-btn" onclick="applyPreset('galaxy')">
+            <span class="preset-thumb" style="background-image:url('https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=300&q=70');"></span>
+            <span>🌌 Vũ trụ</span>
+          </button>
+          <button type="button" class="preset-btn" onclick="applyPreset('chalkboard')">
+            <span class="preset-thumb" style="background-image:url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=300&q=70');"></span>
+            <span>📐 Bảng toán</span>
+          </button>
+          <button type="button" class="preset-btn" onclick="applyPreset('city')">
+            <span class="preset-thumb" style="background-image:url('https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=300&q=70');"></span>
+            <span>🌃 Phố đêm</span>
+          </button>
+          <button type="button" class="preset-btn" onclick="applyPreset('forest')">
+            <span class="preset-thumb" style="background-image:url('https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=300&q=70');"></span>
+            <span>🌲 Rừng sương</span>
+          </button>
+          <button type="button" class="preset-btn" onclick="applyPreset('none')">
+            <span class="preset-thumb" style="background:#0d1117;border:1px dashed #484f58;display:flex;align-items:center;justify-content:center;color:#6e7681;font-size:0.8rem;">✕</span>
+            <span>🌑 Mặc định</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- MỤC 2: BẢO VỆ MẮT & CHỐNG CHÌM CHỮ -->
+      <div class="bg-section">
+        <label class="bg-sec-label">2. CHỐNG CHÌM CHỮ & ĐỘ MỜ (QUAN TRỌNG)</label>
+        
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>🛡️ Độ phủ tối chống chìm chữ (Overlay)</span>
+            <span id="val-overlay" class="slider-val">82%</span>
+          </div>
+          <input type="range" id="range-overlay" min="30" max="95" value="82" oninput="updateBgParam('overlay', this.value)">
+          <div class="slider-hint">💡 Kéo tăng thanh này để nền tối hơn &rarr; Chữ công thức Toán càng nổi bật và dễ đọc!</div>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>🌫️ Độ mờ ảnh nền (Blur ảo diệu)</span>
+            <span id="val-blur" class="slider-val">4px</span>
+          </div>
+          <input type="range" id="range-blur" min="0" max="25" value="4" oninput="updateBgParam('blur', this.value)">
+          <div class="slider-hint">Làm nhòe ảnh nền nhẹ để mắt tập trung tối đa vào bài học, không bị rối mắt.</div>
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>🪟 Độ đục thẻ bài (Card Glassmorphism)</span>
+            <span id="val-card" class="slider-val">92%</span>
+          </div>
+          <input type="range" id="range-card" min="70" max="100" value="92" oninput="updateBgParam('card', this.value)">
+          <div class="slider-hint">Độ mờ kính của các khung lý thuyết, công thức và bài tập.</div>
+        </div>
+      </div>
+
+      <!-- MỤC 3: CẮT & THU PHÓNG ẢNH (CROP / ZOOM / POSITION) -->
+      <div class="bg-section">
+        <label class="bg-sec-label">3. CẮT & THU PHÓNG ẢNH (CROP / PAN / ZOOM)</label>
+        
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>🔍 Thu phóng ảnh (Zoom / Crop)</span>
+            <span id="val-zoom" class="slider-val">105%</span>
+          </div>
+          <input type="range" id="range-zoom" min="100" max="250" value="105" oninput="updateBgParam('zoom', this.value)">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>↕️ Dịch chuyển dọc (Lên / Xuống)</span>
+            <span id="val-posy" class="slider-val">0%</span>
+          </div>
+          <input type="range" id="range-posy" min="-30" max="30" value="0" oninput="updateBgParam('posy', this.value)">
+        </div>
+
+        <div class="slider-group">
+          <div class="slider-header">
+            <span>↔️ Dịch chuyển ngang (Trái / Phải)</span>
+            <span id="val-posx" class="slider-val">0%</span>
+          </div>
+          <input type="range" id="range-posx" min="-30" max="30" value="0" oninput="updateBgParam('posx', this.value)">
+        </div>
+      </div>
+
+      <!-- MINI PREVIEW SO SÁNH TRỰC TIẾP -->
+      <div class="bg-preview-box">
+        <div class="bg-preview-inner" id="bg-preview-inner">
+          <div class="bg-preview-sample-card">
+            <span style="color:var(--accent-green);font-weight:700;">✓ Mẫu kiểm tra độ nét:</span>
+            <p style="margin:4px 0 0;font-size:0.86rem;color:var(--text-primary);">
+              sin²&alpha; + cos²&alpha; = 1 &bull; Chữ sắc nét, không bị chìm!
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-modal-footer">
+      <button type="button" class="btn-bg-reset" onclick="resetBgDefaults()">🔄 Đặt lại mặc định</button>
+      <button type="button" class="btn-bg-save" onclick="saveBgSettings()">💾 Đã xong & Lưu</button>
+    </div>
+  </div>
+</div>
+
+<button id="btn-floating-bg" class="btn-floating-bg" onclick="openBgModal()" title="Cài đặt hình nền tùy chỉnh">
+  🎨 <span>Đổi nền</span>
+</button>
+
 
 <script>
 
@@ -4726,6 +6441,182 @@ window.addEventListener('scroll', function() {
     });
   }
 });
+
+// ============================================================
+// LOGIC STUDIO TÙY CHỈNH HÌNH NỀN
+// ============================================================
+var defaultBgSettings = {
+  img: '',
+  overlay: 82,
+  blur: 4,
+  card: 92,
+  zoom: 105,
+  posy: 0,
+  posx: 0
+};
+
+var bgSettings = Object.assign({}, defaultBgSettings);
+
+function loadBgSettings() {
+  try {
+    var saved = localStorage.getItem('toan11_bg_settings');
+    if (saved) {
+      bgSettings = Object.assign({}, defaultBgSettings, JSON.parse(saved));
+    }
+  } catch(e) {}
+  applyBgStyles();
+  syncBgControls();
+}
+
+function applyBgStyles() {
+  var wrap = document.getElementById('custom-bg-wrap');
+  var imgEl = document.getElementById('custom-bg-img');
+  var overlayEl = document.getElementById('custom-bg-overlay');
+  var body = document.body;
+
+  if (!bgSettings.img) {
+    if (wrap) wrap.style.display = 'none';
+    body.classList.remove('has-custom-bg');
+    body.style.removeProperty('--card-opacity');
+    return;
+  }
+
+  if (wrap) wrap.style.display = 'block';
+  body.classList.add('has-custom-bg');
+
+  if (imgEl) {
+    imgEl.style.backgroundImage = 'url("' + bgSettings.img + '")';
+    imgEl.style.filter = 'blur(' + bgSettings.blur + 'px)';
+    imgEl.style.transform = 'scale(' + (bgSettings.zoom / 100) + ') translate(' + bgSettings.posx + '%, ' + bgSettings.posy + '%)';
+  }
+
+  if (overlayEl) {
+    overlayEl.style.background = 'rgba(13, 17, 23, ' + (bgSettings.overlay / 100) + ')';
+  }
+
+  body.style.setProperty('--card-opacity', (bgSettings.card / 100).toString());
+
+  // Cập nhật khung xem thử mini trong modal
+  var prevInner = document.getElementById('bg-preview-inner');
+  if (prevInner) {
+    prevInner.style.backgroundImage = 'url("' + bgSettings.img + '")';
+  }
+}
+
+function updateBgParam(key, val) {
+  bgSettings[key] = parseFloat(val);
+  var valEl = document.getElementById('val-' + key);
+  if (valEl) {
+    if (key === 'blur') valEl.innerText = val + 'px';
+    else valEl.innerText = val + '%';
+  }
+  applyBgStyles();
+}
+
+function applyPreset(name) {
+  var presets = {
+    galaxy: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1920&q=80',
+    chalkboard: 'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1920&q=80',
+    city: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?auto=format&fit=crop&w=1920&q=80',
+    forest: 'https://images.unsplash.com/photo-1511497584788-87676104235f?auto=format&fit=crop&w=1920&q=80',
+    none: ''
+  };
+  bgSettings.img = presets[name] !== undefined ? presets[name] : '';
+  var nameEl = document.getElementById('bg-file-name');
+  if (nameEl) {
+    nameEl.innerText = name === 'none' ? 'Mặc định (Không dùng ảnh)' : 'Mẫu: ' + name;
+  }
+  applyBgStyles();
+  saveBgSettings();
+}
+
+function handleBgUpload(e) {
+  var file = e.target.files[0];
+  if (!file) return;
+  var nameEl = document.getElementById('bg-file-name');
+  if (nameEl) nameEl.innerText = file.name;
+
+  var reader = new FileReader();
+  reader.onload = function(evt) {
+    var rawUrl = evt.target.result;
+    // Nén ảnh bằng Canvas để tránh tràn dung lượng LocalStorage
+    var img = new Image();
+    img.onload = function() {
+      var canvas = document.createElement('canvas');
+      var maxDim = 1600;
+      var w = img.width;
+      var h = img.height;
+      if (w > maxDim || h > maxDim) {
+        if (w > h) {
+          h = Math.round((h * maxDim) / w);
+          w = maxDim;
+        } else {
+          w = Math.round((w * maxDim) / h);
+          h = maxDim;
+        }
+      }
+      canvas.width = w;
+      canvas.height = h;
+      var ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      var compressed = canvas.toDataURL('image/jpeg', 0.85);
+      bgSettings.img = compressed;
+      applyBgStyles();
+      saveBgSettings();
+    };
+    img.src = rawUrl;
+  };
+  reader.readAsDataURL(file);
+}
+
+function saveBgSettings() {
+  try {
+    localStorage.setItem('toan11_bg_settings', JSON.stringify(bgSettings));
+  } catch(e) {
+    console.warn('LocalStorage error:', e);
+  }
+  closeBgModal();
+}
+
+function resetBgDefaults() {
+  bgSettings = Object.assign({}, defaultBgSettings);
+  var nameEl = document.getElementById('bg-file-name');
+  if (nameEl) nameEl.innerText = 'Chưa chọn ảnh riêng';
+  syncBgControls();
+  applyBgStyles();
+  saveBgSettings();
+}
+
+function syncBgControls() {
+  var fields = ['overlay', 'blur', 'card', 'zoom', 'posy', 'posx'];
+  fields.forEach(function(k) {
+    var range = document.getElementById('range-' + k);
+    var valEl = document.getElementById('val-' + k);
+    if (range && bgSettings[k] !== undefined) {
+      range.value = bgSettings[k];
+    }
+    if (valEl && bgSettings[k] !== undefined) {
+      if (k === 'blur') valEl.innerText = bgSettings[k] + 'px';
+      else valEl.innerText = bgSettings[k] + '%';
+    }
+  });
+}
+
+function openBgModal() {
+  syncBgControls();
+  var m = document.getElementById('bg-modal');
+  if (m) m.classList.add('open');
+}
+
+function closeBgModal() {
+  var m = document.getElementById('bg-modal');
+  if (m) m.classList.remove('open');
+}
+
+// Khởi chạy khi load trang
+document.addEventListener('DOMContentLoaded', loadBgSettings);
+// Chạy ngay lập tức để tránh chớp màn hình
+loadBgSettings();
 
 </script>
 </body>
